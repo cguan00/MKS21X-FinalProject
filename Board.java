@@ -9,12 +9,24 @@ public class Board{
 
   public String toString() {
     String ans = "";
+    String letter = "ABCDEFGH";
     for (int r = 0; r < 9; r++) {
-      ans += "\n" + "|";
-      for (int c = 0; c < 9; c++) {
-        ans += " _";
+      if (r != 0) {
+        ans += "\n" + r;
       }
-      ans += " |";
+      else {
+        ans += " ";
+      }
+      for (int c = 0; c < 9; c++) {
+        if (r == 0) {
+          if (c != 0) {
+            ans += " " + letter.charAt(c - 1);
+          }
+        }
+        if (c != 8 && r != 0) {
+          ans += " _";
+        }
+      }
     }
     return ans;
   }
