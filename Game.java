@@ -3,6 +3,12 @@ public class Game {
   private Player turn;
   //private List<Move> moves;
 
+  //Constructor
+  //A new board is created with pieces in starting position
+  public Game() {
+    board = new Board();
+  }
+  
   //prints the board
   public String toString() {
     String ans = "";
