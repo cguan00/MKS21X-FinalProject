@@ -11,16 +11,17 @@ public abstract class Piece{
   public abstract boolean checkValidMove();
 
   public Piece(Player playerColor, Square loc){
-    color = playerColor;
-    location = loc;
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public Player getColor(){
-    return color;
+    return color;//returns the Player color, either white or black
   }
 
   public Square getLocation(){
-    return location;
+    return location;//returns the Square the Piece is located at
   }
 
 }
