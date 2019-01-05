@@ -16,4 +16,13 @@ public class Rook extends Piece{
     return true;
   }
 
+  public String toString(){
+    if(color.equals("white")){
+      return "R";//white pieces are capitalized
+    }
+    if(color.equals("black")){
+      return "r";//black pieces are lowercase
+    }
+  }
+
 }
