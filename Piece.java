@@ -10,4 +10,17 @@ public abstract class Piece{
 
   public abstract boolean checkValidMove();
 
+  public Piece(Player playerColor, Square loc){
+    color = playerColor;
+    location = loc;
+  }
+
+  public Player getColor(){
+    return color;
+  }
+
+  public Square getLocation(){
+    return location;
+  }
+
 }
