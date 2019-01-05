@@ -16,4 +16,13 @@ public class King extends Piece{
     return true;
   }
 
+  public String toString(){
+    if(color.equals("white")){
+      return "K";//white pieces are capitalized
+    }
+    if(color.equals("black")){
+      return "k";//black pieces are lowercase
+    }
+  }
+
 }
