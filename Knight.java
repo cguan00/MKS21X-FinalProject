@@ -32,4 +32,13 @@ public class Knight extends Piece{
     return false;
   }
 
+  public String toString(){
+    if(color.equals("white")){
+      return "N";//white pieces are capitalized
+    }
+    if(color.equals("black")){
+      return "n";//black pieces are lowercase
+    }
+  }
+
 }
