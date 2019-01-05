@@ -4,4 +4,8 @@ public class Player {
   public Player(String str) {
     color = str;
   }
+
+  public String getColor(){
+    return color;
+  }
 }
