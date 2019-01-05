@@ -23,11 +23,13 @@ public class Pawn extends Piece{
     int currentCol = location.getCol();
     int newRow = newLocation.getRow();
     int newCol = newLocation.getCol();
+    //if white Pawn is trying to move backwards, not valid move, so return false
      if(color.equals("white")){
        if(newRow > currentRow){
          return false;
        }
      }
+     //if black Pawn is trying to move backwards, not valid move, so return false
      if(color.equals("black")){
        if(newRow < currentRow){
          return false;
