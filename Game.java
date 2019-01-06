@@ -10,10 +10,16 @@ public class Game {
   }
 
   //Constructor
-  //A new board is created with pieces in starting position
+  //For every new move, the necessary information is entered: the current player,
+  //the location of the piece they want to move, and where they want to move it to
   public Game(Player color, Square current, Square destination) {
-    board = new Board();
     turn = color;
+  }
+
+  //creates a new Game with a new board and all the pieces in starting position
+  public void create() {
+    board = new Board();
+    moves = new ArrayList<>();
   }
 
   //prints the board
