@@ -10,11 +10,11 @@ public class Game {
   }
 
   //Constructor
-  //For every new move, the necessary information is entered: the current player,
-  //the location of the piece they want to move, and where they want to move it to
-  public Game(Player color, Square current, Square destination) {
+  /**not needed??
+  public Game(Player color, Piece toBeMoved, Square destination) {
     turn = color;
   }
+  **/
 
   //creates a new Game with a new board and all the pieces in starting position
   public void create() {
@@ -22,6 +22,14 @@ public class Game {
     moves = new ArrayList<>();
   }
 
+  //creates a new move the necessary information: the current player,
+  //the location of the piece they want to move, and where they want to move it to
+  public void addMove(Player color, Piece toBeMoved, Square destination) {
+    turn = color;
+    Square current = toBeMoved.getLocation();
+    Move newMove = new Move(toBeMoved, current, destination);
+  }
+  
   //prints the board
   public String toString() {
     String ans = "";
