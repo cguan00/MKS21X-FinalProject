@@ -4,7 +4,12 @@ public class Board{
 
   public Board(){
     Square[][] squares = new Square[8][8];
-    Piece[][] pieces = new Piece[8][8]; //what should the dimensions be?
+    Piece[][] pieces = new Piece[4][16]; //what should the dimensions be?
+  }
+
+  //returns the pieceSets
+  public Piece[][] getPieceSets() {
+    return pieceSets;
   }
 
 }
