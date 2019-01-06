@@ -1,14 +1,21 @@
+import java.util.ArrayList;
+
 public class Game {
   private Board board;
   private Player turn;
-  //private List<Move> moves;
+  private ArrayList<Move> moves = new ArrayList<>();
 
-  //Constructor
-  //A new board is created with pieces in starting position
   public Game() {
     board = new Board();
   }
-  
+
+  //Constructor
+  //A new board is created with pieces in starting position
+  public Game(Player color, Square current, Square destination) {
+    board = new Board();
+    turn = color;
+  }
+
   //prints the board
   public String toString() {
     String ans = "";
