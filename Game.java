@@ -29,7 +29,11 @@ public class Game {
     Square current = toBeMoved.getLocation();
     Move newMove = new Move(toBeMoved, current, destination);
   }
-  
+
+  public Player getTurn() {
+    return turn; //returns the Player who's currently making the move
+  }
+
   //prints the board
   public String toString() {
     String ans = "";
