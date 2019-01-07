@@ -10,10 +10,28 @@ public class Game {
   }
 
   //Constructor
-  //A new board is created with pieces in starting position
-  public Game(Player color, Square current, Square destination) {
-    board = new Board();
+  /**not needed??
+  public Game(Player color, Piece toBeMoved, Square destination) {
     turn = color;
+  }
+  **/
+
+  //creates a new Game with a new board and all the pieces in starting position
+  public void create() {
+    board = new Board();
+    moves = new ArrayList<>();
+  }
+
+  //creates a new move the necessary information: the current player,
+  //the location of the piece they want to move, and where they want to move it to
+  public void addMove(Player color, Piece toBeMoved, Square destination) {
+    turn = color;
+    Square current = toBeMoved.getLocation();
+    Move newMove = new Move(toBeMoved, current, destination);
+  }
+
+  public Player getTurn() {
+    return turn; //returns the Player who's currently making the move
   }
 
   //prints the board
