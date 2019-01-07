@@ -20,6 +20,19 @@ public class Rook extends Piece{
     if(currentRow != newRow && currentCol != newCol){
       return false;//can't change row and col at the same time. would be moving diagonally
     }
+    if(currentCol == newCol && currentRow != newRow){//moving vertically
+      if(color.equals("white")){
+        if(newRow > currentRow){
+          return false;
+        }
+      }
+      if(color.equals("black")){
+        if(newRow < currentRow){
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public String toString(){
