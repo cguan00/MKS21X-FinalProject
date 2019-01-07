@@ -13,7 +13,13 @@ public class Rook extends Piece{
   }
 
   public boolean checkValidMove(Square newLocation){
-    return true;
+    int currentRow = location.getRow();
+    int currentCol = location.getCol();
+    int newRow = newLocation.getRow();
+    int newCol = newLocation.getCol();
+    if(currentRow != newRow && currentCol != newCol){
+      return false;//can't change row and col at the same time. would be moving diagonally
+    }
   }
 
   public String toString(){
