@@ -13,9 +13,7 @@ public class Rook extends Piece{
   }
 
   public boolean checkValidMove(Square newLocation){
-    if(color.equals("white")){
-      Square[] validMoves = new Square[20];
-    }
+    return true;
   }
 
   public String toString(){
