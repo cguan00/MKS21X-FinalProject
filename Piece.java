@@ -8,6 +8,20 @@ public abstract class Piece{
   private boolean moved;
   //keeps tracks of if the piece was moved or not
 
-  public abstract boolean checkValidMove();
+  public Piece(Player playerColor, Square loc){
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
+  }
+
+  public Player getColor(){
+    return color;//returns the Player color, either white or black
+  }
+
+  public Square getLocation(){
+    return location;//returns the Square the Piece is located at
+  }
+
+  public abstract boolean checkValidMove(Square newLocation);
 
 }
