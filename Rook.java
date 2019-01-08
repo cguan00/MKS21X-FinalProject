@@ -13,10 +13,17 @@ public class Rook extends Piece{
   }
 
   public boolean checkValidMove(Square newLocation){
+    //assign variables to hold int values of rows and cols to avoid repetitive code
     int currentRow = location.getRow();
     int currentCol = location.getCol();
     int newRow = newLocation.getRow();
     int newCol = newLocation.getCol();
+
+    //if the Square is not part of the 8x8 board, throw exception
+    if(newRow >= 9 || newCol >= 9){
+      throw new IllegalArgumentException();
+    }
+
     if(currentRow != newRow && currentCol != newCol){
       return false;//can't change row and col at the same time. would be moving diagonally
     }
