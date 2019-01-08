@@ -12,12 +12,17 @@ public class Knight extends Piece{
     super(playerColor, loc);
   }
 
-  public boolean checkValidMove(Square newLocation){
+  public boolean checkValidMove(Square newLocation) throws IllegalArgumentException {
     //assign variables to hold int values of rows and cols to avoid repetitive code
     int currentRow = location.getRow();
     int currentCol = location.getCol();
     int newRow = newLocation.getRow();
     int newCol = newLocation.getCol();
+
+    //if the Square is not part of the 8x8 board, throw exception
+    if(newRow >= 9 || newCol >= 9){
+      throw new IllegalArgumentException();
+    }
 
     //if you go two rows over and one col up, it creates valid L-shaped move
     if(Math.abs(newRow - currentRow) == 2 && Math.abs(newCol - currentCol) == 1){
