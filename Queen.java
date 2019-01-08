@@ -19,8 +19,7 @@ public class Queen extends Piece{
   public String toString(){
     if(color.equals("white")){
       return "Q";//white pieces are capitalized
-    }
-    if(color.equals("black")){
+    } else {
       return "q";//black pieces are lowercase
     }
   }
