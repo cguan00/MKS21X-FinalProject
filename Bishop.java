@@ -12,7 +12,7 @@ public class Bishop extends Piece{
     super(playerColor, loc);
   }
 
-  public boolean checkValidMove(Square newLocation){
+  public boolean checkValidMove(Square newLocation) throws IllegalArgumentException{
     //assign variables to hold int values of rows and cols to avoid repetitive code
     int currentRow = location.getRow();
     int currentCol = location.getCol();
@@ -29,7 +29,7 @@ public class Bishop extends Piece{
     //if not moving diagonally. not moving same number of squares verically as horizontally
     if(!(newCol == currentCol + rowDiff || newCol == currentCol - rowDiff)){
       return false;
-    }  
+    }
     return true;
   }
 
