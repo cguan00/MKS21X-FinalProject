@@ -23,14 +23,17 @@ public class Rook extends Piece{
     if(currentCol == newCol && currentRow != newRow){//moving vertically
       if(color.equals("white")){
         if(newRow > currentRow){
-          return false;
+          return false;//white rook trying to move backward. not valid move
         }
       }
       if(color.equals("black")){
         if(newRow < currentRow){
-          return false;
+          return false;//black rook trying to move backward. not valid move
         }
       }
+    }
+    if(currentCol != newCol && currentRow == newRow){//moving horizontally
+      return true;
     }
     return true;
   }
