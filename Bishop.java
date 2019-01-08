@@ -13,6 +13,23 @@ public class Bishop extends Piece{
   }
 
   public boolean checkValidMove(Square newLocation){
+    //assign variables to hold int values of rows and cols to avoid repetitive code
+    int currentRow = location.getRow();
+    int currentCol = location.getCol();
+    int newRow = newLocation.getRow();
+    int newCol = newLocation.getCol();
+
+    //if the Square is not part of the 8x8 board, throw exception
+    if(newRow < 0 || newRow >= 9 || newCol < 0 || newCol >= 9){
+      throw new IllegalArgumentException();
+    }
+
+    int rowDiff = newRow - currentRow;
+
+    //if not moving diagonally. not moving same number of squares verically as horizontally
+    if(!(newCol == currentCol + rowDiff || newCol == currentCol - rowDiff)){
+      return false;
+    }  
     return true;
   }
 
