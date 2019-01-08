@@ -40,8 +40,7 @@ public class Pawn extends Piece{
   public String toString(){
     if(color.equals("white")){
       return "P";//white pieces are capitalized
-    }
-    if(color.equals("black")){
+    } else{
       return "p";//black pieces are lowercase
     }
   }
