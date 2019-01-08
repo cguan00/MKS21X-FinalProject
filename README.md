@@ -34,4 +34,7 @@
 ### January 7, 2019
 
 **Christy**
-- I continued to work on the classes that extend the abstract Piece class. I worked on the checkValidMoves for each class so that this version of chess follows the rules of the game. I'm still not sure how to do the promoting method in the Pawn class and keeping track of the piece it has been promoted to. Tomorrow, I will have to work on the more basic aspects of the Game and Move class to make sure that different classes have the proper access to the different fields. 
+- I continued to work on the classes that extend the abstract Piece class. I worked on the checkValidMoves for each class so that this version of chess follows the rules of the game. I'm still not sure how to do the promoting method in the Pawn class and keeping track of the piece it has been promoted to. Tomorrow, I will have to work on the more basic aspects of the Game and Move class to make sure that different classes have the proper access to the different fields.
+
+**Sharon**
+- In the Board class, I finished the create() function that I made and currently, I'm trying to get the board to print out all the pieces in their starting positions. However, I'm getting a NullPointerException error. Tomorrow, I'm going to continue working and figure out why.  
