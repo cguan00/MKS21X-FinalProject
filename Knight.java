@@ -20,7 +20,7 @@ public class Knight extends Piece{
     int newCol = newLocation.getCol();
 
     //if the Square is not part of the 8x8 board, throw exception
-    if(newRow < 0 || newRow >= 9 || newCol < 0 || newCol >= 9){
+    if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
       throw new IllegalArgumentException();
     }
 
