@@ -27,14 +27,15 @@ public class Board{
     int row = 0;
     for (int i = 0; i < 16; i++) {
       for (int x = 0; x < 8; x++) {
-        squares[row][x].storePiece(blackPieces.getPiece(i%8));
+        squares[row][x] = new Square(row, x);
+        squares[row][x].storePiece(blackPieces.getPiece(0));
       }
       row = 1;
     }
     row = 7;
     for (int i = 0; i < 16; i++) {
       for (int x = 0; x < 8; x++) {
-        squares[0][x].storePiece(whitePieces.getPiece(i%8));
+        squares[0][x].storePiece(whitePieces.getPiece(0));
       }
       row = 6;
     }
