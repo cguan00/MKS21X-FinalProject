@@ -8,6 +8,10 @@ public class PieceSet{
     color = playerColor;
   }
 
+  public Player getColor() {
+    return color;
+  }
+
   public void initialPieces(Board board){
     if (color.isBlack()) {
       pieces.add(new Rook(color, board.getSquare(0,0)));
