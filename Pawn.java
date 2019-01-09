@@ -16,6 +16,9 @@ public class Pawn extends Piece{
 
   public Pawn(Player playerColor, Square loc){
     super(playerColor, loc);
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation) throws IllegalArgumentException {
@@ -46,12 +49,23 @@ public class Pawn extends Piece{
   }
 
   public String toString(){
-    if(color.equals("white")){
+    if(color.isWhite()){
       return "P";//white pieces are capitalized
     } else{
       return "p";//black pieces are lowercase
     }
   }
 
+  public static void main(String[] args) {
+    Player testcolor = new Player("black");
+    Pawn test = new Pawn(testcolor, new Square(0,0));
+    System.out.println(test);
+    // System.out.println(test.getColor().getColor());
+    // System.out.println(testcolor.isWhite());
+    // System.out.println(testcolor.isBlack());
+    // System.out.println(testcolor);
+    // System.out.println(testcolor.equals("black"));
+    // System.out.println(testcolor.isBlack());
+  }
 
 }
