@@ -10,6 +10,9 @@ public class Bishop extends Piece{
 
   public Bishop(Player playerColor, Square loc){
     super(playerColor, loc);
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation) throws IllegalArgumentException{
@@ -34,11 +37,17 @@ public class Bishop extends Piece{
   }
 
   public String toString(){
-    if(color.equals("white")){
+    if(color.isWhite()){
       return "B";//white pieces are capitalized
     }else{
       return "b";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args) {
+    Player testcolor = new Player("black");
+    Bishop test = new Bishop(testcolor, new Square(0,0));
+    System.out.println(test);
   }
 
 }
