@@ -19,12 +19,17 @@ public class Board{
       }
     }
   }
-  
+
   //returns the pieceSets
   public Piece[][] getPieceSets() {
     return pieceSets;
   }
 
+  //return a piece
+  public Piece getPiece(int row, int col) {
+    return pieceSets[row][col];
+  }
+  
   //return the square
   public Square getSquare(int row, int col){
     return squares[row][col];
