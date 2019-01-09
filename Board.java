@@ -3,8 +3,8 @@ public class Board{
   private Piece[][] pieceSets;
 
   public Board(){
-    Square[][] squares = new Square[8][8];
-    Piece[][] pieces = new Piece[4][16]; //what should the dimensions be?
+    squares = new Square[8][8];
+    pieceSets = new Piece[4][16]; //what should the dimensions be?
   }
 
   //returns the pieceSets
