@@ -1,26 +1,26 @@
 public class Player {
-  private String color;
+  private String Pcolor;
 
   public Player(String str) {
-    color = str;
+    Pcolor = str;
   }
 
   public String getColor(){
-    return color;
+    return Pcolor;
   }
 
   public boolean isBlack() {
-    if (color.equals("black")) {
+    if (Pcolor.equals("black")) {
       return true;
     }
     return false;
   }
 
   public boolean isWhite() {
-    if (color.equals("white")) {
+    if (Pcolor.equals("white")) {
       return true;
     }
     return false;
   }
-  
+
 }
