@@ -5,17 +5,20 @@ public class Board{
   private Piece[][] pieceSets;
 
   public Board(){
-    Square[][] squares = new Square[8][8]; //sets up an 8 by 8 array of squares
-    Piece[][] pieces = new Piece[2][16]; //sets up a 2 by 16 array of pieces, one row for each player
-    Player color = new Player("black"); //uses this to initialize the pieces
-    PieceSet pieceSet = new PieceSet(color);
-    pieceSet.initialPieces(this);
-    for (int i = 0; i < 2; i++) { //creates a black pieceSet and copies over the Pieces
+    squares = new Square[8][8]; //sets up an 8 by 8 array of squares
+    pieceSets = new Piece[2][16]; //sets up a 2 by 16 array of pieces, one row for each player
+  }
+
+  public void setPieceSets(PieceSet blackPieces, PieceSet whitePieces) {
+    for (int i = 0; i < 2; i++) {
       for (int x = 0; x < 16; x++) {
-        pieces[i][x] = pieceSet.getPiece(x);
+        if (i == 0) {
+          pieceSets[i][x] = blackPieces.getPiece(x); //copies over the black pieces
+        }
+        if (i == 1) {
+          pieceSets[i][x] = whitePieces.getPiece(x);
+        }
       }
-      color = new Player("white");
-      pieceSet = new PieceSet(color); //now create a white pieceSet
     }
   }
 
@@ -32,6 +35,21 @@ public class Board{
   //return the square
   public Square getSquare(int row, int col){
     return squares[row][col];
+  }
+
+  //prints out the array
+  public String toString() {
+    String ans = "";
+    for (int i = 0; i < 2; i++) {
+      for (int x = 0; x < 16; x++) {
+        ans += (pieceSets[i][x]).toString() + " ";
+      }
+    }
+    return ans;
+  }
+
+  public static void main(String[] args) {
+
   }
 
 }
