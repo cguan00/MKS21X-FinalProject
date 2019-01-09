@@ -5,16 +5,17 @@ public class Board{
   private Piece[][] pieceSets;
 
   public Board(){
-    Square[][] squares = new Square[8][8];
-    Piece[][] pieces = new Piece[2][16];
-    Player color = new Player("black");
+    Square[][] squares = new Square[8][8]; //sets up an 8 by 8 array of squares
+    Piece[][] pieces = new Piece[2][16]; //sets up a 2 by 16 array of pieces, one row for each player
+    Player color = new Player("black"); //uses this to initialize the pieces
     PieceSet pieceSet = new PieceSet(color);
     pieceSet.initialPieces(this);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) { //creates a black pieceSet and copies over the Pieces
       for (int x = 0; x < 16; x++) {
         pieces[i][x] = pieceSet.getPiece(x);
       }
-      color = new Player("white");  
+      color = new Player("white");
+      pieceSet = new PieceSet(color); //now create a white pieceSet
     }
   }
 
