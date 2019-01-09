@@ -4,7 +4,7 @@ public class Rook extends Piece{
   private Board board;
   //stores the game board. must have access to Squares
 
-  private Player color;
+  private String color;
   //player color: either white or black
 
   private Square location;
@@ -13,8 +13,13 @@ public class Rook extends Piece{
   private boolean moved;
   //keeps tracks of if the piece was moved or not
 
-  public Rook(Board gameBoard, Player playerColor, Square loc){
-    super(gameBoard, playerColor, loc);
+  public Rook(Board gameBoard, String playerColor, Square loc){
+    // super(gameBoard, playerColor, loc);
+    super();
+    board = gameBoard;//the board the game is played on
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation){
@@ -33,7 +38,7 @@ public class Rook extends Piece{
         // }
       }
     }
-    
+
     //add valid Squares the piece can move to horizontally
     for(int j = 0; j < 7; j++){
       if(j != col){//can't move a Piece to the Square it's already on
