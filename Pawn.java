@@ -37,8 +37,8 @@ public class Pawn extends Piece{
     ArrayList<Square> validSquares = new ArrayList<>();
 
     if(color.equals("white")){
-      // //if Square in front is not occupied, you can move forward
-      // //must add this Board method first, or else file will not compile
+      //if Square in front is not occupied, you can move forward
+      //must add this Board method first, or else file will not compile
       // if(board.getSquare(row - 1, col).isEmpty()){//check if this Square is empty
       //   validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
       // }
@@ -113,7 +113,7 @@ public class Pawn extends Piece{
     Board board1 = new Board();
     String p1 = "white";
     // Square s1 = board1.getSquare(0,0);
-    Square s1 = new Square(0,0);
+    Square s1 = board1.getSquare(0,0);
     Pawn pawn1 = new Pawn(board1, p1, s1);
     System.out.println(pawn1);
   }
