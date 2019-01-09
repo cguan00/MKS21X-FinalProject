@@ -23,14 +23,6 @@ public class Game {
     whiteP.initialPieces(board);
     board.setPieceSets(blackP, whiteP); //sets up the PieceSets in Board so it'll have access
     board.setSquares(blackP, whiteP);
-    // System.out.println(blackP.getPlayer().getColor());
-    // System.out.println(whiteP.getPlayer().getColor());
-    // for (int i = 0; i < 16; i++) {
-    //   System.out.println(board.getPiece(0,i));
-    //   System.out.println(board.getPiece(1,i));
-    // }
-    // Rook temp = new Rook(turn, new Square(0,0));
-    // System.out.println(temp);
   }
 
   //creates a new move the necessary information: the current player,
@@ -47,44 +39,28 @@ public class Game {
 
   //prints the board
   public String toString() {
-  //   String ans = "";
-  //   String letter = "ABCDEFGH";
-  //   for (int r = 0; r < 9; r++) {
-  //     if (r == 0) { //if it's the first row numbers will be printed on the side
-  //       ans += " "; //excluding the first row
-  //     }
-  //     else {
-  //       ans += "\n" + r;
-  //     }
-  //     for (int c = 0; c < 9; c++) { //letters are printed above each column
-  //       if (r == 0) {
-  //         if (c != 0) { //exlcluding the first column
-  //           ans += " " + letter.charAt(c - 1);
-  //         }
-  //       }
-  //       if (r < 3 && r != 0 && c != 0) {
-  //         ans += " _";
-  //       }
-  //       if (r != 0) {
-  //         if (c != 0) {
-  //           ans += " " + board.getPiece(0,i) + " ";
-  //         }
-  //       }
-  //   }
-  // }
-
     String ans = "";
-    for (int i = 0; i < 16; i++) {
-      ans += board.getSquare(0,i%8).getPiece() + " ";
+    String letter = "ABCDEFGH";
+    for (int r = 0; r < 9; r++) {
+      if (r == 0) { //if it's the first row numbers will be printed on the side
+        ans += " "; //excluding the first row
+      }
+      else {
+        ans += "\n" + r;
+      }
+      for (int c = 0; c < 9; c++) { //letters are printed above each column
+        if (r == 0) {
+          if (c != 0) { //exlcluding the first column
+            ans += " " + letter.charAt(c - 1);
+          }
+        }
+        if (r != 0 && c != 0 && board.getSquare(r-1, c-1) != null) {
+          //for every empty space that has a piece in the Squares array
+          //prints out the piece that the Square stores
+            ans += " " + board.getSquare(r-1,c-1).getPiece();
+          }
+        }
     }
-    ans += "\n";
-    for (int i = 0; i < 16; i++) {
-      ans += board.getSquare(1,i%8).getPiece() + " ";
-    }
-    // for (int i = 0; i < 16; i++) {
-    //   System.out.println(board.getPiece(0,i));
-    //   System.out.println(board.getPiece(1,i));
-    // }
     return ans;
   }
 
