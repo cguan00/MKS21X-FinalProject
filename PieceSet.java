@@ -36,4 +36,8 @@ public class PieceSet{
       }
     }
   }
+
+  public Piece getPiece(int index) {
+    return pieces.get(index);
+  }
 }
