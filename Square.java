@@ -20,4 +20,8 @@ public class Square{
     piece = newPiece;
   }
 
+  public Piece getPiece() {
+    return piece;
+  }
+
 }
