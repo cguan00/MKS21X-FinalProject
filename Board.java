@@ -12,4 +12,9 @@ public class Board{
     return pieceSets;
   }
 
+  //return the square
+  public Square getSquare(int row, int col){
+    return squares[row][col];
+  }
+
 }
