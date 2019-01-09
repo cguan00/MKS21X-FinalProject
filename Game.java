@@ -22,7 +22,7 @@ public class Game {
     blackP.initialPieces(board); //all pieces are created at starting position
     whiteP.initialPieces(board);
     board.setPieceSets(blackP, whiteP); //sets up the PieceSets in Board so it'll have access
-    //board.setSquares(blackP, whiteP);
+    board.setSquares(blackP, whiteP);
     // System.out.println(blackP.getPlayer().getColor());
     // System.out.println(whiteP.getPlayer().getColor());
     // for (int i = 0; i < 16; i++) {
@@ -75,11 +75,11 @@ public class Game {
 
     String ans = "";
     for (int i = 0; i < 16; i++) {
-      ans += board.getPiece(0,i) + " ";
+      ans += board.getSquare(0,i).getPiece() + " ";
     }
     ans += "\n";
     for (int i = 0; i < 16; i++) {
-      ans += board.getPiece(1,i) + " ";
+      ans += board.getSquare(1,i).getPiece() + " ";
     }
     // for (int i = 0; i < 16; i++) {
     //   System.out.println(board.getPiece(0,i));
