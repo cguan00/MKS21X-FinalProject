@@ -4,7 +4,7 @@ public class Pawn extends Piece{
   private Board board;
   //stores the game board. must have access to Squares
 
-  private Player color;
+  private String color;
   //player color: either white or black
 
   private Square location;
@@ -19,8 +19,13 @@ public class Pawn extends Piece{
   public Piece promoteTo;
   //if promoted, keep track of which Piece the Pawn has been changed to
 
-  public Pawn(Board gameBoard, Player playerColor, Square loc){
-    super(gameBoard, playerColor, loc);
+  public Pawn(Board gameBoard, String playerColor, Square loc){
+    // super(gameBoard, playerColor, loc);
+    super();
+    board = gameBoard;//the board the game is played on
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation){
@@ -97,11 +102,20 @@ public class Pawn extends Piece{
   // }
 
   public String toString(){
-    if(color.equals("white")){
+    if(color.contains("white")){
       return "P";//white pieces are capitalized
     } else{
       return "p";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args){
+    Board board1 = new Board();
+    String p1 = "white";
+    // Square s1 = board1.getSquare(0,0);
+    Square s1 = new Square(0,0);
+    Pawn pawn1 = new Pawn(board1, p1, s1);
+    System.out.println(pawn1);
   }
 
 
