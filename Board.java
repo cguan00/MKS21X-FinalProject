@@ -22,22 +22,23 @@ public class Board{
     }
   }
 
-  // public void setSquares(PieceSet blackPieces, PieceSet whitePieces) {
-  //   int row = 0;
-  //   for (int i = 0; i < 16; i++) {
-  //     for (int x = 0; x < 8; x++) {
-  //       squares[row][x].storePiece(blackPieces.getPiece(i%8));
-  //     }
-  //     row = 1;
-  //   }
-  //   row = 7;
-  //   for (int i = 0; i < 16; i++) {
-  //     for (int x = 0; x < 8; x++) {
-  //       squares[0][x].storePiece(whitePieces.getPiece(i%8));
-  //     }
-  //     row = 6;
-  //   }
-  // }
+  public void setSquares(PieceSet blackPieces, PieceSet whitePieces) {
+    System.out.println(blackPieces.getPiece(0));
+    int row = 0;
+    for (int i = 0; i < 16; i++) {
+      for (int x = 0; x < 8; x++) {
+        squares[row][x].storePiece(blackPieces.getPiece(i%8));
+      }
+      row = 1;
+    }
+    row = 7;
+    for (int i = 0; i < 16; i++) {
+      for (int x = 0; x < 8; x++) {
+        squares[0][x].storePiece(whitePieces.getPiece(i%8));
+      }
+      row = 6;
+    }
+  }
 
   //returns the pieceSets
   public Piece[][] getPieceSets() {
