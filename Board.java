@@ -23,19 +23,23 @@ public class Board{
   }
 
   public void setSquares(PieceSet blackPieces, PieceSet whitePieces) {
-    System.out.println(blackPieces.getPiece(0));
     int row = 0;
-    for (int i = 0; i < 16; i++) {
+    int pieceIndex = 0;
+    for (int i = 0; i < 2; i++) {
       for (int x = 0; x < 8; x++) {
         squares[row][x] = new Square(row, x);
-        squares[row][x].storePiece(blackPieces.getPiece(0));
+        squares[row][x].storePiece(blackPieces.getPiece(pieceIndex));
+        pieceIndex += 1;
       }
       row = 1;
     }
     row = 7;
-    for (int i = 0; i < 16; i++) {
+    pieceIndex = 0;
+    for (int i = 0; i < 2; i++) {
       for (int x = 0; x < 8; x++) {
-        squares[0][x].storePiece(whitePieces.getPiece(0));
+        squares[row][x] = new Square(row, x);
+        squares[row][x].storePiece(whitePieces.getPiece(pieceIndex));
+        pieceIndex += 1;
       }
       row = 6;
     }
