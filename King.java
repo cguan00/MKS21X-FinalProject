@@ -10,6 +10,9 @@ public class King extends Piece{
 
   public King(Player playerColor, Square loc){
     super(playerColor, loc);
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation) throws IllegalArgumentException{
@@ -41,11 +44,17 @@ public class King extends Piece{
   }
 
   public String toString(){
-    if(color.equals("white")){
+    if(color.isWhite()){
       return "K";//white pieces are capitalized
     } else{
       return "k";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args) {
+    Player testcolor = new Player("black");
+    King test = new King(testcolor, new Square(0,0));
+    System.out.println(test);
   }
 
 }
