@@ -43,3 +43,6 @@
 
 **Christy**
 - As I was working on the Piece classes, Mr. K suggested changing checkValidMove to contain a list of possible Squares the Piece can move to, instead of checking if the desired move is valid. I think this is a great idea because the logic is much easier to understand and implement, so I began to rewrite the checkValidMove in the Pawn and Rook classes. However, most of the method is commented out because more basic get/set/check functions in the Square and Board classes need to be written in order to test the method.
+
+**Sharon**
+- I finished the method initialPieces in the PieceSet class. Then, I worked on a method in the Board class that would initialize an array of Pieces that stores the pieces. It took me a while to figure out a way to do it, and in the end I thought it would be best to create both the black and white PieceSets in the Game class and then have the method take in those PieceSets and copy over all the pieces. I wanted to print out the array in order to see if everything is in order, but there are a few issues. 
