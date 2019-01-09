@@ -8,4 +8,18 @@ public class Player {
   public String getColor(){
     return color;
   }
+
+  public boolean isBlack() {
+    if (color.equals("black")) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isWhite() {
+    if (color.equals("white")) {
+      return true;
+    }
+    return false;
+  }
 }
