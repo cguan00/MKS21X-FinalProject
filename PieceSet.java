@@ -8,7 +8,7 @@ public class PieceSet{
     color = playerColor;
   }
 
-  public Player getColor() {
+  public Player getPlayer() {
     return color;
   }
 
