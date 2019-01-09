@@ -7,6 +7,19 @@ public class Board{
     Piece[][] pieces = new Piece[4][16]; //what should the dimensions be?
   }
 
+  public void setPieceSets(PieceSet blackPieces, PieceSet whitePieces) {
+    for (int i = 0; i < 2; i++) {
+      for (int x = 0; x < 16; x++) {
+        if (i == 0) {
+          pieceSets[i][x] = blackPieces.getPiece(x); //copies over the black pieces
+        }
+        if (i == 1) {
+          pieceSets[i][x] = whitePieces.getPiece(x);
+        }
+      }
+    }
+  }
+  
   //returns the pieceSets
   public Piece[][] getPieceSets() {
     return pieceSets;
