@@ -102,7 +102,7 @@ public class Pawn extends Piece{
   // }
 
   public String toString(){
-    if(color.contains("white")){
+    if(color.equals("white")){
       return "P";//white pieces are capitalized
     } else{
       return "p";//black pieces are lowercase
