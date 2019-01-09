@@ -1,5 +1,5 @@
 public class Rook extends Piece{
-  private Player player;
+  private Player color;
   //player color: either white or black
 
   private Square location;
@@ -10,6 +10,9 @@ public class Rook extends Piece{
 
   public Rook(Player playerColor, Square loc){
     super(playerColor, loc);
+    color = playerColor;//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
   public boolean checkValidMove(Square newLocation){
@@ -28,12 +31,12 @@ public class Rook extends Piece{
       return false;//can't change row and col at the same time. would be moving diagonally
     }
     if(currentCol == newCol && currentRow != newRow){//moving vertically
-      if(player.getColor().equals("white")){
+      if(color.isWhite()){
         if(newRow > currentRow){
           return false;//white rook trying to move backward. not valid move
         }
       }
-      if(player.getColor().equals("black")){
+      if(color.isBlack()){
         if(newRow < currentRow){
           return false;//black rook trying to move backward. not valid move
         }
@@ -46,11 +49,20 @@ public class Rook extends Piece{
   }
 
   public String toString(){
-    if(player.getColor().equals("white")){
+    if(color.isWhite()){
       return "R";//white pieces are capitalized
     } else{
       return "r";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args) {
+    Player testcolor = new Player("black");
+    Rook test = new Rook(testcolor, new Square(0,0));
+    System.out.println(test);
+    // System.out.println(test.getColor().getColor());
+    // System.out.println(testcolor.isWhite());
+    // System.out.println(testcolor.isBlack());
   }
 
 }
