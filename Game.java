@@ -75,11 +75,11 @@ public class Game {
 
     String ans = "";
     for (int i = 0; i < 16; i++) {
-      ans += board.getSquare(0,i).getPiece() + " ";
+      ans += board.getSquare(0,i%8).getPiece() + " ";
     }
     ans += "\n";
     for (int i = 0; i < 16; i++) {
-      ans += board.getSquare(1,i).getPiece() + " ";
+      ans += board.getSquare(1,i%8).getPiece() + " ";
     }
     // for (int i = 0; i < 16; i++) {
     //   System.out.println(board.getPiece(0,i));
