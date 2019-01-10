@@ -3,8 +3,8 @@ public class Board{
   private Piece[][] pieceSets;
 
   public Board(){
-    Square[][] squares = new Square[8][8];
-    Piece[][] pieces = new Piece[2][16];
+    squares = new Square[8][8];
+    pieceSets = new Piece[2][16];
   }
 
   //stores the pieces in Piece[][] by taking in a white and black PieceSet object
