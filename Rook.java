@@ -36,6 +36,10 @@ public class Rook extends Piece{
         if(board.getSquare(i, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
         }
+        if(board.getSquare(i, col).getPiece() != null){//if this Square has a piece...
+          if(!board.getSquare(i, col).getPiece().getColor().equals(color))//...and this piece is not part of your own pieceSet (different color)
+            validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
+        }
       }
     }
 
@@ -56,7 +60,7 @@ public class Rook extends Piece{
     return false;
   }
 
-  
+
 
   public String toString(){
     if(color.equals("white")){
