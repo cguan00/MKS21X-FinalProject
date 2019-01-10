@@ -12,12 +12,12 @@ public abstract class Piece{
   //keeps tracks of if the piece was moved or not
 
   public Piece(){
-    
+
   }
 
-  public Piece(Board gameBoard, String playerColor, Square loc){
+  public Piece(Board gameBoard, Player playerColor, Square loc){
     board = gameBoard;//the board the game is played on
-    color = playerColor;//keeps track of Player color, either black or white
+    color = playerColor.getColor();//keeps track of Player color, either black or white
     location = loc;//keeps track of which Square the Piece is located on
     moved = false;//just created the piece, so hasn't moved yet
   }
