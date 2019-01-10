@@ -49,3 +49,6 @@
 
 **Sharon**
 - I finished the method in PieceSets that initializes the list of pieces for one color. I also added the isBlack() and isWhite() method to make it easier to check the colors of the piece. In the Board class, I added the method setPieceSets so it would be able to store both the black and white pieces in a 2 by 16 array. I thought the best way to do this was to first create two PieceSet objects in the Game class, and then have the setPieceSets method take those in and store each set in one row of the array. Now, I'm trying to print out the arrays to check if they're working, but there are some issues.
+
+**Sharon**
+- In the Board class, I created a setSquares function that allows the Squares to store the Pieces at their starting position. Before I did this, I also created the getPiece and storePiece methods in the Square class so that they'd have easier access to the Pieces. Using the squares[][] that I created in the Board class, I was able to print out the board in the Game class, along with the labels of the rows/columns on the side. I pushed all of this onto master. However, we realized that there's a problem in the constructor of the Pieces, and I fixed it in my own branch but it's not yet fixed in the master branch. 
