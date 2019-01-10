@@ -13,11 +13,11 @@ public class Rook extends Piece{
   private boolean moved;
   //keeps tracks of if the piece was moved or not
 
-  public Rook(Board gameBoard, String playerColor, Square loc){
+  public Rook(Board gameBoard, Player playerColor, Square loc){
     // super(gameBoard, playerColor, loc);
     super();
     board = gameBoard;//the board the game is played on
-    color = playerColor;//keeps track of Player color, either black or white
+    color = playerColor.getColor();//keeps track of Player color, either black or white
     location = loc;//keeps track of which Square the Piece is located on
     moved = false;//just created the piece, so hasn't moved yet
   }
@@ -33,18 +33,18 @@ public class Rook extends Piece{
     //add valid Squares the piece can move to vertically
     for(int i = 0; i < 7; i++){
       if(i != row){//can't move a Piece to the Square it's already on
-        // if(board.getSquare(i, col).isEmpty()){//check if this Square is empty
-        //   validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
-        // }
+        if(board.getSquare(i, col).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
+        }
       }
     }
 
     //add valid Squares the piece can move to horizontally
     for(int j = 0; j < 7; j++){
       if(j != col){//can't move a Piece to the Square it's already on
-      // if(board.getSquare(row, j).isEmpty()){//check if this Square is empty
-      //   validSquares.add(board.getSquare(row, j));//add this Square to list of possible Squares
-      // }
+        if(board.getSquare(row, j).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(row, j));//add this Square to list of possible Squares
+        }
       }
     }
 
@@ -56,38 +56,7 @@ public class Rook extends Piece{
     return false;
   }
 
-  // public boolean checkValidMove(Square newLocation){
-  //   //assign variables to hold int values of rows and cols to avoid repetitive code
-  //   int currentRow = location.getRow();
-  //   int currentCol = location.getCol();
-  //   int newRow = newLocation.getRow();
-  //   int newCol = newLocation.getCol();
-  //
-  //   //if the Square is not part of the 8x8 board, throw exception
-  //   if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-  //     throw new IllegalArgumentException();
-  //   }
-  //
-  //   if(currentRow != newRow && currentCol != newCol){
-  //     return false;//can't change row and col at the same time. would be moving diagonally
-  //   }
-  //   if(currentCol == newCol && currentRow != newRow){//moving vertically
-  //     if(color.equals("white")){
-  //       if(newRow > currentRow){
-  //         return false;//white rook trying to move backward. not valid move
-  //       }
-  //     }
-  //     if(color.equals("black")){
-  //       if(newRow < currentRow){
-  //         return false;//black rook trying to move backward. not valid move
-  //       }
-  //     }
-  //   }
-  //   if(currentCol != newCol && currentRow == newRow){//moving horizontally
-  //     return true;
-  //   }
-  //   return true;
-  // }
+  
 
   public String toString(){
     if(color.equals("white")){
