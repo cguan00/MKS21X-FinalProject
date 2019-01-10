@@ -19,11 +19,11 @@ public class Pawn extends Piece{
   public Piece promoteTo;
   //if promoted, keep track of which Piece the Pawn has been changed to
 
-  public Pawn(Board gameBoard, String playerColor, Square loc){
+  public Pawn(Board gameBoard, Player playerColor, Square loc){
     // super(gameBoard, playerColor, loc);
     super();
     board = gameBoard;//the board the game is played on
-    color = playerColor;//keeps track of Player color, either black or white
+    color = playerColor.getColor();//keeps track of Player color, either black or white
     location = loc;//keeps track of which Square the Piece is located on
     moved = false;//just created the piece, so hasn't moved yet
   }
@@ -38,31 +38,33 @@ public class Pawn extends Piece{
 
     if(color.equals("white")){
       //if Square in front is not occupied, you can move forward
-      //must add this Board method first, or else file will not compile
-      // if(board.getSquare(row - 1, col).isEmpty()){//check if this Square is empty
-      //   validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
-      // }
+      if(row - 1 >= 0){//avoid IndexOutOfBounds Exception
+        if(board.getSquare(row - 1, col).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
+        }
+      }
 
       //piece has not moved yet, so you can move 2 squares up
       if(!moved){
-        // if(board.getSquare(row - 2, col).isEmpty()){
-        //   validSquares.add(board.getSquare(row - 2, col));
-        // }
+        if(board.getSquare(row - 2, col).getPiece() == null){
+          validSquares.add(board.getSquare(row - 2, col));
+        }
       }
     }
 
     if(color.equals("black")){
-      // //if Square in front is not occupied, you can move forward
-      // //must add this Board method first, or else file will not compile
-      // if(board.getSquare(row + 1, col).isEmpty()){//check if this Square is empty
-      //   validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
-      // }
+      //if Square in front is not occupied, you can move forward
+      if(row + 1 <= 7){//avoid IndexOutOfBounds exception
+        if(board.getSquare(row + 1, col).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
+        }
+      }
 
       //piece has not moved yet, so you can move 2 squares up
       if(!moved){
-        // if(board.getSquare(row + 2, col).isEmpty()){
-        //   validSquares.add(board.getSquare(row + 2, col));
-        // }
+        if(board.getSquare(row + 2, col).getPiece() == null){
+          validSquares.add(board.getSquare(row + 2, col));
+        }
       }
     }
 
@@ -73,33 +75,7 @@ public class Pawn extends Piece{
     }
     return false;
   }
-
-  // public boolean checkValidMove(Square newLocation) throws IllegalArgumentException {
-  //   //assign variables to hold int values of rows and cols to avoid repetitive code
-  //   int currentRow = location.getRow();
-  //   int currentCol = location.getCol();
-  //   int newRow = newLocation.getRow();
-  //   int newCol = newLocation.getCol();
-  //
-  //   //if the Square is not part of the 8x8 board, throw exception
-  //   if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-  //     throw new IllegalArgumentException();
-  //   }
-  //
-  //   //if white Pawn is trying to move backwards, not valid move, so return false
-  //    if(color.equals("white")){
-  //      if(newRow > currentRow){
-  //        return false;
-  //      }
-  //    }
-  //    //if black Pawn is trying to move backwards, not valid move, so return false
-  //    if(color.equals("black")){
-  //      if(newRow < currentRow){
-  //        return false;
-  //      }
-  //    }
-  //    return true;
-  // }
+  
 
   public String toString(){
     if(color.equals("white")){
@@ -111,7 +87,7 @@ public class Pawn extends Piece{
 
   public static void main(String[] args){
     Board board1 = new Board();
-    String p1 = "white";
+    Player p1 = new Player("white");
     // Square s1 = board1.getSquare(0,0);
     Square s1 = board1.getSquare(0,0);
     Pawn pawn1 = new Pawn(board1, p1, s1);
