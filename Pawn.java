@@ -42,6 +42,16 @@ public class Pawn extends Piece{
         if(board.getSquare(row - 1, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
         }
+        if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
+          if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+          }
+        }
+        if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper right)
+          if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+          }
+        }
       }
 
       //piece has not moved yet, so you can move 2 squares up
@@ -75,7 +85,7 @@ public class Pawn extends Piece{
     }
     return false;
   }
-  
+
 
   public String toString(){
     if(color.equals("white")){
