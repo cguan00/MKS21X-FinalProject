@@ -7,6 +7,12 @@ public class Board{
     pieceSets = new Piece[2][16];
     Player color = new Player("black");
     for (int i = 0; i < 2; i++) {
+      if (i == 1) {
+        color = new Player("white");
+      }
+
+    }
+    /**for (int i = 1; i < 3; i++) {
       for (int x = 0; x < 16; x++) {
         if (i == 1) {
           color = new Player("white");
@@ -31,6 +37,7 @@ public class Board{
         }
       }
     }
+    **/
   }
 
   public String toString() {
