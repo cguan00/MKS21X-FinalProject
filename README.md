@@ -37,4 +37,21 @@
 - I continued to work on the classes that extend the abstract Piece class. I worked on the checkValidMoves for each class so that this version of chess follows the rules of the game. I'm still not sure how to do the promoting method in the Pawn class and keeping track of the piece it has been promoted to. Tomorrow, I will have to work on the more basic aspects of the Game and Move class to make sure that different classes have the proper access to the different fields.
 
 **Sharon**
-- In the Board class, I finished the create() function that I made and currently, I'm trying to get the board to print out all the pieces in their starting positions. However, I'm getting a NullPointerException error. Tomorrow, I'm going to continue working and figure out why.  
+- In the Board class, I finished the create() function that I made and currently, I'm trying to get the board to print out all the pieces in their starting positions. However, I'm getting a NullPointerException error. Tomorrow, I'm going to continue working and figure out why.
+
+### January 8, 2019
+
+**Christy**
+- As I was working on the Piece classes, Mr. K suggested changing checkValidMove to contain a list of possible Squares the Piece can move to, instead of checking if the desired move is valid. I think this is a great idea because the logic is much easier to understand and implement, so I began to rewrite the checkValidMove in the Pawn and Rook classes. However, most of the method is commented out because more basic get/set/check functions in the Square and Board classes need to be written in order to test the method.
+
+
+### January 9, 2019
+
+**Sharon**
+- I finished the method in PieceSets that initializes the list of pieces for one color. I also added the isBlack() and isWhite() method to make it easier to check the colors of the piece. In the Board class, I added the method setPieceSets so it would be able to store both the black and white pieces in a 2 by 16 array. I thought the best way to do this was to first create two PieceSet objects in the Game class, and then have the setPieceSets method take those in and store each set in one row of the array. Now, I'm trying to print out the arrays to check if they're working, but there are some issues.
+
+**Sharon**
+- In the Board class, I created a setSquares function that allows the Squares to store the Pieces at their starting position. Before I did this, I also created the getPiece and storePiece methods in the Square class so that they'd have easier access to the Pieces. Using the squares[][] that I created in the Board class, I was able to print out the board in the Game class, along with the labels of the rows/columns on the side. I pushed all of this onto master. However, we realized that there's a problem in the constructor of the Pieces, and I fixed it in my own branch but it's not yet fixed in the master branch.
+
+**Christy**
+- I continued to work on the classes that extend the abstract Piece class. I decided to change the constructor in the Piece class so that the Piece can have access to the board, in order to look at nearby Squares and see if they are empty or not. Because I changed the constructor, it took a while to change it in other files. I also tested the Pawn class and I kept on getting a NullPointerException, so I had to look through all the other files and see where I was getting the error. Later, Sharon updated these files to have the needed methods, so it took even more time to double check and debug. I have two more classes that I need to fix checkValidMove for.
