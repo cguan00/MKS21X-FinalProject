@@ -37,8 +37,9 @@ public class Rook extends Piece{
           validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
         }
         if(board.getSquare(i, col).getPiece() != null){//if this Square has a piece...
-          if(!board.getSquare(i, col).getPiece().getColor().equals(color))//...and this piece is not part of your own pieceSet (different color)
+          if(!board.getSquare(i, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
             validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
+          }
         }
       }
     }
