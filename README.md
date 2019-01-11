@@ -55,3 +55,8 @@
 
 **Christy**
 - I continued to work on the classes that extend the abstract Piece class. I decided to change the constructor in the Piece class so that the Piece can have access to the board, in order to look at nearby Squares and see if they are empty or not. Because I changed the constructor, it took a while to change it in other files. I also tested the Pawn class and I kept on getting a NullPointerException, so I had to look through all the other files and see where I was getting the error. Later, Sharon updated these files to have the needed methods, so it took even more time to double check and debug. I have two more classes that I need to fix checkValidMove for.
+
+### January 10, 2019
+
+**Christy**
+- I continued to work on checkValidMove on the classes I did last night (Pawn, Rook, Bishop, and Queen). Today, I realized that moving to a square with the opponent's piece is still a valid move, so I added conditionals to check for this case. Right now, the code is really long and redundant, so later I will work on code readability and try using exception handling so that I don't need as many if statements. We also need to figure out exactly which files need to be added to the master, and how to merge the branches so that we have the correct version of each file.
