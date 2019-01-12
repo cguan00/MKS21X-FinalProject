@@ -34,8 +34,13 @@ public class Queen extends Piece{
     //add valid Squares the piece can move to vertically
     for(int x = 0; x < 7; x++){
       if(x != row){//can't move a Piece to the Square it's already on
-        if(board.getSquare(x, col).getPiece() == null){//check if this Square is empty
+        if(board.getSquare(x, col).getPiece() == null){//if this Square is empty
           validSquares.add(board.getSquare(x, col));//add this Square to list of possible Squares
+        }
+        if(board.getSquare(x, col).getPiece() != null){//if this Square is NOT empty...
+          if(!board.getSquare(x, col).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+            validSquares.add(board.getSquare(x, col));//add this Square to list of possible Squares
+          }
         }
       }
     }
@@ -46,6 +51,11 @@ public class Queen extends Piece{
         if(board.getSquare(row, y).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row, y));//add this Square to list of possible Squares
         }
+        if(board.getSquare(row, y).getPiece() != null){//if this Square is NOT empty...
+          if(!board.getSquare(row, y).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+            validSquares.add(board.getSquare(row, y));//add this Square to list of possible Squares
+          }
+        }
       }
     }
 
@@ -54,16 +64,38 @@ public class Queen extends Piece{
       if(board.getSquare(row + i, col + i).getPiece() == null){//no piece to the Square in bottom right
         validSquares.add(board.getSquare(row + i, col + i));
       }
+      if(board.getSquare(row + i, col + i).getPiece() != null){//if bottom right Square is NOT empty...
+        if(!board.getSquare(row + i, col + i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+          validSquares.add(board.getSquare(row + i , col + i));//add this Square to list of possible Squares
+        }
+      }
       if(board.getSquare(row + i, col - i).getPiece() == null){//no piece to the Square in upper right
-        validSquares.add(board.getSquare(row + i, col - i));
+        validSquares.add(board.getSquare(row + i, col - i));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row + i, col - i).getPiece() == null){//if there is piece to the Square in upper right
+        if(!board.getSquare(row + i, col - i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+          validSquares.add(board.getSquare(row + i , col - i));//add this Square to list of possible Squares
+        }
       }
     }
+
+
     for(int i = row; i > 0; i--){
       if(board.getSquare(row - i, col + i).getPiece() == null){//no piece to the Square in bottom left
         validSquares.add(board.getSquare(row - i, col + i));
       }
+      if(board.getSquare(row - i, col + i).getPiece() != null){//if there is piece to the Square in bottom left
+        if(!board.getSquare(row - i, col + i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+          validSquares.add(board.getSquare(row - i , col + i));//add this Square to list of possible Squares
+        }
+      }
       if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
         validSquares.add(board.getSquare(row - i, col - i));
+      }
+      if(board.getSquare(row - i, col - i).getPiece() != null){//if there is piece to the Square in upper left
+        if(!board.getSquare(row - i, col - i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
+          validSquares.add(board.getSquare(row - i , col - i));//add this Square to list of possible Squares
+        }
       }
     }
 
