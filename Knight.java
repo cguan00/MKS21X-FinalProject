@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
 public class Knight extends Piece{
-  private Player color;
+  private Board board;
+  //stores the game board. must have access to Squares
+
+  private String color;
   //player color: either white or black
 
   private Square location;
@@ -8,33 +13,77 @@ public class Knight extends Piece{
   private boolean moved;
   //keeps tracks of if the piece was moved or not
 
-  public Knight(Player playerColor, Square loc){
-    super(playerColor, loc);
+  public Knight(Board gameBoard, Player playerColor, Square loc){
+    // super(gameBoard, playerColor, loc);
+    super();
+    board = gameBoard;//the board the game is played on
+    color = playerColor.getColor();//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
-  public boolean checkValidMove(Square newLocation) throws IllegalArgumentException {
-    //assign variables to hold int values of rows and cols to avoid repetitive code
-    int currentRow = location.getRow();
-    int currentCol = location.getCol();
-    int newRow = newLocation.getRow();
-    int newCol = newLocation.getCol();
+  public boolean checkValidMove(Square newLocation){
+    //store the current location of the Piece
+    int row = location.getRow();
+    int col = location.getCol();
 
-    //if the Square is not part of the 8x8 board, throw exception
-    if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-      throw new IllegalArgumentException();
+    //store the possible locations the Piece can move to
+    ArrayList<Square> validSquares = new ArrayList<>();
+
+    if(row < 6 && col < 6){
+      //checking the Square marked #4 on project prototype diagram
+      if(board.getSquare(row - 1 , col + 2).getPiece() == null){//no piece to the Square in this square
+        validSquares.add(board.getSquare(row - 1, col + 2));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 1, col + 2).getPiece() != null){//if there is piece in the Square in upper left...
+        if(!board.getSquare(row - 1, col + 2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row - 1, col + 2));//add this Square to list of possible Squares
+        }
+      }
+
+      //checking the Square marked #3 on project prototype diagram
+      if(board.getSquare(row - 2, col + 1).getPiece() == null){//no piece to the Square in this square
+        validSquares.add(board.getSquare(row - 2, col + 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 2, col + 1).getPiece() != null){//if there is piece in the Square in this square
+        if(!board.getSquare(row - 2, col + 1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row - 2, col + 1));//add this Square to list of possible Squares
+        }
+      }
     }
 
-    //if you go two rows over and one col up, it creates valid L-shaped move
-    if(Math.abs(newRow - currentRow) == 2 && Math.abs(newCol - currentCol) == 1){
+    if(row > 1 && col > 1){
+      //checking the Square marked #2 on project prototype diagram
+      if(board.getSquare(row - 2 , col - 1).getPiece() == null){//no piece to the Square in this square
+        validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 2, col - 1).getPiece() != null){//if there is piece in this Square...
+        if(!board.getSquare(row - 2, col - 1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row - 2, col - 1));//add this Square to list of possible Squares
+        }
+      }
+
+      //checking the Square marked #1 on project prototype diagram
+      if(board.getSquare(row - 1, col - 2).getPiece() == null){//no piece to the Square in this square
+        validSquares.add(board.getSquare(row - 1, col - 2));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 1, col - 2).getPiece() != null){//if there is piece in the Square in upper left...
+        if(!board.getSquare(row - 1, col - 2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row - 1, col - 2));//add this Square to list of possible Squares
+        }
+      }
+
+      
+    }
+
+
+    //if the new location is in list of valid Squares you can move to, return true
+    //otherwise, it is not a valid move, so return false
+    if(validSquares.contains(newLocation)){
       return true;
     }
-    //if you go one row over and two cols up, it creates valid L-shaped move
-    if(Math.abs(newRow - currentRow) == 1 && Math.abs(newCol - currentCol) == 2){
-      return true;
-    }
-
-    //if you don't create L-shaped move, return false
     return false;
+
   }
 
   public String toString(){
