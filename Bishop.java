@@ -34,13 +34,14 @@ public class Bishop extends Piece{
       if(board.getSquare(row + i, col + i).getPiece() == null){//no piece to the Square in bottom right
         validSquares.add(board.getSquare(row + i, col + i));//add this Square to list of possible Squares
       }
-      if(board.getSquare(row + i, col - i).getPiece() == null){//no piece to the Square in upper right
-        validSquares.add(board.getSquare(row + i, col - i));//add this Square to list of possible Squares
-      }
       if(board.getSquare(row + i, col + i).getPiece() != null){//if there is piece in the Square in bottom right...
         if(!board.getSquare(row + i, col + i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
           validSquares.add(board.getSquare(row + i, col + i));//add this Square to list of possible Squares
         }
+      }
+
+      if(board.getSquare(row + i, col - i).getPiece() == null){//no piece to the Square in upper right
+        validSquares.add(board.getSquare(row + i, col - i));//add this Square to list of possible Squares
       }
       if(board.getSquare(row + i, col - i).getPiece() != null){//if there is piece in the Square in upper right...
         if(!board.getSquare(row + i, col - i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
@@ -52,13 +53,14 @@ public class Bishop extends Piece{
       if(board.getSquare(row - i, col + i).getPiece() == null){//no piece to the Square in bottom left
         validSquares.add(board.getSquare(row - i, col + i));//add this Square to list of possible Squares
       }
-      if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
-        validSquares.add(board.getSquare(row - i, col - i));//add this Square to list of possible Squares
-      }
       if(board.getSquare(row - i, col + i).getPiece() != null){//if there is piece in the Square in bottom left...
         if(!board.getSquare(row - i, col + i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
           validSquares.add(board.getSquare(row - i, col + i));//add this Square to list of possible Squares
         }
+      }
+
+      if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
+        validSquares.add(board.getSquare(row - i, col - i));//add this Square to list of possible Squares
       }
       if(board.getSquare(row - i, col - i).getPiece() != null){//if there is piece in the Square in upper left...
         if(!board.getSquare(row - i, col - i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
