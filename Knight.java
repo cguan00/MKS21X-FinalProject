@@ -110,13 +110,7 @@ public class Knight extends Piece{
           validSquares.add(board.getSquare(row + 1, col + 2));//add this Square to list of possible Squares
         }
       }
-
-
     }
-
-
-
-
 
     //if the new location is in list of valid Squares you can move to, return true
     //otherwise, it is not a valid move, so return false
