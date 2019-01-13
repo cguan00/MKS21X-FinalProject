@@ -77,6 +77,10 @@ public class Bishop extends Piece{
     return false;
   }
 
+  public String getColor(){
+    return color;//returns the Player color, either white or black
+  }
+
 
   public String toString(){
     if(color.equals("white")){
