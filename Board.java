@@ -44,12 +44,7 @@ public class Board{
       row = 6; //pawns are on the inside
     }
   }
-
-  //returns the pieceSets
-  public Piece[][] getPieceSets() {
-    return pieceSets;
-  }
-
+  
   //return a piece
   public Piece getPiece(int row, int col) {
     return pieceSets[row][col];
