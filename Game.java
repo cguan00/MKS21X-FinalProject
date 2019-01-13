@@ -34,10 +34,9 @@ public class Game {
 
   //creates a new move the necessary information: the current player,
   //the location of the piece they want to move, and where they want to move it to
-  public void addMove(Player color, Piece toBeMoved, Square destination) {
-    turn = color;
-    Square current = toBeMoved.getLocation();
-    Move newMove = new Move(toBeMoved, current, destination);
+  public void addMove(String color, String currentLoc, String newLoc) {
+    turn = new Player(color);
+    Move newMove = new Move(board, turn, currentLoc, newLoc);
   }
 
   public Player getTurn() {
@@ -73,6 +72,8 @@ public class Game {
 
   public static void main(String[] args) {
     Game newGame = new Game();
+    System.out.println(newGame);
+    newGame.addMove("black", "h7", "h6");
     System.out.println(newGame);
   }
 }
