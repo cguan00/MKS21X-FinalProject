@@ -49,8 +49,20 @@ public class Game {
     }
   }
 
+  public void addMove(Player color, Square currentLoc, Square newLoc) {
+    Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
+    //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
+    if (currentPiece.checkValidMove(newLoc)) {
+      Move newMove = new Move(board, color, currentLoc, newLoc);
+    }
+  }
+
   public Player getTurn() {
     return turn; //returns the Player who's currently making the move
+  }
+
+  public Board getBoard() {
+    return board;
   }
 
   //prints the board
