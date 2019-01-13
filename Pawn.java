@@ -42,14 +42,18 @@ public class Pawn extends Piece{
         if(board.getSquare(row - 1, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
         }
-        if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
-          if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
-            validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+        if (col + 1 < 8) {
+          if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
+            if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
+              validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+            }
           }
         }
-        if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper left)
-          if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
-            validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+        if (col - 1 >= 0) {
+          if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper left)
+            if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
+              validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+            }
           }
         }
       }
@@ -96,6 +100,17 @@ public class Pawn extends Piece{
     return false;
   }
 
+  public String getColor(){
+    return color;//returns the Player color, either white or black
+  }
+
+  public Square getLocation() {
+    return location;
+  }
+
+  public void setLocation(Square newLocation){
+    location = newLocation;//sets its location to the new one
+  }
 
   public String toString(){
     if(color.equals("white")){
@@ -106,12 +121,11 @@ public class Pawn extends Piece{
   }
 
   public static void main(String[] args){
-    Board board1 = new Board();
+    Board board = new Board();
     Player p1 = new Player("white");
     // Square s1 = board1.getSquare(0,0);
-    Square s1 = board1.getSquare(0,0);
-    Pawn pawn1 = new Pawn(board1, p1, s1);
-    System.out.println(pawn1);
+    Rook test = new Rook(board, p1, board.getSquare(0,0));
+    System.out.println(test.getLocation());
   }
 
 

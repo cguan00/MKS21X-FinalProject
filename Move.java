@@ -1,30 +1,20 @@
 public class Move {
-  private Square start;
-  private Square end;
-  private Piece pieceCaptured;
-  private Piece pieceMoved;
+  private int currentRow;
+  private int currentColumn;
+  private int newRow;
+  private int newColumn;
+  private Piece currentPiece;
 
-  public Move(Piece currentPiece, Square current, Square destination) {
-    start = current;
-    end = destination;
-    pieceMoved = currentPiece;
-    //pieceMoved.checkValidMove();
-    //pieceCaptured - what happens to this?
+  public Move(Board board, Player color, String current, String destination) {
+    String columns = "ABCDEFGH";
+    String rows = "12345678";
+    currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+    currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+    newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
+    newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
+    currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+    board.getSquare(currentRow,currentColumn).storePiece(null); //the original square now doesn't have a piece
+    board.getSquare(newRow,newColumn).storePiece(currentPiece); //the new square now gets the piece
   }
 
-  public Square getStart() {
-    return start; //returns the current Square of the piece to be moved
-  }
-
-  public Square getEnd() {
-    return end; //returns the Square that the piece is going to be moved to
-  }
-
-  public Piece getPieceMoved() {
-    return pieceMoved; //returns the piece that is to be moved
-  }
-
-  public Piece getPieceCaptured() {
-    return pieceCaptured; //returns the piece that's captured
-  }
 }

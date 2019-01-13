@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //API : http://mabe02.github.io/lanterna/apidocs/2.1/
 import com.googlecode.lanterna.terminal.Terminal.SGR;
 import com.googlecode.lanterna.TerminalFacade;
@@ -12,8 +14,6 @@ import com.googlecode.lanterna.input.InputDecoder;
 import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
-
-import java.util.ArrayList;
 
 
 public class GameDemo {
@@ -50,6 +50,10 @@ public class GameDemo {
 
 	public static void main(String[] args) {
 
+
+		int x = 0;
+		int y = 0;
+
 		Terminal terminal = TerminalFacade.createTextTerminal();
 		terminal.enterPrivateMode();
 
@@ -60,9 +64,6 @@ public class GameDemo {
 
 		long tStart = System.currentTimeMillis();
 		long lastSecond = 0;
-
-		int x = 10;
-		int y = 10;
 
 		while(running){
 			//SETTING UP THE BOARD VISUALLY
@@ -100,15 +101,6 @@ public class GameDemo {
 			terminal.putCharacter('7');
 			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,13);
 			terminal.putCharacter('8');
-			x = size.getColumns()-size.getColumns() + 5;
-			y = 13;
-			
-
-
-
-			// terminal.applyBackgroundColor(Terminal.Color.WHITE);
-			// terminal.applyForegroundColor(Terminal.Color.BLACK);
-
 
 
 			Key key = terminal.readInput();
@@ -122,8 +114,6 @@ public class GameDemo {
 					running = false;
 				}
 			}
-
-
 
 
 	    // String letter = "ABCDEFGH";

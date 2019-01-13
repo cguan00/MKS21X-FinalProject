@@ -64,4 +64,7 @@
 ### January 12, 2019
 
 **Christy**
-- Today I finished the checkValidMove for all the different classes which implement the abstract Piece class and they are all in the master branch. It took me a while to figure out the logic for each class, but I was able to do it through a lot of booleans to avoid any errors being thrown. Tomorrow, I will have to work on lanterna and trying to get the terminal to be interactive with the game. I realized that we will not be able to just print the board each time a player makes a move because Java has no way of remembering the moves. 
+- Today I finished the checkValidMove for all the different classes which implement the abstract Piece class and they are all in the master branch. It took me a while to figure out the logic for each class, but I was able to do it through a lot of booleans to avoid any errors being thrown. Tomorrow, I will have to work on lanterna and trying to get the terminal to be interactive with the game. I realized that we will not be able to just print the board each time a player makes a move because Java has no way of remembering the moves.
+
+**Sharon**
+- I worked on the Move method and got it to take in three strings, the player color, the current location, and the new location. Using this, it figures out what piece the user wants to move and it then sets the square at the old location to null, before setting the location of the piece to the new square and the new square also stores the piece. The board is also able to print out the pieces after the move is made. Currently, I'm trying to incorporate checkValidMove into this. 

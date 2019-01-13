@@ -30,6 +30,10 @@ public abstract class Piece{
     return location;//returns the Square the Piece is located at
   }
 
+  public void setLocation(Square newLocation){
+    location = newLocation;//sets its location to the new one
+  }
+
   public abstract boolean checkValidMove(Square newLocation);
 
 
