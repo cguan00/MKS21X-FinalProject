@@ -43,10 +43,12 @@ public class Game {
     int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-    System.out.println(currentPiece.getColor());
-    if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
+    //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
+    if (currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
     }
+    System.out.println(currentRow);
+    System.out.println(currentColumn);
   }
 
   public Player getTurn() {
