@@ -49,11 +49,24 @@ public class Game {
     }
   }
 
+  // public void addMove(Player color, Square currentLoc, Square newLoc) {
+  //   Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
+  //   //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
+  //   if (currentPiece.checkValidMove(newLoc)) {
+  //     Move newMove = new Move(board, color, currentLoc, newLoc);
+  //   }
+  // }
+
   public void addMove(Player color, Square currentLoc, Square newLoc) {
-    Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
+    turn = color;
+    int currentRow = currentLoc.getRow(); //the original row is stored
+    int currentCol = currentLoc.getCol(); //the original column is stored
+    int newRow = newLoc.getRow(); //the new row is stored
+    int newCol = newLoc.getCol(); //the new column is stored
+    Piece currentPiece = board.getSquare(currentRow,currentCol).getPiece(); //the piece to be moved is stored
     //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
-    if (currentPiece.checkValidMove(newLoc)) {
-      Move newMove = new Move(board, color, currentLoc, newLoc);
+    if (currentPiece.checkValidMove(board.getSquare(newRow,newCol))) {
+      Move newMove = new Move(board, turn, currentLoc, newLoc);
     }
   }
 
