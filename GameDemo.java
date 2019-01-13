@@ -27,6 +27,21 @@ public class GameDemo {
     board = new Board();
   }
 
+	public void addMove(String color, String currentLoc, String newLoc) {
+    turn = new Player(color);
+    String columns = "ABCDEFGH";
+    String rows = "12345678";
+    int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
+    int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
+    int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
+    int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
+    Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+    //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
+    if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
+      Move newMove = new Move(board, turn, currentLoc, newLoc);
+    }
+  }
+
 	public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
 		for(int i = 0; i < s.length();i++){
@@ -47,6 +62,9 @@ public class GameDemo {
     board.setSquares(blackP, whiteP); //sets up squares[][] in Board
   }
 
+	public Board getBoard() {
+    return board;
+  }
 
 	public static void main(String[] args) {
 
@@ -58,52 +76,75 @@ public class GameDemo {
 		terminal.enterPrivateMode();
 
 		TerminalSize size = terminal.getTerminalSize();
+		size.setRows(8);
+		size.setColumns(8);
 		terminal.setCursorVisible(false);
 
 		boolean running = true;
 
 		long tStart = System.currentTimeMillis();
 		long lastSecond = 0;
+		Game newGame = new Game();
+		newGame.create();
+		Player BlackP = new Player("black");
+		Player WhiteP = new Player("white");
+		Player Playing = BlackP; //player black starts first
+		int pressed = 0;
+		String currentLoc = "";
+		String newLoc = "";
 
 		while(running){
+			if (pressed == 1) { //if enter is pressed once, the user is choosing the piece to move
+				currentLoc += newGame.getBoard().getSquare(x,y); //stores the location of the piece
+			}
+			if (pressed == 2) { //if enter is pressed again, the user is choosing the destination of the piece
+				newLoc += newGame.getBoard().getSquare(x,y);
+				newGame.addMove(Playing, currentLoc, newLoc);
+				pressed = 0;
+				if (Playing.isBlack()) {
+					Playing = WhiteP;
+				}
+				else {
+					Playing = BlackP;
+				}
+			}
 			//SETTING UP THE BOARD VISUALLY
 			//print out the row of letters on top (A to H)
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 5,5);
-			terminal.putCharacter('A');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('B');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('C');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('D');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('E');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('F');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('G');
-			terminal.putCharacter(' ');
-			terminal.putCharacter('H');
-			//print out the column of numbers to the left (1 to 8)
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,6);
-			terminal.putCharacter('1');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,7);
-			terminal.putCharacter('2');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,8);
-			terminal.putCharacter('3');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,9);
-			terminal.putCharacter('4');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,10);
-			terminal.putCharacter('5');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,11);
-			terminal.putCharacter('6');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,12);
-			terminal.putCharacter('7');
-			terminal.moveCursor(size.getColumns()-size.getColumns() + 3,13);
-			terminal.putCharacter('8');
-
-
-
+			terminal.moveCursor(0,0);//size.getColumns()-size.getColumns() + 5,5);
+			String ans = "";
+	    String letter = "ABCDEFGH";
+	    for (int r = 0; r < 9; r++) {
+	      if (r == 0) { //if it's the first row numbers will be printed on the side
+	        terminal.putCharacter(' '); //excluding the first row
+	      }
+	      else {
+	        terminal.moveCursor(0,r);//size.getColumns()-size.getColumns() + 5,5+r);
+					ans += r;
+					terminal.putCharacter(ans.charAt(0));
+					ans = "";
+	      }
+	      for (int c = 0; c < 9; c++) { //letters are printed above each column
+	        if (r == 0) {
+	          if (c != 0) { //exlcluding the first column
+							terminal.putCharacter(' ');
+	            terminal.putCharacter(letter.charAt(c - 1));
+	          }
+	        }
+	        if (r != 0 && c != 0) {
+	          //for every empty space that has a piece in the Squares array
+	          //prints out the piece that the Square stores
+	          if (newGame.getBoard().getSquare(r-1, c-1).getPiece() == null) {
+	            terminal.putCharacter(' ');
+	          }
+	          else {
+	            terminal.putCharacter(' ');
+							ans += newGame.getBoard().getSquare(r-1,c-1).getPiece();
+							terminal.putCharacter(ans.charAt(0));
+							ans = "";
+	          }
+	          }
+	        }
+	    }
 
 			Key key = terminal.readInput();
 
@@ -115,39 +156,22 @@ public class GameDemo {
 					terminal.exitPrivateMode();
 					running = false;
 				}
+				if (key.getKind() == Key.Kind.ArrowRight) {
+
+					terminal.exitPrivateMode();
+					running = false;
+				}
+				if (key.getKind() == Key.Kind.Enter) {
+					pressed += 1;
+				}
 			}
 
-
-	    // String letter = "ABCDEFGH";
-	    // for (int r = 0; r < 9; r++) {
-			// 	terminal.moveCursor(size.getColumns()-size.getColumns() + 5,5);
-	    //   if (r == 0) { //if it's the first row numbers will be printed on the side
-	    //     terminal.putCharacter(letter.charAt(r));; //excluding the first row
-			// 		terminal.putCharacter(' ');//space between letters to make it look nicer
-	    //   }
-	    //   else {
-	    //     terminal.putCharacter(' ');
-	    //   }
-	    //   for (int c = 0; c < 9; c++) { //letters are printed above each column
-	    //     if (r == 0) {
-	    //       if (c != 0) { //exlcluding the first column
-	    //         terminal.putCharacter(letter.charAt(c - 1));
-	    //       }
-	    //     }
-	    //     if (r != 0 && c != 0 && board.getSquare(r-1, c-1) != null) {
-	    //       //for every empty space that has a piece in the Squares array
-	    //       //prints out the piece that the Square stores
-	    //         ans += " " + board.getSquare(r-1,c-1).getPiece();
-	    //       }
-	    //     }
-	    // }
-
-
-			// terminal.moveCursor(x,y);
+			terminal.moveCursor(x,y);
 			// terminal.applyBackgroundColor(Terminal.Color.WHITE);
 			// terminal.applyForegroundColor(Terminal.Color.BLACK);
 			// //applySGR(a,b) for multiple modifiers (bold,blink) etc.
 			// terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
+			terminal.setCursorVisible(true);
 			// terminal.putCharacter('\u00a4');
 			// //terminal.putCharacter(' ');
 			// terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
