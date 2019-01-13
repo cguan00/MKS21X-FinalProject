@@ -76,14 +76,4 @@ public class Rook extends Piece{
     }
   }
 
-  public static void main(String[] args) {
-    Board board = new Board();
-    Player testcolor = new Player("black");
-    Rook test = new Rook(board, testcolor, new Square(0,0));
-    System.out.println(test);
-    // System.out.println(test.getColor().getColor());
-    // System.out.println(testcolor.isWhite());
-    // System.out.println(testcolor.isBlack());
-  }
-
 }
