@@ -44,7 +44,7 @@ public class Game {
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
     //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
-    if (currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn))) {
+    if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
     }
   }
@@ -88,6 +88,10 @@ public class Game {
   public static void main(String[] args) {
     Game newGame = new Game();
     newGame.create();
+    System.out.println(newGame);
+    newGame.addMove("white", "A7","A5");
+    System.out.println(newGame);
+    newGame.addMove("white","A5","A4");
     System.out.println(newGame);
     String directions = "Output must be in this format: java Game white H7 B8";
     try {
