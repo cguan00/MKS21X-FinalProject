@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-
-//API : http://mabe02.github.io/lanterna/apidocs/2.1/
 import com.googlecode.lanterna.terminal.Terminal.SGR;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
@@ -14,6 +11,9 @@ import com.googlecode.lanterna.input.InputDecoder;
 import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
+import java.util.ArrayList;
+
+//API : http://mabe02.github.io/lanterna/apidocs/2.1/
 
 
 public class GameDemo {
