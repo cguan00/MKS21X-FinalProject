@@ -47,8 +47,6 @@ public class Game {
     if (currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
     }
-    System.out.println(currentRow);
-    System.out.println(currentColumn);
   }
 
   public Player getTurn() {
