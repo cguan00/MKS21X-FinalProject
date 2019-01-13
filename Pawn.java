@@ -42,12 +42,12 @@ public class Pawn extends Piece{
       if(row - 1 >= 0){//avoid IndexOutOfBounds Exception
         if(board.getSquare(row - 1, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
-          System.out.println(row);
-          System.out.println(col);
         }
-        if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
-          if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
-            validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+        if (col + 1 < 8) {
+          if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
+            if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
+              validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+            }
           }
         }
         if (col - 1 >= 0) {
@@ -93,9 +93,6 @@ public class Pawn extends Piece{
       }
     }
 
-    for (int i = 0; i < validSquares.size(); i++) {
-      System.out.println("( " + validSquares.get(i).getRow() + ", "+ validSquares.get(i).getCol() + " )");
-    }
     //if the new location is in list of valid Squares you can move to, return true
     //otherwise, it is not a valid move, so return false
     if(validSquares.contains(newLocation)){
