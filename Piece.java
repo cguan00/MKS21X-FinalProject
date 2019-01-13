@@ -34,7 +34,7 @@ public abstract class Piece{
     location = newLocation;//sets its location to the new one
   }
 
-  public abstract boolean checkValidMove(Square oldLocation, Square newLocation);
+  public abstract boolean checkValidMove(Square newLocation);
 
 
 }
