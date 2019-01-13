@@ -52,10 +52,10 @@ public class GameDemo {
 	public void create() {
     board = new Board();
     moves = new ArrayList<>();
-    turn = new Player("black");
-    blackP = new PieceSet(turn); //creates a black PieceSet
     turn = new Player("white");
-    whiteP = new PieceSet(turn); //creates a white PieceSet
+    blackP = new PieceSet(turn); //creates a white PieceSet
+    turn = new Player("black"); //white goes first
+    whiteP = new PieceSet(turn); //creates a black PieceSet
     blackP.initialPieces(board); //all pieces are created at starting position
     whiteP.initialPieces(board);
     board.setPieceSets(blackP, whiteP); //sets up the PieceSets in Board so it'll have access
