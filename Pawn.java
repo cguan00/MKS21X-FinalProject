@@ -30,6 +30,7 @@ public class Pawn extends Piece{
 
   public boolean checkValidMove(Square newLocation){
     //store the current location of the Piece
+    location = newLocation;
     int row = location.getRow();
     int col = location.getCol();
 
@@ -94,6 +95,10 @@ public class Pawn extends Piece{
       return true;
     }
     return false;
+  }
+
+  public String getColor(){
+    return color;//returns the Player color, either white or black
   }
 
 
