@@ -33,6 +33,7 @@ public class Board{
     for (int i = 0; i < 2; i++) {
       for (int x = 0; x < 8; x++) {
         squares[row][x].storePiece(blackPieces.getPiece(pieceIndex)); //the square then stores the correct piece
+        squares[row][x].getPiece().setLocation(squares[row][x]);
         pieceIndex += 1; //index increases to get the next piece
       }
       row = 1; //the next row of squares will now go through the same process
@@ -42,6 +43,7 @@ public class Board{
     for (int i = 0; i < 2; i++) {
       for (int x = 0; x < 8; x++) {
         squares[row][x].storePiece(whitePieces.getPiece(pieceIndex)); //stores the piece from the white PieceSet
+        squares[row][x].getPiece().setLocation(squares[row][x]);
         pieceIndex += 1; //index increases
       }
       row = 6; //pawns are on the inside
