@@ -90,22 +90,22 @@ public class GameDemo {
 		Player WhiteP = new Player("white");
 		Player Playing = BlackP; //player black starts first
 		int pressed = 0;
-		String currentLoc = "";
-		String newLoc = "";
+		Square currentLoc = new Square(0,0);
+		Square newLoc = new Square(0,0);
 
 		while(running){
 			if (pressed == 1) { //if enter is pressed once, the user is choosing the piece to move
-				currentLoc += newGame.getBoard().getSquare(x,y); //stores the location of the piece
+				currentLoc = newGame.getBoard().getSquare(x,y); //stores the location of the piece
 			}
 			if (pressed == 2) { //if enter is pressed again, the user is choosing the destination of the piece
-				newLoc += newGame.getBoard().getSquare(x,y);
-				newGame.addMove(Playing, currentLoc, newLoc);
-				pressed = 0;
-				if (Playing.isBlack()) {
+				newLoc = newGame.getBoard().getSquare(x,y);
+				newGame.addMove(Playing, currentLoc, newLoc); //a new move is made based on the previous inputs
+				pressed = 0; //it's now the other player's turn, the value resets
+				if (Playing.isBlack()) { //if black just played, it's white's turn
 					Playing = WhiteP;
 				}
 				else {
-					Playing = BlackP;
+					Playing = BlackP; //if white just played, it's black's turn
 				}
 			}
 			//SETTING UP THE BOARD VISUALLY
