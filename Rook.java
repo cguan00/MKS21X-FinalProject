@@ -24,7 +24,6 @@ public class Rook extends Piece{
 
   public boolean checkValidMove(Square newLocation){
     //store the current location of the Piece
-    location = newLocation;
     int row = location.getRow();
     int col = location.getCol();
 
