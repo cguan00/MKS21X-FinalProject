@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
 public class King extends Piece{
-  private Player color;
+  private Board board;
+  //stores the game board. must have access to Squares
+
+  private String color;
   //player color: either white or black
 
   private Square location;
@@ -8,33 +13,123 @@ public class King extends Piece{
   private boolean moved;
   //keeps tracks of if the piece was moved or not
 
-  public King(Player playerColor, Square loc){
-    super(playerColor, loc);
+  public King(Board gameBoard, Player playerColor, Square loc){
+    // super(gameBoard, playerColor, loc);
+    super();
+    board = gameBoard;//the board the game is played on
+    color = playerColor.getColor();//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
-  public boolean checkValidMove(Square newLocation) throws IllegalArgumentException{
-    //assign variables to hold int values of rows and cols to avoid repetitive code
-    int currentRow = location.getRow();
-    int currentCol = location.getCol();
-    int newRow = newLocation.getRow();
-    int newCol = newLocation.getCol();
+  public boolean checkValidMove(Square newLocation){
+    //store the current location of the Piece
+    int row = location.getRow();
+    int col = location.getCol();
 
-    //if the Square is not part of the 8x8 board, throw exception
-    if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-      throw new IllegalArgumentException();
+    //store the possible locations the Piece can move to
+    ArrayList<Square> validSquares = new ArrayList<>();
+
+    //check one square up
+    if(row != 0){//avoid IndexOutOfBounds exception
+      //check one square up
+      if(board.getSquare(row + 1, col).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row + 1, col).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row + 1, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
+        }
+      }
     }
 
-    //use variables to store how far the piece is trying to move in either direction
-    int rowDiff = Math.abs(newRow - currentRow);
-    int colDiff = Math.abs(newCol - currentCol);
+    //check one square down
+    if(row != 7){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row - 1, col).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 1, col).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row - 1, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
+        }
+      }
+    }
 
-    if(rowDiff == 1 && colDiff == 0 ){//move one row up or down
-      return true;
+    //check one square to the right
+    if(col != 7){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row, col + 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row, col + 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row, col + 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row, col + 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row, col + 1));//add this Square to list of possible Squares
+        }
+      }
     }
-    if(colDiff == 1 && rowDiff == 0){//move one col to left or right
-      return true;
+
+    //check one square to the left
+    if(col != 0){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row, col - 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row, col - 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row, col - 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row, col - 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row, col - 1));//add this Square to list of possible Squares
+        }
+      }
     }
-    if(colDiff == 1 && rowDiff == 1){//move diagonally by one square
+
+    //check one square to the upper right
+    if(row != 0 && col != 7){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row - 1, col + 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 1, col + 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row - 1, col + 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+        }
+      }
+    }
+
+    //check one square to the upper left
+    if(row != 0 && col != 0){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row - 1, col - 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row - 1, col - 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row - 1, col - 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+        }
+      }
+    }
+
+    //check one square to the bottom right
+    if(row != 7 && col != 7){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row + 1, col + 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row + 1, col + 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row + 1, col + 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
+        }
+      }
+    }
+
+    //check one square to the bottom left
+    if(row != 0 && col != 7){//avoid IndexOutOfBounds exception
+      if(board.getSquare(row + 1, col - 1).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row + 1, col - 1).getPiece() != null){//if this Square has a piece...
+        if(!board.getSquare(row + 1, col - 1).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
+        }
+      }
+    }
+
+    //if the new location is in list of valid Squares you can move to, return true
+    //otherwise, it is not a valid move, so return false
+    if(validSquares.contains(newLocation)){
       return true;
     }
     return false;

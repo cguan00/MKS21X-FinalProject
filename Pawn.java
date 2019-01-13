@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
 public class Pawn extends Piece{
-  private Player color;
+  private Board board;
+  //stores the game board. must have access to Squares
+
+  private String color;
   //player color: either white or black
 
   private Square location;
@@ -14,36 +19,83 @@ public class Pawn extends Piece{
   public Piece promoteTo;
   //if promoted, keep track of which Piece the Pawn has been changed to
 
-  public Pawn(Player playerColor, Square loc){
-    super(playerColor, loc);
+  public Pawn(Board gameBoard, Player playerColor, Square loc){
+    // super(gameBoard, playerColor, loc);
+    super();
+    board = gameBoard;//the board the game is played on
+    color = playerColor.getColor();//keeps track of Player color, either black or white
+    location = loc;//keeps track of which Square the Piece is located on
+    moved = false;//just created the piece, so hasn't moved yet
   }
 
-  public boolean checkValidMove(Square newLocation) throws IllegalArgumentException {
-    //assign variables to hold int values of rows and cols to avoid repetitive code
-    int currentRow = location.getRow();
-    int currentCol = location.getCol();
-    int newRow = newLocation.getRow();
-    int newCol = newLocation.getCol();
+  public boolean checkValidMove(Square newLocation){
+    //store the current location of the Piece
+    int row = location.getRow();
+    int col = location.getCol();
 
-    //if the Square is not part of the 8x8 board, throw exception
-    if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-      throw new IllegalArgumentException();
+    //store the possible locations the Piece can move to
+    ArrayList<Square> validSquares = new ArrayList<>();
+
+    if(color.equals("white")){
+      //if Square in front is not occupied, you can move forward
+      if(row - 1 >= 0){//avoid IndexOutOfBounds Exception
+        if(board.getSquare(row - 1, col).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
+        }
+        if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
+          if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
+          }
+        }
+        if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper left)
+          if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
+          }
+        }
+      }
+
+      //piece has not moved yet, so you can move 2 squares up
+      if(!moved){
+        if(board.getSquare(row - 2, col).getPiece() == null){
+          validSquares.add(board.getSquare(row - 2, col));
+        }
+      }
     }
 
-    //if white Pawn is trying to move backwards, not valid move, so return false
-     if(color.equals("white")){
-       if(newRow > currentRow){
-         return false;
-       }
-     }
-     //if black Pawn is trying to move backwards, not valid move, so return false
-     if(color.equals("black")){
-       if(newRow < currentRow){
-         return false;
-       }
-     }
-     return true;
+    if(color.equals("black")){
+      //if Square in front is not occupied, you can move forward
+      if(row + 1 <= 7){//avoid IndexOutOfBounds exception
+        if(board.getSquare(row + 1, col).getPiece() == null){//check if this Square is empty
+          validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
+        }
+        if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
+          if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
+          }
+        }
+        if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
+          if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "black"){
+            validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
+          }
+        }
+      }
+
+      //piece has not moved yet, so you can move 2 squares up
+      if(!moved){
+        if(board.getSquare(row + 2, col).getPiece() == null){
+          validSquares.add(board.getSquare(row + 2, col));
+        }
+      }
+    }
+
+    //if the new location is in list of valid Squares you can move to, return true
+    //otherwise, it is not a valid move, so return false
+    if(validSquares.contains(newLocation)){
+      return true;
+    }
+    return false;
   }
+
 
   public String toString(){
     if(color.equals("white")){
@@ -51,6 +103,15 @@ public class Pawn extends Piece{
     } else{
       return "p";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args){
+    Board board1 = new Board();
+    Player p1 = new Player("white");
+    // Square s1 = board1.getSquare(0,0);
+    Square s1 = board1.getSquare(0,0);
+    Pawn pawn1 = new Pawn(board1, p1, s1);
+    System.out.println(pawn1);
   }
 
 
