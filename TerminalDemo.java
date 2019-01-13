@@ -112,8 +112,8 @@ public class TerminalDemo {
 					y++;
 					x++;
 				}
-				putString(1,4,terminal,"["+key.getCharacter() +"]");
-				putString(1,1,terminal,key+"        ");//to clear leftover letters pad withspaces
+				putString(10,10,terminal,"["+key.getCharacter() +"]");
+				putString(15,15,terminal,key+"        ");//to clear leftover letters pad withspaces
 			}
 
 			//DO EVEN WHEN NO KEY PRESSED:
