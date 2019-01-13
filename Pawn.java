@@ -28,9 +28,8 @@ public class Pawn extends Piece{
     moved = false;//just created the piece, so hasn't moved yet
   }
 
-  public boolean checkValidMove(Square oldLocation, Square newLocation){
+  public boolean checkValidMove(Square newLocation){
     //store the current location of the Piece
-    location = oldLocation;
     int row = location.getRow();
     int col = location.getCol();
 
@@ -105,6 +104,13 @@ public class Pawn extends Piece{
     return color;//returns the Player color, either white or black
   }
 
+  public Square getLocation() {
+    return location;
+  }
+
+  public void setLocation(Square newLocation){
+    location = newLocation;//sets its location to the new one
+  }
 
   public String toString(){
     if(color.equals("white")){
@@ -115,12 +121,11 @@ public class Pawn extends Piece{
   }
 
   public static void main(String[] args){
-    Board board1 = new Board();
+    Board board = new Board();
     Player p1 = new Player("white");
     // Square s1 = board1.getSquare(0,0);
-    Square s1 = board1.getSquare(0,0);
-    Pawn pawn1 = new Pawn(board1, p1, s1);
-    System.out.println(pawn1);
+    Rook test = new Rook(board, p1, board.getSquare(0,0));
+    System.out.println(test.getLocation());
   }
 
 
