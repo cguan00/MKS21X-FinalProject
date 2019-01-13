@@ -4,10 +4,21 @@ public class Move {
   private Piece pieceCaptured;
   private Piece pieceMoved;
 
-  public Move(Piece currentPiece, Square current, Square destination) {
-    start = current;
-    end = destination;
-    pieceMoved = currentPiece;
+  public Move(Board board, Player color, String current, String destination) {
+    // start = current;
+    // end = destination;
+    String columns = "ABCDEFGH";
+    String rows = "12345678";
+    int currentColumn = columns.indexOf(current.charAt(0));
+    int currentRow = rows.indexOf(current.charAt(1));
+    int newColumn = columns.indexOf(destination.charAt(0));
+    int newRow = rows.indexOf(destination.charAt(1));
+    Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece();
+    currentPiece.setLocation(board.getSquare(currentRow,currentColumn));
+    board.getSquare(currentRow,currentColumn).storePiece(null);
+    board.getSquare(newRow, newColumn).storePiece(currentPiece);
+    // current.storePiece(null);
+    // destination.storePiece(currentPiece);
     //pieceMoved.checkValidMove();
     //pieceCaptured - what happens to this?
   }
