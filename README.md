@@ -60,3 +60,8 @@
 
 **Christy**
 - I continued to work on checkValidMove on the classes I did last night (Pawn, Rook, Bishop, and Queen). Today, I realized that moving to a square with the opponent's piece is still a valid move, so I added conditionals to check for this case. Right now, the code is really long and redundant, so later I will work on code readability and try using exception handling so that I don't need as many if statements. We also need to figure out exactly which files need to be added to the master, and how to merge the branches so that we have the correct version of each file.
+
+### January 12, 2019
+
+**Christy**
+- Today I finished the checkValidMove for all the different classes which implement the abstract Piece class and they are all in the master branch. It took me a while to figure out the logic for each class, but I was able to do it through a lot of booleans to avoid any errors being thrown. Tomorrow, I will have to work on lanterna and trying to get the terminal to be interactive with the game. I realized that we will not be able to just print the board each time a player makes a move because Java has no way of remembering the moves. 
