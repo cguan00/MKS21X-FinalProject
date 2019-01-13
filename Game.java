@@ -36,7 +36,16 @@ public class Game {
   //the location of the piece they want to move, and where they want to move it to
   public void addMove(String color, String currentLoc, String newLoc) {
     turn = new Player(color);
-    Move newMove = new Move(board, turn, currentLoc, newLoc);
+    // String columns = "ABCDEFGH";
+    // String rows = "12345678";
+    // int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
+    // int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
+    // int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
+    // int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
+    // Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+    // if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
+      Move newMove = new Move(board, turn, currentLoc, newLoc);
+    // }
   }
 
   public Player getTurn() {
@@ -79,7 +88,19 @@ public class Game {
     Game newGame = new Game();
     newGame.create();
     System.out.println(newGame);
-    newGame.addMove("black", "C8", "B5");
-    System.out.println(newGame);
+    String directions = "Output must be in this format: java Game white H7 B8";
+    try {
+      if (args.length < 3 || args.length > 3) {
+        System.out.println(directions);
+      }
+      else {
+        newGame.addMove(args[0],args[1],args[2]);
+        System.out.println(newGame);
+      }
+    }
+    catch (IllegalArgumentException e) {
+      System.out.println(directions);
+      System.exit(1);
+    }
   }
 }
