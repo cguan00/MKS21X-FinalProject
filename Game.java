@@ -60,10 +60,15 @@ public class Game {
             ans += " " + letter.charAt(c - 1);
           }
         }
-        if (r != 0 && c != 0 && board.getSquare(r-1, c-1) != null) {
+        if (r != 0 && c != 0) {
           //for every empty space that has a piece in the Squares array
           //prints out the piece that the Square stores
+          if (board.getSquare(r-1, c-1).getPiece() == null) {
+            ans += "  ";
+          }
+          else {
             ans += " " + board.getSquare(r-1,c-1).getPiece();
+          }
           }
         }
     }
@@ -72,8 +77,9 @@ public class Game {
 
   public static void main(String[] args) {
     Game newGame = new Game();
+    newGame.create();
     System.out.println(newGame);
-    newGame.addMove("black", "h7", "h6");
+    newGame.addMove("black", "C8", "B5");
     System.out.println(newGame);
   }
 }
