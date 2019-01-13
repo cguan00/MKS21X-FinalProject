@@ -103,6 +103,8 @@ public class GameDemo {
 			terminal.putCharacter('8');
 
 
+
+
 			Key key = terminal.readInput();
 
 			if (key != null)
