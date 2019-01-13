@@ -107,6 +107,10 @@ public class Queen extends Piece{
     return false;
   }
 
+  public String getColor(){
+    return color;//returns the Player color, either white or black
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "Q";//white pieces are capitalized
