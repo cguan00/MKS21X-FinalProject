@@ -24,6 +24,7 @@ public class Rook extends Piece{
 
   public boolean checkValidMove(Square newLocation){
     //store the current location of the Piece
+    location = newLocation;
     int row = location.getRow();
     int col = location.getCol();
 
@@ -37,6 +38,8 @@ public class Rook extends Piece{
           validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
         }
         if(board.getSquare(i, col).getPiece() != null){//if this Square has a piece...
+            System.out.println(board.getSquare(i,col).getPiece());
+            System.out.println(board.getSquare(i, col).getPiece().getColor());
           if(!board.getSquare(i, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
             validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
           }
@@ -66,7 +69,9 @@ public class Rook extends Piece{
     return false;
   }
 
-
+  public String getColor(){
+    return color;//returns the Player color, either white or black
+  }
 
   public String toString(){
     if(color.equals("white")){
