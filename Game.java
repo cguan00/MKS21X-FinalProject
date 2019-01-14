@@ -59,6 +59,7 @@ public class Game {
     }
   }
 
+  //a file is opened to store all of the moves
   public void addAllMoves(String fileName) throws FileNotFoundException {
     File file = new File(fileName);
     Scanner sc = new Scanner(file);
@@ -66,12 +67,12 @@ public class Game {
     String color, current, destination, columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
     Piece currentPiece;
-    while(sc.hasNextLine()) {
+    while(sc.hasNextLine()) { //while it has next line, it gets the next line
       newLine = sc.nextLine();
       if (newLine.length() < 5) {
         newLine = sc.nextLine();
       }
-      color = newLine.substring(0,5);
+      color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
       current = newLine.substring(6,8);
       destination = newLine.substring(9,11);
       turn = new Player(color);
@@ -88,7 +89,7 @@ public class Game {
         if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
           currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
-            Move newMove = new Move(board, turn, current, destination);
+            Move newMove = new Move(board, turn, current, destination); //new Move is creaated
             moves.add(newMove);
           }
         }
@@ -184,11 +185,11 @@ public class Game {
           newGame.write(args[0],args[1],args[2]);
           newGame.addAllMoves(fileName);
           System.out.println(newGame);
-          if (playing.equals("white")) {
-            playing = "black";
+          if (playing.equals("white")) { //if it was previously white's turn
+            playing = "black"; //black now goes
           }
           else {
-            playing = "white";
+            playing = "white"; //otherwise it's white's turn
           }
           System.out.println(playing + " player goes");
         }
