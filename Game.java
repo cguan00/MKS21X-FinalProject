@@ -101,6 +101,10 @@ public class Game {
     return turn; //returns the Player who's currently making the move
   }
 
+  public void setTurn(String color) {
+    turn = new Player(color); //sets it the color
+  }
+
   public Board getBoard() {
     return board;
   }
@@ -151,10 +155,9 @@ public class Game {
   }
 
   public static void main(String[] args) {
-    Game newGame = new Game();
+    Game newGame = new Game(); //new Game
     String fileName = "moves.txt";
     File file = new File(fileName);
-    String playing = "white"; //keeps track of who's turn it is
     newGame.create();
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
@@ -185,13 +188,12 @@ public class Game {
           newGame.write(args[0],args[1],args[2]);
           newGame.addAllMoves(fileName);
           System.out.println(newGame);
-          if (playing.equals("white")) { //if it was previously white's turn
-            playing = "black"; //black now goes
+          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+            System.out.println("black player goes"); //black now goes
           }
-          else {
-            playing = "white"; //otherwise it's white's turn
+          if (newGame.getMoves().size()%2 == 0) {
+            System.out.println("white player goes"); //otherwise it's white's turn
           }
-          System.out.println(playing + " player goes");
         }
       }
     }
