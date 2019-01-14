@@ -171,7 +171,7 @@ public class GameDemo {
 			// terminal.applyForegroundColor(Terminal.Color.BLACK);
 			// //applySGR(a,b) for multiple modifiers (bold,blink) etc.
 			// terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
-			terminal.setCursorVisible(true);
+			//terminal.setCursorVisible(true);
 			// terminal.putCharacter('\u00a4');
 			// //terminal.putCharacter(' ');
 			// terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
