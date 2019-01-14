@@ -101,23 +101,34 @@ public class Game {
     Game newGame = new Game();
     newGame.create();
     System.out.println(newGame);
-    newGame.addMove("white", "A7","A5");
+    // newGame.addMove("white", "A7","A5");
+    // System.out.println(newGame);
+    // newGame.addMove("white","A5","A4");
+    // System.out.println(newGame);
+    // String directions = "Output must be in this format: java Game white H7 B8";
+    // try {
+    //   if (args.length < 3 || args.length > 3) {
+    //     System.out.println(directions);
+    //   }
+    //   else {
+    //     newGame.addMove(args[0],args[1],args[2]);
+    //     System.out.println(newGame);
+    //   }
+    // }
+    // catch (IllegalArgumentException e) {
+    //   System.out.println(directions);
+    //   System.exit(1);
+    // }
+    Player playing = new Player("white");
+    newGame.addMove(playing,newGame.getBoard().getSquare(6,7), newGame.getBoard().getSquare(4,7));
     System.out.println(newGame);
-    newGame.addMove("white","A5","A4");
+    newGame.addMove(playing,newGame.getBoard().getSquare(7,7), newGame.getBoard().getSquare(5,7));
     System.out.println(newGame);
-    String directions = "Output must be in this format: java Game white H7 B8";
-    try {
-      if (args.length < 3 || args.length > 3) {
-        System.out.println(directions);
-      }
-      else {
-        newGame.addMove(args[0],args[1],args[2]);
-        System.out.println(newGame);
-      }
-    }
-    catch (IllegalArgumentException e) {
-      System.out.println(directions);
-      System.exit(1);
-    }
+    newGame.addMove(playing,newGame.getBoard().getSquare(7,1), newGame.getBoard().getSquare(5,2));
+    System.out.println(newGame);
+    newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
+    System.out.println(newGame);
+    newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
+    System.out.println(newGame);
   }
 }
