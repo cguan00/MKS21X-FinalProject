@@ -153,18 +153,21 @@ public class Game {
     Game newGame = new Game();
     String fileName = "moves.txt";
     File file = new File(fileName);
+    String playing = "white"; //keeps track of who's turn it is
     newGame.create();
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
-    String directions = "To restart: java Game new" + "\n" + "To play: output must be in this format: java Game white H7 B8";
+    String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
     try {
       if (args.length != 1 && args.length != 3) {
         System.out.println(directions);
+        System.exit(1);
       }
       if (args[0].equals("new")) { //a new Game will be generated and the file is cleared
         file.delete();
         file.createNewFile();
         System.out.println(newGame);
+        System.out.println("white player goes first");
       }
       else {
         columns = "ABCDEFGH";
@@ -181,6 +184,13 @@ public class Game {
           newGame.write(args[0],args[1],args[2]);
           newGame.addAllMoves(fileName);
           System.out.println(newGame);
+          if (playing.equals("white")) {
+            playing = "black";
+          }
+          else {
+            playing = "white";
+          }
+          System.out.println(playing + " player goes");
         }
       }
     }
@@ -193,6 +203,10 @@ public class Game {
       System.exit(1);
     }
     catch (IOException e) {
+      System.out.println(directions);
+      System.exit(1);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
       System.out.println(directions);
       System.exit(1);
     }
