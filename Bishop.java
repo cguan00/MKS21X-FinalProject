@@ -50,21 +50,24 @@ public class Bishop extends Piece{
       }
     }
     for(int i = row; i > 0; i--){
-      if(board.getSquare(row - i, col + i).getPiece() == null){//no piece to the Square in bottom left
-        validSquares.add(board.getSquare(row - i, col + i));//add this Square to list of possible Squares
-      }
-      if(board.getSquare(row - i, col + i).getPiece() != null){//if there is piece in the Square in bottom left...
-        if(!board.getSquare(row - i, col + i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+      if (row - i >= 0 && col + i < 8) {
+        if(board.getSquare(row - i, col + i).getPiece() == null){//no piece to the Square in bottom left
           validSquares.add(board.getSquare(row - i, col + i));//add this Square to list of possible Squares
         }
+        if(board.getSquare(row - i, col + i).getPiece() != null){//if there is piece in the Square in bottom left...
+          if(!board.getSquare(row - i, col + i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+            validSquares.add(board.getSquare(row - i, col + i));//add this Square to list of possible Squares
+          }
+        }
       }
-
-      if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
-        validSquares.add(board.getSquare(row - i, col - i));//add this Square to list of possible Squares
-      }
-      if(board.getSquare(row - i, col - i).getPiece() != null){//if there is piece in the Square in upper left...
-        if(!board.getSquare(row - i, col - i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+      if (row - i >= 0 && col - i >= 0) {
+        if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
           validSquares.add(board.getSquare(row - i, col - i));//add this Square to list of possible Squares
+        }
+        if(board.getSquare(row - i, col - i).getPiece() != null){//if there is piece in the Square in upper left...
+          if(!board.getSquare(row - i, col - i).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+            validSquares.add(board.getSquare(row - i, col - i));//add this Square to list of possible Squares
+          }
         }
       }
     }
@@ -81,6 +84,13 @@ public class Bishop extends Piece{
     return color;//returns the Player color, either white or black
   }
 
+  public Square getLocation() {
+    return location;
+  }
+
+  public void setLocation(Square newLocation){
+    location = newLocation;//sets its location to the new one
+  }
 
   public String toString(){
     if(color.equals("white")){
