@@ -1,4 +1,13 @@
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.File;
+import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileWriter;
+
 
 public class Game {
   private Board board;
@@ -44,16 +53,48 @@ public class Game {
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
     //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
+    // System.out.println(currentRow);
+    // System.out.println(currentColumn);
+    // System.out.println(currentPiece);
+    // System.out.println(board.getSquare(newRow, newColumn));
     if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
+      moves.add(newMove);
     }
   }
 
-  public void addMove(Player color, Square currentLoc, Square newLoc) {
-    Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
-    //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
-    if (currentPiece.checkValidMove(newLoc)) {
-      Move newMove = new Move(board, color, currentLoc, newLoc);
+  // public void addMove(Player color, Square currentLoc, Square newLoc) {
+  //   Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
+  //   if (currentPiece.checkValidMove(newLoc)) {
+  //     Move newMove = new Move(board, color, currentLoc, newLoc);
+  //   }
+  // }
+
+  public void addAllMoves(String fileName) throws FileNotFoundException {
+    File file = new File(fileName);
+    Scanner sc = new Scanner(file);
+    while(sc.hasNextLine()) {
+      String newLine = sc.nextLine();
+      newLine = sc.nextLine();
+      System.out.println(newLine);
+      String color = newLine.substring(0,5);
+      String current = newLine.substring(6,8);
+      String destination = newLine.substring(9,11);
+      System.out.println(color);
+      System.out.println(current);
+      System.out.println(destination);
+      turn = new Player(color);
+      String columns = "ABCDEFGH";
+      String rows = "12345678";
+      int currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+      int currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+      int newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
+      int newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
+      Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+      if (currentPiece.checkValidMove(board.getSquare(7,5))) {
+        Move newMove = new Move(board, turn, current, destination);
+        moves.add(newMove);
+      }
     }
   }
 
@@ -63,6 +104,19 @@ public class Game {
 
   public Board getBoard() {
     return board;
+  }
+
+  public ArrayList<Move> getMoves() {
+    return moves;
+  }
+
+  //writes and stores the move in a file
+  public void write(String color, String current, String destination) throws IOException {
+    FileWriter fw = new FileWriter("moves.txt", true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    bw.write(color + " " + current + " " + destination);
+    bw.newLine();
+    bw.close();
   }
 
   //prints the board
@@ -99,36 +153,42 @@ public class Game {
 
   public static void main(String[] args) {
     Game newGame = new Game();
+    String fileName = "moves.txt";
     newGame.create();
     System.out.println(newGame);
-    // newGame.addMove("white", "A7","A5");
+    String directions = "Output must be in this format: java Game white H7 B8";
+    try {
+      if (args.length < 3 || args.length > 3) {
+        System.out.println(directions);
+      }
+      else {
+        newGame.write(args[0],args[1],args[2]);
+        newGame.addAllMoves(fileName);
+        System.out.println(newGame);
+      }
+    }
+    catch (IllegalArgumentException e) {
+      System.out.println(directions);
+      System.exit(1);
+    }
+    catch (FileNotFoundException e) {
+      System.out.println(directions);
+      System.exit(1);
+    }
+    catch (IOException e) {
+      System.out.println(directions);
+      System.exit(1);
+    }
+
+    // newGame.addMove("white","H7", "H5");
     // System.out.println(newGame);
-    // newGame.addMove("white","A5","A4");
+    // newGame.addMove(playing,newGame.getBoard().getSquare(7,7), newGame.getBoard().getSquare(5,7));
     // System.out.println(newGame);
-    // String directions = "Output must be in this format: java Game white H7 B8";
-    // try {
-    //   if (args.length < 3 || args.length > 3) {
-    //     System.out.println(directions);
-    //   }
-    //   else {
-    //     newGame.addMove(args[0],args[1],args[2]);
-    //     System.out.println(newGame);
-    //   }
-    // }
-    // catch (IllegalArgumentException e) {
-    //   System.out.println(directions);
-    //   System.exit(1);
-    // }
-    Player playing = new Player("white");
-    newGame.addMove(playing,newGame.getBoard().getSquare(6,7), newGame.getBoard().getSquare(4,7));
-    System.out.println(newGame);
-    newGame.addMove(playing,newGame.getBoard().getSquare(7,7), newGame.getBoard().getSquare(5,7));
-    System.out.println(newGame);
-    newGame.addMove(playing,newGame.getBoard().getSquare(7,1), newGame.getBoard().getSquare(5,2));
-    System.out.println(newGame);
-    newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
-    System.out.println(newGame);
-    newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
-    System.out.println(newGame);
+    // newGame.addMove(playing,newGame.getBoard().getSquare(7,1), newGame.getBoard().getSquare(5,2));
+    // System.out.println(newGame);
+    // newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
+    // System.out.println(newGame);
+    // newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
+    // System.out.println(newGame);
   }
 }
