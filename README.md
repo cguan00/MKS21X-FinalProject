@@ -1,5 +1,13 @@
 # MKS21X-FinalProject
 
+## Instructions
+
+**Compiling**
+- javac Game.java
+
+**Running file**
+- java Game [Player] [Starting Square] [Ending Square]
+
 ## Development Log
 
 ### January 3, 2019
@@ -67,4 +75,9 @@
 - Today I finished the checkValidMove for all the different classes which implement the abstract Piece class and they are all in the master branch. It took me a while to figure out the logic for each class, but I was able to do it through a lot of booleans to avoid any errors being thrown. Tomorrow, I will have to work on lanterna and trying to get the terminal to be interactive with the game. I realized that we will not be able to just print the board each time a player makes a move because Java has no way of remembering the moves.
 
 **Sharon**
-- I worked on the Move method and got it to take in three strings, the player color, the current location, and the new location. Using this, it figures out what piece the user wants to move and it then sets the square at the old location to null, before setting the location of the piece to the new square and the new square also stores the piece. The board is also able to print out the pieces after the move is made. Currently, I'm trying to incorporate checkValidMove into this. 
+- I worked on the Move method and got it to take in three strings, the player color, the current location, and the new location. Using this, it figures out what piece the user wants to move and it then sets the square at the old location to null, before setting the location of the piece to the new square and the new square also stores the piece. The board is also able to print out the pieces after the move is made. Currently, I'm trying to incorporate checkValidMove into this.
+
+### January 13, 2019
+
+**Christy**
+- Today was spent working with lanterna to make the game interactive. It was relatively easy to set the board up with the row ("ABCDEFGH") and column ("12345678") markers. After I set the board up and Sharon added the pieces to the board, I tried to make the pieces move, but this was really difficult. Because the only information that I could get about the user input is the x and y coordinates, I had to convert that to the proper row and column and the Square this was pointing to. However, because the terminal is constantly updating, I was not able to store the location of the Piece the player wanted to move. I'm not sure how to get around this, but we can try another method other than using lanterna.
