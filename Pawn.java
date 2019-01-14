@@ -73,13 +73,15 @@ public class Pawn extends Piece{
           validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
         }
         if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
-          if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "black"){
+          if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "white"){
             validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
           }
         }
-        if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
-          if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "black"){
-            validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
+        if (col - 1 >= 0) {
+          if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
+            if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "white"){
+              validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
+            }
           }
         }
       }
