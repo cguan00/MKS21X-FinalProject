@@ -3,10 +3,12 @@
 ## Instructions
 
 **Compiling**
-- javac Game.java
+- Game file: javac Game.java
+- Lanterna verion: javac -cp lanterna.jar:. GameDemo.java
 
 **Running file**
 - java Game [Player] [Starting Square] [Ending Square]
+- Lanterna verion: java -cp lanterna.jar:. GameDemo
 
 ## Development Log
 
