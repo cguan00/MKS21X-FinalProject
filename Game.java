@@ -15,7 +15,7 @@ public class Game {
   private ArrayList<Move> moves = new ArrayList<>();
   private PieceSet blackP;
   private PieceSet whiteP;
-  private String error;
+  private String error = "";
 
   public Game() {
     board = new Board();
@@ -53,23 +53,11 @@ public class Game {
     int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-    //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
-    // System.out.println(currentRow);
-    // System.out.println(currentColumn);
-    // System.out.println(currentPiece);
-    // System.out.println(board.getSquare(newRow, newColumn));
     if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
       moves.add(newMove);
     }
   }
-
-  // public void addMove(Player color, Square currentLoc, Square newLoc) {
-  //   Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
-  //   if (currentPiece.checkValidMove(newLoc)) {
-  //     Move newMove = new Move(board, color, currentLoc, newLoc);
-  //   }
-  // }
 
   public void addAllMoves(String fileName) throws FileNotFoundException {
     File file = new File(fileName);
@@ -93,15 +81,17 @@ public class Game {
       currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
       newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
       newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
-      if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
-        currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-        if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
-          Move newMove = new Move(board, turn, current, destination);
-          moves.add(newMove);
-        }
+      if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+        error = "Please choose a valid location" + "\n";
       }
       else {
-        error = "Please choose a location with a Piece" + "\n";
+        if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
+          currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+          if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+            Move newMove = new Move(board, turn, current, destination);
+            moves.add(newMove);
+          }
+        }
       }
     }
   }
@@ -162,16 +152,36 @@ public class Game {
   public static void main(String[] args) {
     Game newGame = new Game();
     String fileName = "moves.txt";
+    File file = new File(fileName);
     newGame.create();
-    String directions = "Output must be in this format: java Game white H7 B8";
+    String columns, rows;
+    int currentRow, currentColumn, newRow, newColumn;
+    String directions = "To restart: java Game new" + "\n" + "To play: output must be in this format: java Game white H7 B8";
     try {
-      if (args.length < 3 || args.length > 3) {
+      if (args.length != 1 && args.length != 3) {
         System.out.println(directions);
       }
-      else {
-        newGame.write(args[0],args[1],args[2]);
-        newGame.addAllMoves(fileName);
+      if (args[0].equals("new")) { //a new Game will be generated and the file is cleared
+        file.delete();
+        file.createNewFile();
         System.out.println(newGame);
+      }
+      else {
+        columns = "ABCDEFGH";
+        rows = "12345678";
+        currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
+        currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
+        newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
+        newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
+        if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+          System.out.println(newGame);
+          System.out.println("Please choose a valid location" + "\n");
+        }
+        else {
+          newGame.write(args[0],args[1],args[2]);
+          newGame.addAllMoves(fileName);
+          System.out.println(newGame);
+        }
       }
     }
     catch (IllegalArgumentException e) {
@@ -187,15 +197,5 @@ public class Game {
       System.exit(1);
     }
 
-    // newGame.addMove("white","H7", "H5");
-    // System.out.println(newGame);
-    // newGame.addMove(playing,newGame.getBoard().getSquare(7,7), newGame.getBoard().getSquare(5,7));
-    // System.out.println(newGame);
-    // newGame.addMove(playing,newGame.getBoard().getSquare(7,1), newGame.getBoard().getSquare(5,2));
-    // System.out.println(newGame);
-    // newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
-    // System.out.println(newGame);
-    // newGame.addMove(playing,newGame.getBoard().getSquare(6,1), newGame.getBoard().getSquare(5,1));
-    // System.out.println(newGame);
   }
 }
