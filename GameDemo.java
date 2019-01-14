@@ -204,11 +204,7 @@ public class GameDemo {
 					//terminal.putCharacter(' ');
 					y++;
 				}
-				if (key.getKind() == "A") {
-					terminal.moveCursor(x,y);
-					//terminal.putCharacter(' ');
-					y++;
-				}
+
 				if (key.getKind() == Key.Kind.Enter) {
 					pressed += 1;
 				}
