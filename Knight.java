@@ -121,6 +121,14 @@ public class Knight extends Piece{
 
   }
 
+  public Square getLocation() {
+    return location;
+  }
+
+  public void setLocation(Square newLocation){
+    location = newLocation;//sets its location to the new one
+  }
+  
   public String getColor(){
     return color;//returns the Player color, either white or black
   }
