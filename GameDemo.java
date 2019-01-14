@@ -28,16 +28,9 @@ public class GameDemo {
   }
 
 	public void addMove(Player color, Square currentLoc, Square newLoc) {
-    turn = color;
-		String columns = "ABCDEFGH";
-    String rows = "12345678";
-    int currentRow = currentLoc.getRow(); //the original row is stored
-    int currentCol = currentLoc.getCol(); //the original column is stored
-    int newRow = newLoc.getRow(); //the new row is stored
-    int newCol = newLoc.getCol(); //the new column is stored
-    Piece currentPiece = board.getSquare(currentRow,currentCol).getPiece(); //the piece to be moved is stored
+    Piece currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
     //System.out.println(currentPiece.checkValidMove(board.getSquare(currentRow, currentColumn), board.getSquare(newRow,newColumn)));
-    if (currentPiece.checkValidMove(board.getSquare(newRow,newCol))) {
+    if (currentPiece.checkValidMove(newLoc)) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
     }
   }
@@ -131,6 +124,10 @@ public class GameDemo {
 		}
 
 		boolean running = true;
+		Square currentLoc = new Square(0,0);
+		Square newLoc = new Square(0,0);
+		int row = 0;
+		int col = 0;
 
 		//starting coordinates of the cursor
 		x = 5;
@@ -143,11 +140,9 @@ public class GameDemo {
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
 			terminal.applySGR(Terminal.SGR.RESET_ALL);
-			Square currentLoc = new Square(0,0);
-			Square newLoc = new Square(0,0);
 			if (pressed == 1) { //if enter is pressed once, the user is choosing the piece to move
-				int row = y - 1;
-				int col = x / 2 - 1;
+				row = y - 1;
+				col = x / 2 - 1;
 				putString(20,20,terminal,"row" + row);
 				putString(20,21,terminal,"col" + col);
 				currentLoc = newGame.getBoard().getSquare(row,col); //stores the location of the piece
@@ -155,8 +150,8 @@ public class GameDemo {
 				putString(20,23,terminal,"piece" + currentLoc.getPiece());
 			}
 			if (pressed == 2) { //if enter is pressed again, the user is choosing the destination of the piece
-				int row = y - 1;
-				int col = x / 2 - 1;
+				row = y - 1;
+				col = x / 2 - 1;
 				newLoc = newGame.getBoard().getSquare(row,col);
 				newGame.addMove(Playing, currentLoc, newLoc); //a new move is made based on the previous inputs
 				pressed = 0; //it's now the other player's turn, the value resets
