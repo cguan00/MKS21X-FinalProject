@@ -181,6 +181,7 @@ public class Game {
         newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
         newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
         if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+          newGame.addAllMoves(fileName);
           System.out.println(newGame);
           System.out.println("Please choose a valid location" + "\n");
         }
