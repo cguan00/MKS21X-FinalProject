@@ -15,6 +15,7 @@ public class Game {
   private ArrayList<Move> moves = new ArrayList<>();
   private PieceSet blackP;
   private PieceSet whiteP;
+  private String error;
 
   public Game() {
     board = new Board();
@@ -73,27 +74,34 @@ public class Game {
   public void addAllMoves(String fileName) throws FileNotFoundException {
     File file = new File(fileName);
     Scanner sc = new Scanner(file);
+    String newLine;
+    String color, current, destination, columns, rows;
+    int currentRow, currentColumn, newRow, newColumn;
+    Piece currentPiece;
     while(sc.hasNextLine()) {
-      String newLine = sc.nextLine();
       newLine = sc.nextLine();
-      System.out.println(newLine);
-      String color = newLine.substring(0,5);
-      String current = newLine.substring(6,8);
-      String destination = newLine.substring(9,11);
-      System.out.println(color);
-      System.out.println(current);
-      System.out.println(destination);
+      if (newLine.length() < 5) {
+        newLine = sc.nextLine();
+      }
+      color = newLine.substring(0,5);
+      current = newLine.substring(6,8);
+      destination = newLine.substring(9,11);
       turn = new Player(color);
-      String columns = "ABCDEFGH";
-      String rows = "12345678";
-      int currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
-      int currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
-      int newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
-      int newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
-      Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-      if (currentPiece.checkValidMove(board.getSquare(7,5))) {
-        Move newMove = new Move(board, turn, current, destination);
-        moves.add(newMove);
+      columns = "ABCDEFGH";
+      rows = "12345678";
+      currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+      currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+      newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
+      newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
+      if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
+        currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+        if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+          Move newMove = new Move(board, turn, current, destination);
+          moves.add(newMove);
+        }
+      }
+      else {
+        error = "Please choose a location with a Piece" + "\n";
       }
     }
   }
@@ -148,14 +156,13 @@ public class Game {
           }
         }
     }
-    return ans;
+    return ans + "\n" + "\n" + error;
   }
 
   public static void main(String[] args) {
     Game newGame = new Game();
     String fileName = "moves.txt";
     newGame.create();
-    System.out.println(newGame);
     String directions = "Output must be in this format: java Game white H7 B8";
     try {
       if (args.length < 3 || args.length > 3) {
