@@ -17,11 +17,12 @@ public class Move {
     board.getSquare(newRow,newColumn).storePiece(currentPiece); //the new square now gets the piece
   }
 
-  public Move(Board board, Player color, Square currentLoc, Square newLoc) {
-    currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
-    currentLoc.storePiece(null); //the original square now doesn't have a piece
-    newLoc.storePiece(currentPiece); //the new square now gets the piece
-    currentPiece.setLocation(newLoc); //sets the location of the piece to the new square
-  }
+  // not needed
+  // public Move(Board board, Player color, Square currentLoc, Square newLoc) {
+  //   currentPiece = currentLoc.getPiece(); //the piece to be moved is stored
+  //   currentLoc.storePiece(null); //the original square now doesn't have a piece
+  //   newLoc.storePiece(currentPiece); //the new square now gets the piece
+  //   currentPiece.setLocation(newLoc); //sets the location of the piece to the new square
+  // }
 
 }
