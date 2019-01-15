@@ -44,6 +44,7 @@ public class Rook extends Piece{
       }
     }
 
+
     //add valid Squares the piece can move to horizontally
     for(int j = 0; j < 7; j++){
       if(j != col){//can't move a Piece to the Square it's already on

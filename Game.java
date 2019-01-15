@@ -89,6 +89,7 @@ public class Game {
         if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
           currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+            currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
             moves.add(newMove);
           }
