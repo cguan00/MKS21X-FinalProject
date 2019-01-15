@@ -99,6 +99,7 @@ public class Pawn extends Piece{
     //if the new location is in list of valid Squares you can move to, return true
     //otherwise, it is not a valid move, so return false
     if(validSquares.contains(newLocation)){
+      moved = true;//destination is valid, will move piece, so moved is now true
       return true;
     }
     return false;
