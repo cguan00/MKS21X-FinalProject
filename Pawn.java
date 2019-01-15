@@ -72,12 +72,14 @@ public class Pawn extends Piece{
         if(board.getSquare(row + 1, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
         }
-        if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
-          if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "white"){
-            validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
+        if(col < 7){
+          if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
+            if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "white"){
+              validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
+            }
           }
         }
-        if (col - 1 >= 0) {
+        if (col - 1 >= 0 && col != 0 ) {
           if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
             if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "white"){
               validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
