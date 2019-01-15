@@ -83,3 +83,9 @@
 
 **Christy**
 - Today was spent working with lanterna to make the game interactive. It was relatively easy to set the board up with the row ("ABCDEFGH") and column ("12345678") markers. After I set the board up and Sharon added the pieces to the board, I tried to make the pieces move, but this was really difficult. Because the only information that I could get about the user input is the x and y coordinates, I had to convert that to the proper row and column and the Square this was pointing to. However, because the terminal is constantly updating, I was not able to store the location of the Piece the player wanted to move. I'm not sure how to get around this, but we can try another method other than using lanterna.
+
+
+###January 14, 2019
+
+**Christy**
+- I worked on testing and debugging checkValidMove for the Piece classes. To do this, I would have to run the Game file and manually move the pieces to see if the outcome was what I expected. Although I have most of the logic  completed, I wanted to move each piece to double check that the logic is correct. I was able to double check the Pawn and the Rook class and I think those are complete. One bug that I ran into today was that I was receiving a NullPointerException when I was trying to move a Queen piece or a Bishop piece. However, the code that was throwing this error is the same across all the Piece classes, so I'm not sure why the error is only being thrown in certain cases. I also updated Game.java so that after the Piece moved, you set the location to the new location. This was really important because the Piece should update its location each time you move it, so it properly checks the right squares for checkValidMove.
