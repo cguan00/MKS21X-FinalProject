@@ -199,19 +199,23 @@ public class Game {
       }
     }
     catch (IllegalArgumentException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("illegal arg exp");
       System.exit(1);
     }
     catch (FileNotFoundException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("file not found");
       System.exit(1);
     }
     catch (IOException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("IOexception");
       System.exit(1);
     }
     catch (ArrayIndexOutOfBoundsException e) {
-      System.out.println(directions);
+      //System.out.println(directions);
+      System.out.println("array out of bounds");
       System.exit(1);
     }
 
