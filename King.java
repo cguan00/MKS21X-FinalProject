@@ -30,7 +30,7 @@ public class King extends Piece{
     //store the possible locations the Piece can move to
     ArrayList<Square> validSquares = new ArrayList<>();
 
-    //check one square up
+    //check one square down
     if(row != 7){//avoid IndexOutOfBounds exception
       //check one square up
       if(board.getSquare(row + 1, col).getPiece() == null){//if this Square is empty
@@ -43,7 +43,7 @@ public class King extends Piece{
       }
     }
 
-    //check one square down
+    //check one square up
     if(row != 0){//avoid IndexOutOfBounds exception
       if(board.getSquare(row - 1, col).getPiece() == null){//if this Square is empty
         validSquares.add(board.getSquare(row - 1, col));//add this Square to list of possible Squares
