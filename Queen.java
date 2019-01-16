@@ -31,76 +31,167 @@ public class Queen extends Piece{
     ArrayList<Square> validSquares = new ArrayList<>();
 
     //VERTICAL AND HORIZONTAL MOVES - SAME AS ROOK
-    //add valid Squares the piece can move to vertically
-    for(int x = 0; x < 7; x++){
-      if(x != row){//can't move a Piece to the Square it's already on
-        if(board.getSquare(x, col).getPiece() == null){//if this Square is empty
-          validSquares.add(board.getSquare(x, col));//add this Square to list of possible Squares
+    //moving vertically up
+    boolean validUp = true;
+    int i = row - 1;//one row above
+    while(validUp && i > -1){
+      if(board.getSquare(i, col).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(i, col).getPiece() != null){//if this Square has a piece...
+        if(board.getSquare(i, col).getPiece().getColor().equals(color)){//...and this piece is part of your own pieceSet
+          validUp = false;//break out of the while loop. cannot jump over your own piece
         }
-        if(board.getSquare(x, col).getPiece() != null){//if this Square is NOT empty...
-          if(!board.getSquare(x, col).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-            validSquares.add(board.getSquare(x, col));//add this Square to list of possible Squares
-          }
+        if(!board.getSquare(i, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(i, col));//add this Square to list of possible Squares
+          validUp = false;//break out of the while loop. cannot keep moving past opponent's piece
         }
       }
+      i--;
     }
 
-    //add valid Squares the piece can move to horizontally
-    for(int y = 0; y < 7; y++){
-      if(y != col){//can't move a Piece to the Square it's already on
-        if(board.getSquare(row, y).getPiece() == null){//check if this Square is empty
-          validSquares.add(board.getSquare(row, y));//add this Square to list of possible Squares
+    //moving vertically down
+    boolean validDown = true;
+    int b = row + 1;//one row below
+    while(validDown && b < 8){
+      if(board.getSquare(b, col).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(b, col));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(b, col).getPiece() != null){//if this Square has a piece...
+        if(board.getSquare(b, col).getPiece().getColor().equals(color)){//...and this piece is part of your own pieceSet
+          validDown = false;//break out of the while loop. cannot jump over your own piece
         }
-        if(board.getSquare(row, y).getPiece() != null){//if this Square is NOT empty...
-          if(!board.getSquare(row, y).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-            validSquares.add(board.getSquare(row, y));//add this Square to list of possible Squares
-          }
+        if(!board.getSquare(b, col).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(b, col));//add this Square to list of possible Squares
+          validDown = false;//break out of the while loop. cannot keep moving past opponent's piece
         }
       }
+      b++;
     }
+
+
+    //checking to the left
+    boolean validLeft = true;//variable to keep checking for valid moves
+    int j = col - 1;//one row to the left
+    while(validLeft && j > -1){
+      if(board.getSquare(row, j).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row, j));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row, j).getPiece() != null){//if this Square has a piece...
+        if(board.getSquare(row, j).getPiece().getColor().equals(color)){//...and this piece is part of your own pieceSet
+          validLeft = false;//break out of the while loop. cannot jump over your own piece
+        }
+        if(!board.getSquare(row, j).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row, j));//add this Square to list of possible Squares
+          validLeft = false;//break out of the while loop. cannot keep moving past opponent's piece
+        }
+      }
+      j--;
+    }
+
+    //checking to the right
+    boolean validRight = true;//variable to keep checking for valid moves
+    int k = col + 1;//one row to the left
+    while(validRight && k < 8){
+      if(board.getSquare(row, k).getPiece() == null){//if this Square is empty
+        validSquares.add(board.getSquare(row, k));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row, k).getPiece() != null){//if this Square has a piece...
+        if(board.getSquare(row, k).getPiece().getColor().equals(color)){//...and this piece is part of your own pieceSet
+          validRight = false;//break out of the while loop. cannot jump over your own piece
+        }
+        if(!board.getSquare(row, k).getPiece().getColor().equals(color)){//...and this piece is not part of your own pieceSet (different color)
+          validSquares.add(board.getSquare(row, k));//add this Square to list of possible Squares
+          validRight = false;//break out of the while loop. cannot keep moving past opponent's piece
+        }
+      }
+      k++;
+    }
+
 
     //POSSIBLE DIAGONAL MOVES - SAME AS BISHOP
-    for(int i = row; i < 7; i++){
-      if(board.getSquare(row + i, col + i).getPiece() == null){//no piece to the Square in bottom right
-        validSquares.add(board.getSquare(row + i, col + i));
+    //check squares to bottom right
+    boolean validBottomRight = true;//variable to keep checking for valid moves
+    int row1 = row + 1;//one square down...
+    int col1 = col + 1;//... and one square to the right
+    while(validBottomRight && row1 < 8 && col1 < 8){//avoid index out of bounds exception
+      if(board.getSquare(row1, col1).getPiece() == null){//no piece to the Square in bottom right
+        validSquares.add(board.getSquare(row1, col1));//add this Square to list of possible Squares
       }
-      if(board.getSquare(row + i, col + i).getPiece() != null){//if bottom right Square is NOT empty...
-        if(!board.getSquare(row + i, col + i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-          validSquares.add(board.getSquare(row + i , col + i));//add this Square to list of possible Squares
+      if(board.getSquare(row1, col1).getPiece() != null){//if there is piece in the Square in bottom right...
+        if(board.getSquare(row1, col1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validBottomRight = false;//break out of the while loop. cannot jump over your own piece
+        }
+        if(!board.getSquare(row1, col1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row1, col1));//add this Square to list of possible Squares
+          validBottomRight = false;//break out of the while loop. cannot keep moving past opponent's piece
         }
       }
-      if(board.getSquare(row + i, col - i).getPiece() == null){//no piece to the Square in upper right
-        validSquares.add(board.getSquare(row + i, col - i));//add this Square to list of possible Squares
-      }
-      if(board.getSquare(row + i, col - i).getPiece() == null){//if there is piece to the Square in upper right
-        if(!board.getSquare(row + i, col - i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-          validSquares.add(board.getSquare(row + i , col - i));//add this Square to list of possible Squares
-        }
-      }
+      row1++;
+      col1++;
     }
 
+    //check squares to upper right
+    boolean validUpperRight = true;//variable to keep checking for valid moves
+    int row2 = row - 1;//one square up...
+    int col2 = col + 1;//...and one square to the right
+    while(validUpperRight && row2 > -1 && col2 < 8){//avoid index out of bounds exception
+      if(board.getSquare(row2, col2).getPiece() == null){//no piece to the Square in upper right
+        validSquares.add(board.getSquare(row2, col2));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row2, col2).getPiece() != null){//if there is piece in the Square in upper right...
+        if(board.getSquare(row2, col2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validUpperRight = false;//break out of the while loop. cannot jump over your own piece
+        }
+        if(!board.getSquare(row2, col2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row2, col2));//add this Square to list of possible Squares
+          validUpperRight = false;//break out of the while loop. cannot jump over opponent's piece
+        }
+      }
+      row2--;
+      col2++;
+    }
 
-    for(int i = row; i > 0; i--){
-      if (row - i >= 0 && col + i < 8) {
-        if(board.getSquare(row - i, col + i).getPiece() == null){//no piece to the Square in bottom left
-          validSquares.add(board.getSquare(row - i, col + i));
+    //check squares to upper left
+    boolean validUpperLeft = true;//variable to keep checking for valid moves
+    int row3 = row - 1;//one square up...
+    int col3 = col - 1;//...and one square to the left
+    while(validUpperLeft && row3 > -1 && col3 > -1){//avoid index out of bounds exception
+      if(board.getSquare(row3, col3).getPiece() == null){//no piece to the Square in upper left
+        validSquares.add(board.getSquare(row3, col3));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row3, col3).getPiece() != null){//if there is piece in the Square in upper left...
+        if(board.getSquare(row3, col3).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validUpperLeft = false;//break out of the while loop. cannot jump over your own piece
         }
-        if(board.getSquare(row - i, col + i).getPiece() != null){//if there is piece to the Square in bottom left
-          if(!board.getSquare(row - i, col + i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-            validSquares.add(board.getSquare(row - i , col + i));//add this Square to list of possible Squares
-          }
+        if(!board.getSquare(row3, col3).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row3, col3));//add this Square to list of possible Squares
+          validUpperLeft = false;//break out of the while loop. cannot jump over opponent's piece
         }
       }
-      if (row - i >= 0 && col - i >= 0) {
-        if(board.getSquare(row - i, col - i).getPiece() == null){//no piece to the Square in upper left
-          validSquares.add(board.getSquare(row - i, col - i));
+      row3--;
+      col3--;
+    }
+
+    //check squares to bottom left
+    boolean validBottomLeft = true;//variable to keep checking for valid moves
+    int row4 = row + 1;//one square down...
+    int col4 = col - 1;//and one square to the left
+    while(validBottomLeft && row4 < 8 && col4 > -1){//avoid index out of bounds exception
+      if(board.getSquare(row4, col4).getPiece() == null){//no piece to the Square in bottom left
+        validSquares.add(board.getSquare(row4, col4));//add this Square to list of possible Squares
+      }
+      if(board.getSquare(row4, col4).getPiece() != null){//if there is piece in the Square in bottom left...
+        if(board.getSquare(row4, col4).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validBottomLeft = false;//break out of the while loop. cannot jump over your own piece
         }
-        if(board.getSquare(row - i, col - i).getPiece() != null){//if there is piece to the Square in upper left
-          if(!board.getSquare(row - i, col - i).getPiece().getColor().equals(color)){//and this piece is opponent's piece
-            validSquares.add(board.getSquare(row - i , col - i));//add this Square to list of possible Squares
-          }
+        if(!board.getSquare(row4, col4).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+          validSquares.add(board.getSquare(row4, col4));//add this Square to list of possible Squares
+          validBottomLeft = false;//break out of the while loop. cannot jump over opponent's piece
         }
       }
+      row4++;
+      col4--;
     }
 
     //if the new location is in list of valid Squares you can move to, return true
