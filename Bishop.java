@@ -32,9 +32,9 @@ public class Bishop extends Piece{
 
     //check squares to bottom right
     boolean validBottomRight = true;//variable to keep checking for valid moves
-    int row1 = row + 1;
-    int col1 = col + 1;
-    while(validBottomRight && row1 < 8 && col1 < 8){
+    int row1 = row + 1;//one square down...
+    int col1 = col + 1;//... and one square to the right
+    while(validBottomRight && row1 < 8 && col1 < 8){//avoid index out of bounds exception
       if(board.getSquare(row1, col1).getPiece() == null){//no piece to the Square in bottom right
         validSquares.add(board.getSquare(row1, col1));//add this Square to list of possible Squares
       }
@@ -53,9 +53,9 @@ public class Bishop extends Piece{
 
     //check squares to upper right
     boolean validUpperRight = true;//variable to keep checking for valid moves
-    int row2 = row - 1;
-    int col2 = col + 1;
-    while(validUpperRight && row2 > -1 && col2 < 8){
+    int row2 = row - 1;//one square up...
+    int col2 = col + 1;//...and one square to the right
+    while(validUpperRight && row2 > -1 && col2 < 8){//avoid index out of bounds exception
       if(board.getSquare(row2, col2).getPiece() == null){//no piece to the Square in upper right
         validSquares.add(board.getSquare(row2, col2));//add this Square to list of possible Squares
       }
@@ -72,12 +72,11 @@ public class Bishop extends Piece{
       col2++;
     }
 
-
     //check squares to upper left
     boolean validUpperLeft = true;//variable to keep checking for valid moves
-    int row3 = row - 1;
-    int col3 = col - 1;
-    while(validUpperLeft && row3 > -1 && col3 > -1){
+    int row3 = row - 1;//one square up...
+    int col3 = col - 1;//...and one square to the left
+    while(validUpperLeft && row3 > -1 && col3 > -1){//avoid index out of bounds exception
       if(board.getSquare(row3, col3).getPiece() == null){//no piece to the Square in upper left
         validSquares.add(board.getSquare(row3, col3));//add this Square to list of possible Squares
       }
@@ -96,9 +95,9 @@ public class Bishop extends Piece{
 
     //check squares to bottom left
     boolean validBottomLeft = true;//variable to keep checking for valid moves
-    int row4 = row + 1;
-    int col4 = col - 1;
-    while(validBottomLeft && row4 < 8 && col4 > -1){
+    int row4 = row + 1;//one square down...
+    int col4 = col - 1;//and one square to the left
+    while(validBottomLeft && row4 < 8 && col4 > -1){//avoid index out of bounds exception
       if(board.getSquare(row4, col4).getPiece() == null){//no piece to the Square in bottom left
         validSquares.add(board.getSquare(row4, col4));//add this Square to list of possible Squares
       }
