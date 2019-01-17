@@ -44,14 +44,14 @@ public class Pawn extends Piece{
         }
         if (col + 1 < 8) {
           if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
-            if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
+            if(board.getSquare(row - 1, col + 1).getPiece().getColor().equals("black")){
               validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
             }
           }
         }
         if (col - 1 >= 0) {
           if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper left)
-            if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
+            if(board.getSquare(row - 1, col - 1).getPiece().getColor().equals("black")){
               validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
             }
           }
@@ -74,14 +74,14 @@ public class Pawn extends Piece{
         }
         if(col + 1 < 8){
           if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
-            if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "white"){
+            if(board.getSquare(row + 1, col + 1).getPiece().getColor().equals("white")){
               validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
             }
           }
         }
         if (col - 1 >= 0 && col != 0 ) {
           if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
-            if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "white"){
+            if(board.getSquare(row + 1, col - 1).getPiece().getColor().equals("white")){
               validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
             }
           }
