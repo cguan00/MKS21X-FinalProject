@@ -44,14 +44,14 @@ public class Pawn extends Piece{
         }
         if (col + 1 < 8) {
           if(board.getSquare(row - 1, col + 1).getPiece() != null){//can capture diagonal black piece (upper right)
-            if(board.getSquare(row - 1, col + 1).getPiece().getColor().equals("black")){
+            if(board.getSquare(row - 1, col + 1).getPiece().getColor() == "black"){
               validSquares.add(board.getSquare(row - 1, col + 1));//add this Square to list of possible Squares
             }
           }
         }
         if (col - 1 >= 0) {
           if(board.getSquare(row - 1, col - 1).getPiece() != null){//can capture diagonal black piece (upper left)
-            if(board.getSquare(row - 1, col - 1).getPiece().getColor().equals("black")){
+            if(board.getSquare(row - 1, col - 1).getPiece().getColor() == "black"){
               validSquares.add(board.getSquare(row - 1, col - 1));//add this Square to list of possible Squares
             }
           }
@@ -72,16 +72,14 @@ public class Pawn extends Piece{
         if(board.getSquare(row + 1, col).getPiece() == null){//check if this Square is empty
           validSquares.add(board.getSquare(row + 1, col));//add this Square to list of possible Squares
         }
-        if(col + 1 < 8){
-          if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
-            if(board.getSquare(row + 1, col + 1).getPiece().getColor().equals("white")){
-              validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
-            }
+        if(board.getSquare(row + 1, col + 1).getPiece() != null){//can capture diagonal white piece (bottom right)
+          if(board.getSquare(row + 1, col + 1).getPiece().getColor() == "white"){
+            validSquares.add(board.getSquare(row + 1, col + 1));//add this Square to list of possible Squares
           }
         }
-        if (col - 1 >= 0 && col != 0 ) {
+        if (col - 1 >= 0) {
           if(board.getSquare(row + 1, col - 1).getPiece() != null){//can capture diagonal black piece (bottom left)
-            if(board.getSquare(row + 1, col - 1).getPiece().getColor().equals("white")){
+            if(board.getSquare(row + 1, col - 1).getPiece().getColor() == "white"){
               validSquares.add(board.getSquare(row + 1, col - 1));//add this Square to list of possible Squares
             }
           }
@@ -99,7 +97,6 @@ public class Pawn extends Piece{
     //if the new location is in list of valid Squares you can move to, return true
     //otherwise, it is not a valid move, so return false
     if(validSquares.contains(newLocation)){
-      moved = true;//destination is valid, will move piece, so moved is now true
       return true;
     }
     return false;
@@ -117,12 +114,22 @@ public class Pawn extends Piece{
     location = newLocation;//sets its location to the new one
   }
 
+  public void isMoved() {
+    moved = true;
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "P";//white pieces are capitalized
     } else{
       return "p";//black pieces are lowercase
     }
+  }
+
+  public static void main(String[] args){
+    Board board = new Board();
+    Player p1 = new Player("white");
+    // Square s1 = board1.getSquare(0,0);
   }
 
 
