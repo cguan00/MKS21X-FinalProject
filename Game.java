@@ -42,22 +42,22 @@ public class Game {
     board.setSquares(blackP, whiteP); //sets up squares[][] in Board
   }
 
-  //creates a new move the necessary information: the current player,
-  //the location of the piece they want to move, and where they want to move it to
-  public void addMove(String color, String currentLoc, String newLoc) {
-    turn = new Player(color);
-    String columns = "ABCDEFGH";
-    String rows = "12345678";
-    int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
-    int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
-    int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
-    int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
-    Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-    if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
-      Move newMove = new Move(board, turn, currentLoc, newLoc);
-      moves.add(newMove);
-    }
-  }
+  // //creates a new move the necessary information: the current player,
+  // //the location of the piece they want to move, and where they want to move it to
+  // public void addMove(String color, String currentLoc, String newLoc) {
+  //   turn = new Player(color);
+  //   String columns = "ABCDEFGH";
+  //   String rows = "12345678";
+  //   int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
+  //   int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
+  //   int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
+  //   int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
+  //   Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+  //   if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
+  //     Move newMove = new Move(board, turn, currentLoc, newLoc);
+  //     moves.add(newMove);
+  //   }
+  // }
 
   //a file is opened to store all of the moves
   public void addAllMoves(String fileName) throws FileNotFoundException {
@@ -89,9 +89,16 @@ public class Game {
         if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
           currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
-            currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
             moves.add(newMove);
+            if (newMove.getPieceCaptured() != null) {
+              if (turn.getColor().equals("black")) {
+                blackP.remove(newMove.getPieceCaptured());
+              }
+              if (turn.getColor().equals("white")) {
+                whiteP.remove(newMove.getPieceCaptured());
+              }
+            }
           }
         }
       }
@@ -163,6 +170,7 @@ public class Game {
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
     String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
+    String correctPlayer = "white";
     try {
       if (args.length != 1 && args.length != 3) {
         System.out.println(directions);
@@ -182,41 +190,46 @@ public class Game {
         newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
         newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
         if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
-          newGame.addAllMoves(fileName);
+          // newGame.addAllMoves(fileName);
           System.out.println(newGame);
           System.out.println("Please choose a valid location" + "\n");
         }
         else {
-          newGame.write(args[0],args[1],args[2]);
-          newGame.addAllMoves(fileName);
-          System.out.println(newGame);
-          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-            System.out.println("black player goes"); //black now goes
+          if (args[0] != correctPlayer) {
+            System.out.println("The " + correctPlayer + " player goes");
           }
-          if (newGame.getMoves().size()%2 == 0) {
-            System.out.println("white player goes"); //otherwise it's white's turn
+          else {
+            System.out.println(correctPlayer);
+            System.out.println(args[0].equals(correctPlayer));
+            newGame.write(args[0],args[1],args[2]);
+            newGame.addAllMoves(fileName);
+            System.out.println(newGame);
+            if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+              System.out.println("black player goes"); //black now goes
+              correctPlayer = "black";
+            }
+            if (newGame.getMoves().size()%2 == 0) {
+              System.out.println("white player goes"); //otherwise it's white's turn
+              correctPlayer = "white";
+            }
           }
         }
       }
     }
     catch (IllegalArgumentException e) {
-      // System.out.println(directions);
-      System.out.println("illegal arg exp");
+      System.out.println(directions);
       System.exit(1);
     }
     catch (FileNotFoundException e) {
-      // System.out.println(directions);
-      System.out.println("file not found");
+      System.out.println(directions);
       System.exit(1);
     }
     catch (IOException e) {
-      // System.out.println(directions);
-      System.out.println("IOexception");
+      System.out.println(directions);
       System.exit(1);
     }
     catch (ArrayIndexOutOfBoundsException e) {
-      //System.out.println(directions);
-      System.out.println("array out of bounds");
+      System.out.println(directions);
       System.exit(1);
     }
 
