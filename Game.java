@@ -16,6 +16,7 @@ public class Game {
   private PieceSet blackP;
   private PieceSet whiteP;
   private String error = "";
+  private String correctPlayer = "white";
 
   public Game() {
     board = new Board();
@@ -121,6 +122,14 @@ public class Game {
     return moves;
   }
 
+  public String getCorrectPlayer() {
+    return correctPlayer;
+  }
+
+  public void setCorrectPlayer(String playerColor) {
+    correctPlayer = playerColor;
+  }
+
   //writes and stores the move in a file
   public void write(String color, String current, String destination) throws IOException {
     FileWriter fw = new FileWriter("moves.txt", true);
@@ -170,7 +179,6 @@ public class Game {
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
     String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
-    String correctPlayer = "white";
     try {
       if (args.length != 1 && args.length != 3) {
         System.out.println(directions);
@@ -195,23 +203,25 @@ public class Game {
           System.out.println("Please choose a valid location" + "\n");
         }
         else {
-          if (args[0] != correctPlayer) {
-            System.out.println("The " + correctPlayer + " player goes");
+          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+            newGame.setCorrectPlayer("black");
           }
-          else {
-            System.out.println(correctPlayer);
-            System.out.println(args[0].equals(correctPlayer));
+          if (newGame.getMoves().size()%2 == 0) {
+            newGame.setCorrectPlayer("white");
+          }
+          if (args[0].equals(newGame.getCorrectPlayer())) {
             newGame.write(args[0],args[1],args[2]);
             newGame.addAllMoves(fileName);
             System.out.println(newGame);
             if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
               System.out.println("black player goes"); //black now goes
-              correctPlayer = "black";
             }
             if (newGame.getMoves().size()%2 == 0) {
               System.out.println("white player goes"); //otherwise it's white's turn
-              correctPlayer = "white";
             }
+          }
+          else {
+          System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
           }
         }
       }
