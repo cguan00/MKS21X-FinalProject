@@ -33,12 +33,14 @@ public abstract class Piece{
   public void isMoved() {
     moved = true;
   }
-  
+
   public void setLocation(Square newLocation){
     location = newLocation;//sets its location to the new one
   }
 
   public abstract boolean checkValidMove(Square newLocation);
+
+  public abstract boolean isPawn();
 
 
 }
