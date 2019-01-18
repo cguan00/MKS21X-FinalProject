@@ -106,6 +106,28 @@ public class Game {
     }
   }
 
+  public Piece pawnPromote(Player color, int currentRow, int currentCol, String promotion){
+    if(board.getSquare(currentRow,currentCol).getPiece().isPawn()){//if the piece you chose is a pawn
+      Piece chosen = board.getSquare(currentRow,currentCol).getPiece();
+      if(chosen.promote()){//check if piece is eligible for promotion
+        //ADD CODE TO REMOVE PAWN FROM PLAYER PIECESET
+        if(promotion == "Rook"){//player chooses to promote to Rook
+          return new Rook(board, color, board.getSquare(currentRow,currentCol));//create Rook
+        }
+        if(promotion == "Queen"){//player chooses to promote to Queen
+          return new Rook(board, color, board.getSquare(currentRow,currentCol));//create Queen
+        }
+        if(promotion == "Bishop"){//player chooses to promote to Bishop
+          return new Rook(board, color, board.getSquare(currentRow,currentCol));//create Bishop
+        }
+        if(promotion == "Knight"){//player chooses to promote to Knight
+          return new Rook(board, color, board.getSquare(currentRow,currentCol));//create Knight
+        }
+      }
+    }
+    return null;
+  }
+
   public Player getTurn() {
     return turn; //returns the Player who's currently making the move
   }
@@ -178,6 +200,8 @@ public class Game {
     newGame.create();
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
+    String promotion;
+    Piece newPiece;
     String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
     try {
       if (args.length != 1 && args.length != 3) {
@@ -195,34 +219,57 @@ public class Game {
         rows = "12345678";
         currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
         currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
-        newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
-        newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
-        if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
-          // newGame.addAllMoves(fileName);
-          System.out.println(newGame);
-          System.out.println("Please choose a valid location" + "\n");
-        }
-        else {
-          // if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-          //   newGame.setCorrectPlayer("black");
-          // }
-          // if (newGame.getMoves().size()%2 == 0) {
-          //   newGame.setCorrectPlayer("white");
-          // }
-          // if (args[0].equals(newGame.getCorrectPlayer())) {
-            newGame.write(args[0],args[1],args[2]);
-            newGame.addAllMoves(fileName);
+        if(args[2].length() == 2){//if player is choosing the destination Square
+          newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
+          newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
+          if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+            // newGame.addAllMoves(fileName);
             System.out.println(newGame);
-            if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-              System.out.println("black player goes"); //black now goes
-            }
-            if (newGame.getMoves().size()%2 == 0) {
-              System.out.println("white player goes"); //otherwise it's white's turn
-            }
-          // }
-          // else {
-          // System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
-          // }
+            System.out.println("Please choose a valid location" + "\n");
+          }
+          else {
+            // if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+            //   newGame.setCorrectPlayer("black");
+            // }
+            // if (newGame.getMoves().size()%2 == 0) {
+            //   newGame.setCorrectPlayer("white");
+            // }
+            // if (args[0].equals(newGame.getCorrectPlayer())) {
+              newGame.write(args[0],args[1],args[2]);
+              newGame.addAllMoves(fileName);
+              System.out.println(newGame);
+              if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+                System.out.println("black player goes"); //black now goes
+              }
+              if (newGame.getMoves().size()%2 == 0) {
+                System.out.println("white player goes"); //otherwise it's white's turn
+              }
+            // }
+            // else {
+            // System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
+            // }
+          }
+        }
+        if(args[2].length() > 2){//player types in the piece they want to promote their pawn to
+          Player playerColor;
+          if(args[0].equals("white")){
+            playerColor = new Player("white");
+          }else{
+            playerColor = new Player("black");
+          }
+          promotion = args[2];//stores the piece the player wants to promote to
+          newPiece = newGame.pawnPromote(playerColor,currentRow,currentColumn, promotion);//create the new piece
+          //ADD newPiece TO PLAYER PIECE SET
+
+          newGame.write(args[0],args[1],args[2]);
+          newGame.addAllMoves(fileName);
+          System.out.println(newGame);
+          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+            System.out.println("black player goes"); //black now goes
+          }
+          if (newGame.getMoves().size()%2 == 0) {
+            System.out.println("white player goes"); //otherwise it's white's turn
+          }
         }
       }
     }
