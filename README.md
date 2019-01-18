@@ -109,4 +109,4 @@
 ### January 17, 2019
 
 **Christy**
-- Today, I began to work on pawn promotion. I wrote a method in the Pawn class that checks if the piece is allowed to be promoted, as the piece has to reach the other side of the board. There were no bugs or difficulites because this  method was very easy to write. Tomorrow, I will work on creating a method in the Game class that allows the player to choose what piece they want to promote their Pawn to.
+- Today, I began to work on pawn promotion. I wrote a method in the Pawn class that checks if the piece is allowed to be promoted, as the piece has to reach the other side of the board. There were no bugs or difficulites because this  method was very easy to write. I also began to work on creating a method in the Game class that allows the player to choose what piece they want to promote their Pawn to. Although I am not done writing the method, there are a lot of different variables and methods I have to use and keep track of, so this will be a challenging task.
