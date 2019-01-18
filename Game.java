@@ -203,13 +203,13 @@ public class Game {
           System.out.println("Please choose a valid location" + "\n");
         }
         else {
-          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-            newGame.setCorrectPlayer("black");
-          }
-          if (newGame.getMoves().size()%2 == 0) {
-            newGame.setCorrectPlayer("white");
-          }
-          if (args[0].equals(newGame.getCorrectPlayer())) {
+          // if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+          //   newGame.setCorrectPlayer("black");
+          // }
+          // if (newGame.getMoves().size()%2 == 0) {
+          //   newGame.setCorrectPlayer("white");
+          // }
+          // if (args[0].equals(newGame.getCorrectPlayer())) {
             newGame.write(args[0],args[1],args[2]);
             newGame.addAllMoves(fileName);
             System.out.println(newGame);
@@ -219,10 +219,10 @@ public class Game {
             if (newGame.getMoves().size()%2 == 0) {
               System.out.println("white player goes"); //otherwise it's white's turn
             }
-          }
-          else {
-          System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
-          }
+          // }
+          // else {
+          // System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
+          // }
         }
       }
     }
