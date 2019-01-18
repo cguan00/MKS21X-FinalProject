@@ -16,6 +16,7 @@ public class Game {
   private PieceSet blackP;
   private PieceSet whiteP;
   private String error = "";
+  private String correctPlayer;
 
   public Game() {
     board = new Board();
@@ -91,6 +92,12 @@ public class Game {
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
             currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
+            if (correctPlayer == "white") {
+              correctPlayer = "black";
+            }
+            if (correctPlayer == "black") {
+              correctPlayer = "white";
+            }
             moves.add(newMove);
           }
         }
@@ -108,6 +115,10 @@ public class Game {
 
   public Board getBoard() {
     return board;
+  }
+
+  public Player getCorrectPlayer() {
+    return correctPlayer;
   }
 
   public ArrayList<Move> getMoves() {
