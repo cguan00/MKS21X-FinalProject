@@ -134,6 +134,10 @@ public class Bishop extends Piece{
     location = newLocation;//sets its location to the new one
   }
 
+  public boolean isPawn(){
+    return false;
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "B";//white pieces are capitalized
