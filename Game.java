@@ -117,7 +117,7 @@ public class Game {
     return board;
   }
 
-  public Player getCorrectPlayer() {
+  public String getCorrectPlayer() {
     return correctPlayer;
   }
 
