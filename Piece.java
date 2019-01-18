@@ -42,5 +42,22 @@ public abstract class Piece{
 
   public abstract boolean isPawn();
 
+  //returns true or false depending on if the Pawn can be promoted
+  public boolean promote(){
+    if(this.isPawn()){//check if you are a pawn
+      //store the current location of the Piece
+      int row = location.getRow();
+
+      if(color.equals("white") && row == 0){//white pawn has reached the top of the board
+        return true;
+      }
+      if(color.equals("black") && row == 7){//black pawn has reached the bottom of the board
+        return true;
+      }
+      return false;
+    }
+    return false;//if not a Pawn, cannot promote
+  }
+
 
 }
