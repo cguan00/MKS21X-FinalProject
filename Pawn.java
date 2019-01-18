@@ -102,19 +102,6 @@ public class Pawn extends Piece{
     return false;
   }
 
-  //returns true or false depending on if the Pawn can be promoted
-  public boolean promote(){
-    //store the current location of the Piece
-    int row = location.getRow();
-
-    if(color.equals("white") && row == 0){//white pawn has reached the top of the board
-      return true;
-    }
-    if(color.equals("black") && row == 7){//black pawn has reached the bottom of the board
-      return true;
-    }
-    return false;
-  }
 
   public String getColor(){
     return color;//returns the Player color, either white or black
@@ -130,6 +117,10 @@ public class Pawn extends Piece{
 
   public void isMoved() {
     moved = true;
+  }
+
+  public boolean isPawn(){
+    return true;
   }
 
   public String toString(){
