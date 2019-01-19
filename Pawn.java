@@ -131,6 +131,10 @@ public class Pawn extends Piece{
     location = newLocation;//sets its location to the new one
   }
 
+  public boolean isPawn(){
+    return true;
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "P";//white pieces are capitalized
