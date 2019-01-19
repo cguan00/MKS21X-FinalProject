@@ -90,21 +90,64 @@ public class Game {
         if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
           currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+            currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
             moves.add(newMove);
-            if (newMove.getPieceCaptured() != null) {
-              if (turn.getColor().equals("black")) {
-                blackP.remove(newMove.getPieceCaptured());
-              }
-              if (turn.getColor().equals("white")) {
-                whiteP.remove(newMove.getPieceCaptured());
-              }
-            }
           }
         }
       }
     }
   }
+
+
+
+
+
+  //a file is opened to store all of the moves
+  // public void addAllMoves(String fileName) throws FileNotFoundException {
+  //   File file = new File(fileName);
+  //   Scanner sc = new Scanner(file);
+  //   String newLine;
+  //   String color, current, destination, columns, rows;
+  //   int currentRow, currentColumn, newRow, newColumn;
+  //   Piece currentPiece;
+  //   while(sc.hasNextLine()) { //while it has next line, it gets the next line
+  //     newLine = sc.nextLine();
+  //     if (newLine.length() < 5) {
+  //       newLine = sc.nextLine();
+  //     }
+  //     color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
+  //     current = newLine.substring(6,8);
+  //     destination = newLine.substring(9,11);
+  //     turn = new Player(color);
+  //     columns = "ABCDEFGH";
+  //     rows = "12345678";
+  //     currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+  //     currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+  //     newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
+  //     newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
+  //     if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+  //       error = "Please choose a valid location" + "\n";
+  //     }
+  //     else {
+  //       if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
+  //         currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+  //         if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+  //           Move newMove = new Move(board, turn, current, destination); //new Move is creaated
+  //           moves.add(newMove);
+  //           if (newMove.getPieceCaptured() != null) {
+  //             if (turn.getColor().equals("black")) {
+  //               blackP.remove(newMove.getPieceCaptured());
+  //             }
+  //             if (turn.getColor().equals("white")) {
+  //               whiteP.remove(newMove.getPieceCaptured());
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   public Piece pawnPromote(Player color, int currentRow, int currentCol, String promotion){
     if(board.getSquare(currentRow,currentCol).getPiece().isPawn()){//if the piece you chose is a pawn
@@ -126,6 +169,14 @@ public class Game {
       }
     }
     return null;
+  }
+
+  public void storePromotionPiece(Player color, int currentRow, int currentColumn, Piece newPiece){
+    if(color.getColor().equals("white")){
+      board.getSquare(currentRow - 1, currentColumn).storePiece(newPiece);
+    } else{
+      board.getSquare(currentRow + 1, currentColumn).storePiece(newPiece);
+    }
   }
 
   public Player getTurn() {
@@ -219,6 +270,30 @@ public class Game {
         rows = "12345678";
         currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
         currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
+
+        if(args[2].length() > 2){//player types in the piece they want to promote their pawn to
+          Player playerColor;
+          if(args[0].equals("white")){
+            playerColor = new Player("white");
+          }else{
+            playerColor = new Player("black");
+          }
+          promotion = args[2];//stores the piece the player wants to promote to
+          newPiece = newGame.pawnPromote(playerColor,currentRow,currentColumn, promotion);//create the new piece
+          //ADD newPiece TO PLAYER PIECE SET
+          newGame.storePromotionPiece(playerColor, currentRow, currentColumn, newPiece);
+
+          newGame.write(args[0],args[1],args[2]);
+          newGame.addAllMoves(fileName);
+          System.out.println(newGame);
+          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+            System.out.println("black player goes"); //black now goes
+          }
+          if (newGame.getMoves().size()%2 == 0) {
+            System.out.println("white player goes"); //otherwise it's white's turn
+          }
+        }
+
         if(args[2].length() == 2){//if player is choosing the destination Square
           newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
           newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
@@ -244,35 +319,33 @@ public class Game {
               if (newGame.getMoves().size()%2 == 0) {
                 System.out.println("white player goes"); //otherwise it's white's turn
               }
-            // }
-            // else {
-            // System.out.println("Sorry! The " + newGame.getCorrectPlayer() + " player goes");
-            // }
-          }
-        }
-        if(args[2].length() > 2){//player types in the piece they want to promote their pawn to
-          Player playerColor;
-          if(args[0].equals("white")){
-            playerColor = new Player("white");
-          }else{
-            playerColor = new Player("black");
-          }
-          promotion = args[2];//stores the piece the player wants to promote to
-          newPiece = newGame.pawnPromote(playerColor,currentRow,currentColumn, promotion);//create the new piece
-          //ADD newPiece TO PLAYER PIECE SET
-
-          newGame.write(args[0],args[1],args[2]);
-          newGame.addAllMoves(fileName);
-          System.out.println(newGame);
-          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-            System.out.println("black player goes"); //black now goes
-          }
-          if (newGame.getMoves().size()%2 == 0) {
-            System.out.println("white player goes"); //otherwise it's white's turn
-          }
         }
       }
+
+      // if(args[2].length() > 2){//player types in the piece they want to promote their pawn to
+      //   Player playerColor;
+      //   if(args[0].equals("white")){
+      //     playerColor = new Player("white");
+      //   }else{
+      //     playerColor = new Player("black");
+      //   }
+      //   promotion = args[2];//stores the piece the player wants to promote to
+      //   newPiece = newGame.pawnPromote(playerColor,currentRow,currentColumn, promotion);//create the new piece
+      //   //ADD newPiece TO PLAYER PIECE SET
+      //   newGame.storePromotionPiece(playerColor, currentRow, currentColumn, newPiece);
+      //
+      //   newGame.write(args[0],args[1],args[2]);
+      //   newGame.addAllMoves(fileName);
+      //   System.out.println(newGame);
+      //   if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
+      //     System.out.println("black player goes"); //black now goes
+      //   }
+      //   if (newGame.getMoves().size()%2 == 0) {
+      //     System.out.println("white player goes"); //otherwise it's white's turn
+      //   }
+      // }
     }
+  }
     catch (IllegalArgumentException e) {
       System.out.println(directions);
       System.exit(1);
