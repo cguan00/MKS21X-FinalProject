@@ -13,20 +13,16 @@ public class Game {
   private Board board;
   private Player turn;
   private ArrayList<Move> moves = new ArrayList<>();
+  private ArrayList<String> validMoves = new ArrayList<>();
   private PieceSet blackP;
   private PieceSet whiteP;
+  private PieceSet capturedWhite;
+  private PieceSet capturedBlack;
   private String error = "";
 
   public Game() {
     board = new Board();
   }
-
-  //Constructor
-  /**not needed??
-  public Game(Player color, Piece toBeMoved, Square destination) {
-    turn = color;
-  }
-  **/
 
   //creates a new Game with a new board and all the pieces in starting position
   public void create() {
@@ -34,8 +30,10 @@ public class Game {
     moves = new ArrayList<>();
     turn = new Player("black");
     blackP = new PieceSet(turn); //creates a black PieceSet
+    capturedBlack = new PieceSet(turn);
     turn = new Player("white");
     whiteP = new PieceSet(turn); //creates a white PieceSet
+    capturedWhite = new PieceSet(turn);
     blackP.initialPieces(board); //all pieces are created at starting position
     whiteP.initialPieces(board);
     board.setPieceSets(blackP, whiteP); //sets up the PieceSets in Board so it'll have access
@@ -56,6 +54,38 @@ public class Game {
     if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
       Move newMove = new Move(board, turn, currentLoc, newLoc);
       moves.add(newMove);
+    }
+  }
+
+  //a file is opened to read and store all of the moves
+  public void storeAllMoves(String fileName) throws FileNotFoundException {
+    File file = new File(fileName);
+    Scanner sc = new Scanner(file);
+    String newLine;
+    String color, current, destination, columns, rows;
+    int currentRow, currentColumn, newRow, newColumn;
+    Piece currentPiece;
+    while(sc.hasNextLine()) { //while it has next line, it gets the next line
+      newLine = sc.nextLine();
+      if (newLine.length() < 5) {
+        newLine = sc.nextLine();
+      }
+      color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
+      current = newLine.substring(6,8);
+      destination = newLine.substring(9,11);
+      turn = new Player(color);
+      columns = "ABCDEFGH";
+      rows = "12345678";
+      currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+      currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+      newRow = rows.indexOf(destination.charAt(1)); //the new row is stored
+      newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
+      if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
+          currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+          if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+            validMoves.add(newLine);
+          }
+      }
     }
   }
 
@@ -114,6 +144,10 @@ public class Game {
     return moves;
   }
 
+  public ArrayList<String> getValidMoves() {
+    return validMoves;
+  }
+
   //writes and stores the move in a file
   public void write(String color, String current, String destination) throws IOException {
     FileWriter fw = new FileWriter("moves.txt", true);
@@ -163,6 +197,7 @@ public class Game {
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
     String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
+    String correctPlayer = "white";
     try {
       if (args.length != 1 && args.length != 3) {
         System.out.println(directions);
@@ -175,27 +210,30 @@ public class Game {
         System.out.println("white player goes first");
       }
       else {
-        columns = "ABCDEFGH";
-        rows = "12345678";
-        currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
-        currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
-        newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
-        newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
-        if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
-          newGame.addAllMoves(fileName);
-          System.out.println(newGame);
-          System.out.println("Please choose a valid location" + "\n");
+        newGame.write(args[0],args[1],args[2]);
+        newGame.storeAllMoves(fileName);
+        if (newGame.getValidMoves().size()%2 == 0) { //if it was previously white's turn
+          correctPlayer = "white";
         }
-        else {
-          newGame.write(args[0],args[1],args[2]);
+        if (newGame.getValidMoves().size()%2 == 1) {
+          correctPlayer = "black";
+        }
+        System.out.println(newGame.getValidMoves().size()%2);
+        System.out.println(correctPlayer);
+        System.out.println(correctPlayer.equals(args[0]));
+        if (correctPlayer.equals(args[0])) {
           newGame.addAllMoves(fileName);
           System.out.println(newGame);
+          System.out.println(newGame.getMoves().size());
           if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
             System.out.println("black player goes"); //black now goes
           }
           if (newGame.getMoves().size()%2 == 0) {
             System.out.println("white player goes"); //otherwise it's white's turn
           }
+        }
+        else {
+          System.out.println("Please have the correct player go");
         }
       }
     }
