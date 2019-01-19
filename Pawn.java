@@ -115,6 +115,7 @@ public class Pawn extends Piece{
     location = newLocation;//sets its location to the new one
   }
 
+<<<<<<< HEAD
   public void isMoved() {
     moved = true;
   }
@@ -123,6 +124,8 @@ public class Pawn extends Piece{
     return true;
   }
 
+=======
+>>>>>>> b2bbb81a27475cfda31c8910aafcf5eae5a97919
   public String toString(){
     if(color.equals("white")){
       return "P";//white pieces are capitalized
@@ -135,6 +138,8 @@ public class Pawn extends Piece{
     Board board = new Board();
     Player p1 = new Player("white");
     // Square s1 = board1.getSquare(0,0);
+    Rook test = new Rook(board, p1, board.getSquare(0,0));
+    System.out.println(test.getLocation());
   }
 
 

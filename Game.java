@@ -16,7 +16,6 @@ public class Game {
   private PieceSet blackP;
   private PieceSet whiteP;
   private String error = "";
-  private String correctPlayer = "white";
 
   public Game() {
     board = new Board();
@@ -43,22 +42,22 @@ public class Game {
     board.setSquares(blackP, whiteP); //sets up squares[][] in Board
   }
 
-  // //creates a new move the necessary information: the current player,
-  // //the location of the piece they want to move, and where they want to move it to
-  // public void addMove(String color, String currentLoc, String newLoc) {
-  //   turn = new Player(color);
-  //   String columns = "ABCDEFGH";
-  //   String rows = "12345678";
-  //   int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
-  //   int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
-  //   int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
-  //   int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
-  //   Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-  //   if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
-  //     Move newMove = new Move(board, turn, currentLoc, newLoc);
-  //     moves.add(newMove);
-  //   }
-  // }
+  //creates a new move the necessary information: the current player,
+  //the location of the piece they want to move, and where they want to move it to
+  public void addMove(String color, String currentLoc, String newLoc) {
+    turn = new Player(color);
+    String columns = "ABCDEFGH";
+    String rows = "12345678";
+    int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
+    int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
+    int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
+    int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
+    Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+    if (currentPiece.checkValidMove(board.getSquare(newRow,newColumn))) {
+      Move newMove = new Move(board, turn, currentLoc, newLoc);
+      moves.add(newMove);
+    }
+  }
 
   //a file is opened to store all of the moves
   public void addAllMoves(String fileName) throws FileNotFoundException {
@@ -90,16 +89,9 @@ public class Game {
         if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
           currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+            currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
             moves.add(newMove);
-            if (newMove.getPieceCaptured() != null) {
-              if (turn.getColor().equals("black")) {
-                blackP.remove(newMove.getPieceCaptured());
-              }
-              if (turn.getColor().equals("white")) {
-                whiteP.remove(newMove.getPieceCaptured());
-              }
-            }
           }
         }
       }
@@ -142,14 +134,6 @@ public class Game {
 
   public ArrayList<Move> getMoves() {
     return moves;
-  }
-
-  public String getCorrectPlayer() {
-    return correctPlayer;
-  }
-
-  public void setCorrectPlayer(String playerColor) {
-    correctPlayer = playerColor;
   }
 
   //writes and stores the move in a file
@@ -219,6 +203,7 @@ public class Game {
         rows = "12345678";
         currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
         currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
+<<<<<<< HEAD
         if(args[2].length() == 2){//if player is choosing the destination Square
           newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
           newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
@@ -261,6 +246,16 @@ public class Game {
           newPiece = newGame.pawnPromote(playerColor,currentRow,currentColumn, promotion);//create the new piece
           //ADD newPiece TO PLAYER PIECE SET
 
+=======
+        newRow = rows.indexOf(args[2].charAt(1)); //the new row is stored
+        newColumn = columns.indexOf(args[2].charAt(0)); //the new column is stored
+        if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+          newGame.addAllMoves(fileName);
+          System.out.println(newGame);
+          System.out.println("Please choose a valid location" + "\n");
+        }
+        else {
+>>>>>>> b2bbb81a27475cfda31c8910aafcf5eae5a97919
           newGame.write(args[0],args[1],args[2]);
           newGame.addAllMoves(fileName);
           System.out.println(newGame);
@@ -274,19 +269,23 @@ public class Game {
       }
     }
     catch (IllegalArgumentException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("illegal arg exp");
       System.exit(1);
     }
     catch (FileNotFoundException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("file not found");
       System.exit(1);
     }
     catch (IOException e) {
-      System.out.println(directions);
+      // System.out.println(directions);
+      System.out.println("IOexception");
       System.exit(1);
     }
     catch (ArrayIndexOutOfBoundsException e) {
-      System.out.println(directions);
+      //System.out.println(directions);
+      System.out.println("array out of bounds");
       System.exit(1);
     }
 
