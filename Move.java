@@ -15,8 +15,8 @@ public class Move {
     newColumn = columns.indexOf(destination.charAt(0)); //the new column is stored
     currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
     board.getSquare(currentRow,currentColumn).storePiece(null); //the original square now doesn't have a piece
-    if (board.getSquare(newRow,newColumn).getPiece() != null) {
-      capturedPiece = board.getSquare(newRow,newColumn).getPiece();
+    if (board.getSquare(newRow,newColumn).getPiece() != null) { //if there's a piece at the square that the current piece will be moved to
+      capturedPiece = board.getSquare(newRow,newColumn).getPiece(); //that piece will be captured
     }
     board.getSquare(newRow,newColumn).storePiece(currentPiece); //the new square now gets the piece
   }
