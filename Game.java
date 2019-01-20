@@ -99,13 +99,13 @@ public class Game {
     Piece currentPiece;
     while(sc.hasNextLine()) { //while it has next line, it gets the next line
       newLine = sc.nextLine();
-      if (newLine.length() < 5) {
+      if (newLine.length() < 5) { //if the first line is empty, goes to the next line
         newLine = sc.nextLine();
       }
       color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
       current = newLine.substring(6,8);
       destination = newLine.substring(9,11);
-      turn = new Player(color);
+      turn = new Player(color); //makes a new player with the color
       columns = "ABCDEFGH";
       rows = "12345678";
       currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
@@ -121,15 +121,15 @@ public class Game {
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
             currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
-            if (newMove.getCapturedPiece() != null) {
+            if (newMove.getCapturedPiece() != null) { //if there is a piece that was captured
               if (turn.getColor().equals("black")) {
-                capturedBlack.addPiece(newMove.getCapturedPiece());
+                capturedWhite.addPiece(newMove.getCapturedPiece()); //if it's a white piece, adds it to the list of white pieces captured
               }
               else {
-                capturedWhite.addPiece(newMove.getCapturedPiece());
+                capturedBlack.addPiece(newMove.getCapturedPiece()); //if it's a black piece, adds it to the list of black pieces captured
               }
             }
-            moves.add(newMove);
+            moves.add(newMove); //new move is added to the list of moves
           }
         }
       }
@@ -215,16 +215,17 @@ public class Game {
 
   public static void main(String[] args) {
     Game newGame = new Game(); //new Game
-    String fileName = "moves.txt";
+    String fileName = "moves.txt"; //opens a file
     File file = new File(fileName);
-    newGame.create();
+    newGame.create(); //sets up everything in Game
     String columns, rows;
     int currentRow, currentColumn, newRow, newColumn;
     String directions = "To restart: java Game new" + "\n" + "To play: output must be in the format: java Game white H7 B8";
-    String correctPlayer = "white";
+    String correctPlayer = "white"; //the first player is white
+    boolean gameOver = false; //sets this up for later
     try {
-      if (args.length != 1 && args.length != 3) {
-        System.out.println(directions);
+      if (args.length != 1 && args.length != 3) { //the only possible args are 1 and 3
+        System.out.println(directions); //otherwise directions will be printed
         System.exit(1);
       }
       if (args[0].equals("new")) { //a new Game will be generated and the file is cleared
@@ -234,25 +235,34 @@ public class Game {
         System.out.println("white player goes first");
       }
       else {
-        newGame.write(args[0],args[1],args[2]);
-        newGame.addAllMoves(fileName);
-        // if (newGame.getCapturedWhite().hasPiece(newGame.get))
-        System.out.println(newGame);
-        System.out.print("Captured White Pieces: ");
-        for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
-          System.out.println(newGame.getCapturedWhite().getPiece(i) + " ");
+        newGame.write(args[0],args[1],args[2]); //writes to the file
+        newGame.addAllMoves(fileName); //all moves are done
+        if (newGame.getCapturedBlack().hasPiece(newGame.getBlackP().getBlackKing())) { //if the black king is captured
+          System.out.println("GAME OVER! White wins" + "\n"); //white wins
+          gameOver = true; //game is over
         }
-        System.out.print("\n");
-        System.out.print("Captured Black Pieces: ");
-        for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
-          System.out.println(newGame.getCapturedBlack().getPiece(i) + " ");
+        if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
+          System.out.println("GAME OVER! Black wins" + "\n"); //black wins
+          gameOver = true; //game is over
         }
-        System.out.print("\n");
-        if (newGame.getMoves().size() % 2 == 1) {
-          System.out.println("black player goes");
-        }
-        else {
-          System.out.println("white player goes");
+        if (!gameOver) { //if it's not game over yet, the next player to go is printed
+          System.out.println(newGame); //game is printed out
+          System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
+          for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
+            System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
+          }
+          System.out.print("\n");
+          System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
+          for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
+            System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
+          }
+          System.out.print("\n");
+          if (newGame.getMoves().size() % 2 == 1) {
+            System.out.println("black player goes");
+          }
+          else {
+            System.out.println("white player goes");
+          }
         }
       }
     }
