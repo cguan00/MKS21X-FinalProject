@@ -50,7 +50,6 @@ public class Game {
     int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
     int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
-    // System.out.println(currentRow + " " + currentColumn + " " + newRow + " " + newColumn + " ");
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
     if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
             error = "Please choose a valid location" + "\n";
@@ -74,7 +73,7 @@ public class Game {
       }
     }
   }
-  
+
   public Player getTurn() {
     return turn; //returns the Player who's currently making the move
   }
@@ -156,58 +155,53 @@ public class Game {
     Game newGame = new Game(); //new Game
     newGame.create(); //sets up everything in Game
     String currentLocation, newLocation;
-    Board board = newGame.getBoard();
+    Board board = newGame.getBoard(); //stores the board for easier access
     Scanner user_input = new Scanner(System.in);
     String correctPlayer = "white"; //the first player is white
-    ArrayList<String> possiblePromotes = new ArrayList<>();
-    possiblePromotes.add("Bishop");
-    possiblePromotes.add("Queen");
-    possiblePromotes.add("Knight");
-    possiblePromotes.add("Rook");
     String columns = "abcdefgh";
     String rows = "12345678";
-    int currentRow = 0;
+    int currentRow = 0; //initializes all the variables
     int currentColumn = 0;
     int newRow = 0;
     int newColumn = 0;
     boolean gameOver = false; //sets this up for later
-    boolean canPromote = false;
+    boolean canPromote = false; //sets this up for later
     String promoteTo;
     Player color;
     Piece newPiece;
-    Piece promoting = new Pawn(board, new Player("white"), new Square(0,0));
+    Piece promoting = new Pawn(board, new Player("white"), new Square(0,0)); //initializing; will be changed later
     System.out.println("Welcome to Chess!");
-    System.out.println("White player goes first!");
+    System.out.println("White player goes first! To play, type in the format of h7. Good Luck!");
     System.out.println(newGame);
     try {
-      while (!gameOver) {
-        System.out.println(correctPlayer);
+      while (!gameOver) { //while the game is still ongoing
 
         System.out.print("Enter the location of the piece you want to move: ");
-        currentLocation = user_input.next();
+        currentLocation = user_input.next(); //the user prints the location of the piece they want to move
         System.out.print("Enter the location that you want to move to: ");
         newLocation = user_input.next();
         currentRow = rows.indexOf(currentLocation.charAt(1)); //the original row is stored
         currentColumn = columns.indexOf(currentLocation.charAt(0)); //the original column is stored
         newRow = rows.indexOf(newLocation.charAt(1)); //the new row is stored
         newColumn = columns.indexOf(newLocation.charAt(0)); //the new column is stored
-        if ((currentLocation.length() != 2 && newLocation.length() != 2) || (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1))  {
+
+        //if the inputs are not valid, or the user is trying to move a piece that is not theirs, a message is printed
+        if ((currentLocation.length() != 2 && newLocation.length() != 2) || (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) || (board.getSquare(currentRow,currentColumn).getPiece().getColor() != correctPlayer))  {
           System.out.println("Please choose valid locations");
         }
         else {
           newGame.addMove(correctPlayer, currentLocation, newLocation);
-          System.out.println(board.getSquare(newRow, newColumn).getPiece());
           System.out.println(newGame);
 
           //PROMOTION
           //if any of the pawns are at the opposide side of the baord, they can promote
-          for (int i = 0; i < newGame.getWhiteP().getPawnSize(); i++) {
+          for (int i = 0; i < newGame.getWhiteP().getPawnSize(); i++) { //looking throught the white pawns
             if (newGame.getWhiteP().getPawn(i).getLocation().getRow() == 0) {
               promoting = newGame.getWhiteP().getPawn(i);
               canPromote = true;
             }
           }
-          for (int i = 0; i < newGame.getBlackP().getPawnSize(); i++) {
+          for (int i = 0; i < newGame.getBlackP().getPawnSize(); i++) { //looking through the black pawns
             if (newGame.getBlackP().getPawn(i).getLocation().getRow() == 7) {
               promoting = newGame.getBlackP().getPawn(i);
               canPromote = true;
@@ -229,11 +223,10 @@ public class Game {
             }
             if(correctPlayer.equals("white") && newRow == 0){
               if(promoteTo.equals("Bishop")){
-                newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
-                board.getSquare(newRow,newColumn).storePiece(newPiece);
-                newPiece.setLocation(board.getSquare(newRow, newColumn));
-                promotedPawn = true;
-                System.out.println("ya");
+                newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn)); //a new piece is created with all of the same information
+                board.getSquare(newRow,newColumn).storePiece(newPiece); //the square stores the new piece
+                newPiece.setLocation(board.getSquare(newRow, newColumn)); //the piece stores the square as its location
+                promotedPawn = true; //becomes true
               }
               if(promoteTo.equals("Knight")){
                 newPiece = new Knight(board, color, board.getSquare(newRow,newColumn));
@@ -253,15 +246,14 @@ public class Game {
                 newPiece.setLocation(board.getSquare(newRow, newColumn));
                 promotedPawn = true;
               }
-              newGame.getWhiteP().remove(promoting);
+              newGame.getWhiteP().remove(promoting); //the original white pawn is removed from the array of pawns and white pieces
             }
             if(correctPlayer.equals("black") && newRow == 7){
-              board.getSquare(currentRow,currentColumn).storePiece(null);
               if(promoteTo.equals("Bishop")){
-                newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
-                board.getSquare(newRow,newColumn).storePiece(newPiece);
-                newPiece.setLocation(board.getSquare(newRow, newColumn));
-                promotedPawn = true;
+                newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn)); //a new piece is created with the same information
+                board.getSquare(newRow,newColumn).storePiece(newPiece); //the square stores the new piece
+                newPiece.setLocation(board.getSquare(newRow, newColumn)); //the new piece sets its location to the square
+                promotedPawn = true; //set to true
               }
               if(promoteTo.equals("Knight")){
                 newPiece = new Knight(board, color, board.getSquare(newRow,newColumn));
@@ -280,26 +272,17 @@ public class Game {
                 board.getSquare(newRow,newColumn).storePiece(newPiece);
                 newPiece.setLocation(board.getSquare(newRow, newColumn));
               }
-              newGame.getBlackP().remove(promoting);
+              newGame.getBlackP().remove(promoting); //old pawn is removed from the list of pawns and pieces
             }
-              System.out.println("1");
-              System.out.println(promotedPawn);
-              System.out.println(board.getSquare(currentRow,currentColumn).getPiece());
-              System.out.println((promoteTo.equals("Bishop")));
-              System.out.println(correctPlayer.equals("white") && newRow == 0);
-              System.out.println(correctPlayer);
-              System.out.println(newRow);
-              System.out.println(newGame);
-              canPromote = false;
-              System.out.println(canPromote);
+              canPromote = false; //is false after the promotion
           }
 
           if (newGame.getMoves().size() > 0) {
-            if (newGame.getMoves().size() % 2 == 1) {
-              correctPlayer = "black";
+            if (newGame.getMoves().size() % 2 == 1) { //since the game starts with white, a remainder of one means the black goes
+              correctPlayer = "black"; //correct player is black
             }
             else {
-              correctPlayer = "white";
+              correctPlayer = "white"; //correct player is white
             }
           }
           System.out.println(correctPlayer + " player goes now");
@@ -319,129 +302,15 @@ public class Game {
           if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
             gameOver = true; //game is over
           }
-
-      if (newGame.getCapturedBlack().hasPiece(newGame.getBlackP().getBlackKing())) { //if the black king is captured
-        System.out.println("GAME OVER! White wins" + "\n"); //white wins
-      }
-      if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
-        System.out.println("GAME OVER! Black wins" + "\n"); //black wins
+          if (newGame.getCapturedBlack().hasPiece(newGame.getBlackP().getBlackKing())) { //if the black king is captured
+            System.out.println("GAME OVER! White wins" + "\n"); //white wins
+          }
+          if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
+            System.out.println("GAME OVER! Black wins" + "\n"); //black wins
+          }
+        }
       }
     }
-  }
-}
-
-
-
-    //       String desiredPiece = args[2];//the piece the player wants to promote to
-    //
-    //       columns = "ABCDEFGH";
-    //       rows = "12345678";
-    //       currentRow = rows.indexOf(args[1].charAt(1)); //the original row is stored
-    //       currentColumn = columns.indexOf(args[1].charAt(0)); //the original column is stored
-    //
-    //
-    //       if(args[0].equals("white")){//if it is white player
-    //         newRow = 0; //pawn is moving upward, so row - 1
-    //       } else{//if it is black player
-    //         newRow = 7;//pawn is moving downward, so row + 1
-    //       }
-    //       newColumn = currentColumn; //pawn moves in vertical line, so column stays the same
-    //
-    //       Player color = new Player(args[0]);
-    //
-    //       boolean promotedPawn = false;
-    //
-    //       if(board.getSquare(currentRow,currentColumn).getPiece() != null){
-    //         Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece();
-    //
-    //         if(currentPiece.checkValidMove(board.getSquare(newRow, newColumn))){//if this is a valid move
-    //           Piece newPiece;
-    //           if(args[0].equals("white") && newRow == 0){
-    //             board.getSquare(currentRow,currentColumn).storePiece(null);
-    //             if(args[2].equals("Bishop")){
-    //               newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Knight")){
-    //               newPiece = new Knight(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Queen")){
-    //               newPiece = new Queen(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Rook")){
-    //               newPiece = new Rook(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //           }
-    //           if(args[0].equals("black") && newRow == 7){
-    //             board.getSquare(currentRow,currentColumn).storePiece(null);
-    //             if(args[2].equals("Bishop")){
-    //               newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Knight")){
-    //               newPiece = new Knight(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Queen")){
-    //               newPiece = new Queen(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //             }
-    //             if(args[2].equals("Rook")){
-    //               newPiece = new Rook(board, color, board.getSquare(newRow,newColumn));
-    //               board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //               newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //               promotedPawn = true;
-    //               newGame.write(args[0],args[1],args[2]);
-    //               }
-    //             }
-    //           }
-    //         }
-    //         if(promotedPawn){
-    //           System.out.println(newGame);
-    //           System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
-    //           for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
-    //             System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
-    //           }
-    //           System.out.print("\n");
-    //           System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
-    //           for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
-    //             System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
-    //           }
-    //           System.out.print("\n");
-    //           if (newGame.getMoves().size() % 2 == 1) {
-    //             System.out.println("black player goes");
-    //           }
-    //           else {
-    //             System.out.println("white player goes");
-    //           }
-    //         }
-    //       }
-    //     }
-  //   }
     catch (IllegalArgumentException e) {
       // System.out.println(directions);
       System.out.println("illegal arg exp");
