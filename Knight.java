@@ -133,6 +133,10 @@ public class Knight extends Piece{
     return color;//returns the Player color, either white or black
   }
 
+  public boolean isPawn(){
+    return false;
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "N";//white pieces are capitalized
