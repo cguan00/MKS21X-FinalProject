@@ -41,7 +41,15 @@ public class PieceSet{
     return pieces.get(index);
   }
 
+  public void addPiece(Piece newPiece) {
+    pieces.add(newPiece);
+  }
+
   public void remove(Piece piece) {
     pieces.remove(piece);
+  }
+
+  public int size() {
+    return pieces.size();
   }
 }
