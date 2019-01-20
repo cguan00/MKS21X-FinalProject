@@ -7,7 +7,7 @@ public class Move {
   private Piece capturedPiece;
 
   public Move(Board board, Player color, String current, String destination) {
-    String columns = "ABCDEFGH";
+    String columns = "abcdefgh";
     String rows = "12345678";
     currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
     currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
