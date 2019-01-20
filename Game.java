@@ -150,7 +150,7 @@ public class Game {
                 newPiece.setLocation(board.getSquare(newRow, newColumn));
               }
             }
-            if(desiredPiece.equals("black") && newRow == 7){
+            if(color.equals("black") && newRow == 7){
               board.getSquare(currentRow,currentColumn).storePiece(null);
               if(desiredPiece.equals("Bishop")){
                 newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
