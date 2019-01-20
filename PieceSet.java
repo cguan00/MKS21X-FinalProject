@@ -5,6 +5,7 @@ public class PieceSet{
   public Player color;
   private Piece blackKing;
   private Piece whiteKing;
+  private ArrayList<Piece> pawns = new ArrayList<>();
 
   public PieceSet(Player playerColor){
     color = playerColor;
@@ -23,6 +24,7 @@ public class PieceSet{
       pieces.add(new Rook(board, color, board.getSquare(0,7)));
       for (int i = 0; i < 8; i++) {
         pieces.add(new Pawn(board, color, board.getSquare(1,i)));
+        pawns.add(new Pawn(board, color, board.getSquare(1,i)));
       }
     }
     if (color.isWhite()) {
@@ -59,6 +61,10 @@ public class PieceSet{
 
   public Piece getBlackKing() {
     return blackKing;
+  }
+
+  public ArrayList<Piece> getPawns() {
+    return pawns;
   }
 
   public int size() {
