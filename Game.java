@@ -44,102 +44,108 @@ public class Game {
   //the location of the piece they want to move, and where they want to move it to
   public void addMove(String color, String currentLoc, String newLoc) {
     turn = new Player(color);
-    String columns = "ABCDEFGH";
+    String columns = "abcdefgh";
     String rows = "12345678";
     int currentRow = rows.indexOf(currentLoc.charAt(1)); //the original row is stored
     int currentColumn = columns.indexOf(currentLoc.charAt(0)); //the original column is stored
     int newRow = rows.indexOf(newLoc.charAt(1)); //the new row is stored
     int newColumn = columns.indexOf(newLoc.charAt(0)); //the new column is stored
+    System.out.println(currentRow + " " + currentColumn + " " + newRow + " " + newColumn + " ");
     Piece currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-    if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
-      currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
-      if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
-        currentPiece.setLocation(board.getSquare(newRow, newColumn));
-        Move newMove = new Move(board, turn, currentLoc, newLoc); //new Move is creaated
-        if (newMove.getCapturedPiece() != null) { //if there is a piece that was captured
-          if (turn.getColor().equals("black")) {
-            capturedWhite.addPiece(newMove.getCapturedPiece()); //if it's a white piece, adds it to the list of white pieces captured
-          }
-          else {
-            capturedBlack.addPiece(newMove.getCapturedPiece()); //if it's a black piece, adds it to the list of black pieces captured
-          }
+    if (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1) {
+            error = "Please choose a valid location" + "\n";
         }
-        moves.add(newMove); //new move is added to the list of moves
+    else {
+      if (board.getSquare(currentRow,currentColumn).getPiece() != null) {
+        currentPiece = board.getSquare(currentRow,currentColumn).getPiece(); //the piece to be moved is stored
+        if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
+          currentPiece.setLocation(board.getSquare(newRow, newColumn));
+          Move newMove = new Move(board, turn, currentLoc, newLoc); //new Move is creaated
+          if (newMove.getCapturedPiece() != null) { //if there is a piece that was captured
+            if (turn.getColor().equals("black")) {
+              capturedWhite.addPiece(newMove.getCapturedPiece()); //if it's a white piece, adds it to the list of white pieces captured
+            }
+            else {
+              capturedBlack.addPiece(newMove.getCapturedPiece()); //if it's a black piece, adds it to the list of black pieces captured
+            }
+          }
+          moves.add(newMove); //new move is added to the list of moves
+        }
       }
+      // if(newLine.length() > 12){
+      //   color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
+      //   current = newLine.substring(6,8);
+      //   String desiredPiece = newLine.substring(9,newLine.length());
+      //   // System.out.println(desiredPiece);
+      //   turn = new Player(color);
+      //   columns = "ABCDEFGH";
+      //   rows = "12345678";
+      //   currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
+      //   currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
+      //   if(color.equals("white")){//if it is white player
+      //     newRow = 0; //pawn is moving upward, so row - 1
+      //   } else{//if it is black player
+      //     newRow = 7;//pawn is moving downward, so row + 1
+      //   }
+      //   newColumn = currentColumn; //pawn moves in vertical line, so column stays the same
+      //
+      //   if(board.getSquare(currentRow,currentColumn).getPiece() != null){
+      //     currentPiece = board.getSquare(currentRow,currentColumn).getPiece();
+      //
+      //     boolean promotedPawn = false;
+      //
+      //     if(currentPiece.checkValidMove(board.getSquare(newRow, newColumn))){//if this is a valid move
+      //       Piece newPiece;
+      //       if(color.equals("white") && newRow == 0){
+      //         board.getSquare(currentRow,currentColumn).storePiece(null);
+      //         if(desiredPiece.equals("Bishop")){
+      //           newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Knight")){
+      //           newPiece = new Knight(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Queen")){
+      //           newPiece = new Queen(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Rook")){
+      //           newPiece = new Rook(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //       }
+      //       if(color.equals("black") && newRow == 7){
+      //         board.getSquare(currentRow,currentColumn).storePiece(null);
+      //         if(desiredPiece.equals("Bishop")){
+      //           newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Knight")){
+      //           newPiece = new Knight(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Queen")){
+      //           newPiece = new Queen(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //         if(desiredPiece.equals("Rook")){
+      //           newPiece = new Rook(board, turn, board.getSquare(newRow,newColumn));
+      //           board.getSquare(newRow,newColumn).storePiece(newPiece);
+      //           newPiece.setLocation(board.getSquare(newRow, newColumn));
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
     }
-    // if(newLine.length() > 12){
-    //   color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
-    //   current = newLine.substring(6,8);
-    //   String desiredPiece = newLine.substring(9,newLine.length());
-    //   // System.out.println(desiredPiece);
-    //   turn = new Player(color);
-    //   columns = "ABCDEFGH";
-    //   rows = "12345678";
-    //   currentRow = rows.indexOf(current.charAt(1)); //the original row is stored
-    //   currentColumn = columns.indexOf(current.charAt(0)); //the original column is stored
-    //   if(color.equals("white")){//if it is white player
-    //     newRow = 0; //pawn is moving upward, so row - 1
-    //   } else{//if it is black player
-    //     newRow = 7;//pawn is moving downward, so row + 1
-    //   }
-    //   newColumn = currentColumn; //pawn moves in vertical line, so column stays the same
-    //
-    //   if(board.getSquare(currentRow,currentColumn).getPiece() != null){
-    //     currentPiece = board.getSquare(currentRow,currentColumn).getPiece();
-    //
-    //     boolean promotedPawn = false;
-    //
-    //     if(currentPiece.checkValidMove(board.getSquare(newRow, newColumn))){//if this is a valid move
-    //       Piece newPiece;
-    //       if(color.equals("white") && newRow == 0){
-    //         board.getSquare(currentRow,currentColumn).storePiece(null);
-    //         if(desiredPiece.equals("Bishop")){
-    //           newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Knight")){
-    //           newPiece = new Knight(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Queen")){
-    //           newPiece = new Queen(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Rook")){
-    //           newPiece = new Rook(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //       }
-    //       if(color.equals("black") && newRow == 7){
-    //         board.getSquare(currentRow,currentColumn).storePiece(null);
-    //         if(desiredPiece.equals("Bishop")){
-    //           newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Knight")){
-    //           newPiece = new Knight(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Queen")){
-    //           newPiece = new Queen(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //         if(desiredPiece.equals("Rook")){
-    //           newPiece = new Rook(board, turn, board.getSquare(newRow,newColumn));
-    //           board.getSquare(newRow,newColumn).storePiece(newPiece);
-    //           newPiece.setLocation(board.getSquare(newRow, newColumn));
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
   //
   // //a file is opened to read and store all of the moves
@@ -351,19 +357,44 @@ public class Game {
     Board board = newGame.getBoard();
     Scanner user_input = new Scanner(System.in);
     String correctPlayer = "white"; //the first player is white
+    ArrayList<String> possiblePromotes = new ArrayList<>();
+    possiblePromotes.add("Bishop");
+    possiblePromotes.add("Queen");
+    possiblePromotes.add("Knight");
+    possiblePromotes.add("Rook");
+    String columns = "abcdefgh";
+    String rows = "12345678";
+    int currentRow, currentColumn, newRow, newColumn;
     boolean gameOver = false; //sets this up for later
     System.out.println("Welcome to Chess!");
     System.out.println("White player goes first!");
     System.out.println(newGame);
-    while (!gameOver) {
-      System.out.print("Enter the location of the piece you want to move: ");
-      currentLocation = user_input.next();
-      System.out.print("Enter the location that you want to move to: ");
-      newLocation = user_input.next();
-      newGame.addMove(correctPlayer, currentLocation, newLocation);
-      System.out.println(newGame);
-      System.out.println(correctPlayer + " player goes now");
-    }
+    try {
+      while (!gameOver) {
+        System.out.print("Enter the location of the piece you want to move: ");
+        currentLocation = user_input.next();
+        System.out.print("Enter the location that you want to move to: ");
+        newLocation = user_input.next();
+        currentRow = rows.indexOf(currentLocation.charAt(1)); //the original row is stored
+        currentColumn = columns.indexOf(currentLocation.charAt(0)); //the original column is stored
+        newRow = rows.indexOf(newLocation.charAt(1)); //the new row is stored
+        newColumn = columns.indexOf(newLocation.charAt(0)); //the new column is stored
+        if ((currentLocation.length() != 2 && newLocation.length() != 2) || (currentRow == -1 || currentColumn == -1 || newRow == -1 || newColumn == -1))  {
+          System.out.println("Please choose valid locations");
+        }
+        else {
+          newGame.addMove(correctPlayer, currentLocation, newLocation);
+          System.out.println(newGame);
+          if (correctPlayer.equals("white")) {
+            correctPlayer = "black";
+          }
+          else {
+            correctPlayer = "white";
+          }
+          System.out.println(correctPlayer + " player goes now");
+        }
+
+      }
     // try {
     //   if (args.length != 1 && args.length != 3) { //the only possible args are 1 and 3
     //     System.out.println(directions); //otherwise directions will be printed
@@ -534,27 +565,17 @@ public class Game {
     //       }
     //     }
   //   }
-  //   catch (IllegalArgumentException e) {
-  //     // System.out.println(directions);
-  //     System.out.println("illegal arg exp");
-  //     System.exit(1);
-  //   }
-  //   catch (FileNotFoundException e) {
-  //     // System.out.println(directions);
-  //     System.out.println("file not found");
-  //     System.exit(1);
-  //   }
-  //   catch (IOException e) {
-  //     // System.out.println(directions);
-  //     System.out.println("IOexception");
-  //     System.exit(1);
-  //   }
-  //   catch (ArrayIndexOutOfBoundsException e) {
-  //     //System.out.println(directions);
-  //     // System.out.println("array out of bounds");
-  //     e.printStackTrace();
-  //     System.exit(1);
-  //   }
-  //
+    }
+    catch (IllegalArgumentException e) {
+      // System.out.println(directions);
+      System.out.println("illegal arg exp");
+      System.exit(1);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      //System.out.println(directions);
+      // System.out.println("array out of bounds");
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 }
