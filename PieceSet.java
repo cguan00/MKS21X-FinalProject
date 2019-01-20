@@ -56,6 +56,7 @@ public class PieceSet{
 
   public void remove(Piece piece) {
     pieces.remove(piece);
+    pawns.remove(piece);
   }
 
   public Piece getWhiteKing() {
@@ -68,6 +69,10 @@ public class PieceSet{
 
   public Piece getPawn(int index) {
     return pawns.get(index);
+  }
+
+  public int getPawnSize() {
+    return pawns.size();
   }
 
   public int size() {
