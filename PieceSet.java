@@ -16,7 +16,7 @@ public class PieceSet{
       pieces.add(new Knight(board, color, board.getSquare(0,1)));
       pieces.add(new Bishop(board, color, board.getSquare(0,2)));
       pieces.add(new Queen(board, color, board.getSquare(0,3)));
-      blackKing = new King(board, color, board.getSquare(0,4));
+      blackKing = new King(board, color, board.getSquare(0,4)); //this king is stored for later use
       pieces.add(blackKing);
       pieces.add(new Bishop(board, color, board.getSquare(0,5)));
       pieces.add(new Knight(board, color, board.getSquare(0,6)));
@@ -30,7 +30,7 @@ public class PieceSet{
       pieces.add(new Knight(board, color, board.getSquare(7,1)));
       pieces.add(new Bishop(board, color, board.getSquare(7,2)));
       pieces.add(new Queen(board, color, board.getSquare(7,3)));
-      whiteKing = new King(board, color, board.getSquare(7,4));
+      whiteKing = new King(board, color, board.getSquare(7,4)); //king is stored for later use
       pieces.add(whiteKing);
       pieces.add(new Bishop(board, color, board.getSquare(7,5)));
       pieces.add(new Knight(board, color, board.getSquare(7,6)));
@@ -53,11 +53,19 @@ public class PieceSet{
     pieces.remove(piece);
   }
 
+  public Piece getWhiteKing() {
+    return whiteKing;
+  }
+
+  public Piece getBlackKing() {
+    return blackKing;
+  }
+
   public int size() {
     return pieces.size();
   }
 
-  public boolean hasPiece() {
-    return false;
+  public boolean hasPiece(Piece piece) {
+    return pieces.contains(piece);
   }
 }
