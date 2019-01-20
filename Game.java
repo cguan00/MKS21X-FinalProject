@@ -90,7 +90,15 @@ public class Game {
             if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
               currentPiece.setLocation(board.getSquare(newRow, newColumn));
               Move newMove = new Move(board, turn, current, destination); //new Move is creaated
-              moves.add(newMove);
+              if (newMove.getCapturedPiece() != null) { //if there is a piece that was captured
+                if (turn.getColor().equals("black")) {
+                  capturedWhite.addPiece(newMove.getCapturedPiece()); //if it's a white piece, adds it to the list of white pieces captured
+                }
+                else {
+                  capturedBlack.addPiece(newMove.getCapturedPiece()); //if it's a black piece, adds it to the list of black pieces captured
+                }
+              }
+              moves.add(newMove); //new move is added to the list of moves
             }
           }
         }
@@ -274,35 +282,6 @@ public class Game {
         System.out.println("white player goes first");
       }
       else {
-        newGame.write(args[0],args[1],args[2]); //writes to the file
-        newGame.addAllMoves(fileName); //all moves are done
-        if (newGame.getCapturedBlack().hasPiece(newGame.getBlackP().getBlackKing())) { //if the black king is captured
-          System.out.println("GAME OVER! White wins" + "\n"); //white wins
-          gameOver = true; //game is over
-        }
-        if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
-          System.out.println("GAME OVER! Black wins" + "\n"); //black wins
-          gameOver = true; //game is over
-        }
-        if (!gameOver) { //if it's not game over yet, the next player to go is printed
-          System.out.println(newGame); //game is printed out
-          System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
-          for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
-            System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
-          }
-          System.out.print("\n");
-          System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
-          for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
-            System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
-          }
-          System.out.print("\n");
-          if (newGame.getMoves().size() % 2 == 1) {
-            System.out.println("black player goes");
-          }
-          else {
-            System.out.println("white player goes");
-          }
-        }
         if(args[2].length() == 2){//if the third input is a square (length will be 2)
           columns = "ABCDEFGH";
           rows = "12345678";
@@ -316,18 +295,37 @@ public class Game {
             System.out.println("Please choose a valid location" + "\n");
           }
           else {
-            newGame.write(args[0],args[1],args[2]);
-            newGame.addAllMoves(fileName);
-            System.out.println(newGame);
-            if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-              System.out.println("black player goes"); //black now goes
+            newGame.write(args[0],args[1],args[2]); //writes to the file
+            newGame.addAllMoves(fileName); //all moves are done
+            if (newGame.getCapturedBlack().hasPiece(newGame.getBlackP().getBlackKing())) { //if the black king is captured
+              System.out.println("GAME OVER! White wins" + "\n"); //white wins
+              gameOver = true; //game is over
             }
-            if (newGame.getMoves().size()%2 == 0) {
-              System.out.println("white player goes"); //otherwise it's white's turn
+            if (newGame.getCapturedWhite().hasPiece(newGame.getWhiteP().getWhiteKing())) { //if the white king is captured
+              System.out.println("GAME OVER! Black wins" + "\n"); //black wins
+              gameOver = true; //game is over
+            }
+            if (!gameOver) { //if it's not game over yet, the next player to go is printed
+              System.out.println(newGame); //game is printed out
+              System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
+              for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
+                System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
+              }
+              System.out.print("\n");
+              System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
+              for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
+                System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
+              }
+              System.out.print("\n");
+              if (newGame.getMoves().size() % 2 == 1) {
+                System.out.println("black player goes");
+              }
+              else {
+                System.out.println("white player goes");
+              }
             }
           }
         }
-
 
         if(args[2].length() > 2){//PAWN PROMOTION
           newGame.addAllMoves(fileName);
@@ -417,21 +415,31 @@ public class Game {
                   newPiece.setLocation(board.getSquare(newRow, newColumn));
                   promotedPawn = true;
                   newGame.write(args[0],args[1],args[2]);
+                  }
                 }
               }
             }
-          }
-          if(promotedPawn){
-            System.out.println(newGame);
-            if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-              System.out.println("black player goes"); //black now goes
-            }
-            if (newGame.getMoves().size()%2 == 0) {
-              System.out.println("white player goes"); //otherwise it's white's turn
+            if(promotedPawn){
+              System.out.println(newGame);
+              System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
+              for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
+                System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
+              }
+              System.out.print("\n");
+              System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
+              for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
+                System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
+              }
+              System.out.print("\n");
+              if (newGame.getMoves().size() % 2 == 1) {
+                System.out.println("black player goes");
+              }
+              else {
+                System.out.println("white player goes");
+              }
             }
           }
         }
-      }
     }
     catch (IllegalArgumentException e) {
       // System.out.println(directions);
