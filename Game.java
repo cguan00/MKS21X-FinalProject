@@ -144,7 +144,7 @@ public class Game {
                 newPiece.setLocation(board.getSquare(newRow, newColumn));
               }
             }
-            if(desiredPiece.equals("black") && newRow == 7){
+            if(color.equals("black") && newRow == 7){
               board.getSquare(currentRow,currentColumn).storePiece(null);
               if(desiredPiece.equals("Bishop")){
                 newPiece = new Bishop(board, turn, board.getSquare(newRow,newColumn));
@@ -338,8 +338,9 @@ public class Game {
                   newGame.write(args[0],args[1],args[2]);
                 }
               }
+
+
               if(args[0].equals("black") && newRow == 7){
-                System.out.println("BLACK CAN PROMOTE");
                 board.getSquare(currentRow,currentColumn).storePiece(null);
                 if(args[2].equals("Bishop")){
                   newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
