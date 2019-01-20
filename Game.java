@@ -107,7 +107,7 @@ public class Game {
         color = newLine.substring(0,5); //splits it into three pieces of information for the Move constructor
         current = newLine.substring(6,8);
         String desiredPiece = newLine.substring(9,newLine.length());
-        System.out.println(desiredPiece);
+        // System.out.println(desiredPiece);
         turn = new Player(color);
         columns = "ABCDEFGH";
         rows = "12345678";
