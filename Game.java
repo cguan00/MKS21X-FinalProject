@@ -386,7 +386,6 @@ public class Game {
                 }
               }
               if(args[0].equals("black") && newRow == 7){
-                System.out.println("BLACK CAN PROMOTE");
                 board.getSquare(currentRow,currentColumn).storePiece(null);
                 if(args[2].equals("Bishop")){
                   newPiece = new Bishop(board, color, board.getSquare(newRow,newColumn));
