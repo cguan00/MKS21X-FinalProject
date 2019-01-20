@@ -381,6 +381,10 @@ public class Game {
             if (newGame.getMoves().size()%2 == 0) {
               System.out.println("white player goes"); //otherwise it's white's turn
             }
+          } else{
+            newGame.addAllMoves(fileName);
+            System.out.println(newGame);
+            System.out.println("Please choose a valid location" + "\n");
           }
         }
       }
