@@ -214,6 +214,10 @@ public class Queen extends Piece{
     return color;//returns the Player color, either white or black
   }
 
+  public boolean isPawn(){
+    return false;
+  }
+
   public String toString(){
     if(color.equals("white")){
       return "Q";//white pieces are capitalized
