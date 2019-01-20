@@ -121,6 +121,14 @@ public class Game {
           if (currentPiece.checkValidMove(board.getSquare(newRow, newColumn))) {
             currentPiece.setLocation(board.getSquare(newRow, newColumn));
             Move newMove = new Move(board, turn, current, destination); //new Move is creaated
+            if (newMove.getCapturedPiece() != null) {
+              if (turn.getColor().equals("black")) {
+                capturedBlack.addPiece(newMove.getCapturedPiece());
+              }
+              else {
+                capturedWhite.addPiece(newMove.getCapturedPiece());
+              }
+            }
             moves.add(newMove);
           }
         }
@@ -146,6 +154,22 @@ public class Game {
 
   public ArrayList<String> getValidMoves() {
     return validMoves;
+  }
+
+  public PieceSet getWhiteP() {
+    return whiteP;
+  }
+
+  public PieceSet getBlackP() {
+    return blackP;
+  }
+
+  public PieceSet getCapturedWhite() {
+    return capturedWhite;
+  }
+
+  public PieceSet getCapturedBlack() {
+    return capturedBlack;
   }
 
   //writes and stores the move in a file
@@ -211,29 +235,24 @@ public class Game {
       }
       else {
         newGame.write(args[0],args[1],args[2]);
-        newGame.storeAllMoves(fileName);
-        if (newGame.getValidMoves().size()%2 == 0) { //if it was previously white's turn
-          correctPlayer = "white";
+        newGame.addAllMoves(fileName);
+        // if (newGame.getCapturedWhite().hasPiece(newGame.get))
+        System.out.println(newGame);
+        System.out.print("Captured White Pieces: ");
+        for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
+          System.out.println(newGame.getCapturedWhite().getPiece(i) + " ");
         }
-        if (newGame.getValidMoves().size()%2 == 1) {
-          correctPlayer = "black";
+        System.out.print("\n");
+        System.out.print("Captured Black Pieces: ");
+        for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
+          System.out.println(newGame.getCapturedBlack().getPiece(i) + " ");
         }
-        System.out.println(newGame.getValidMoves().size()%2);
-        System.out.println(correctPlayer);
-        System.out.println(correctPlayer.equals(args[0]));
-        if (correctPlayer.equals(args[0])) {
-          newGame.addAllMoves(fileName);
-          System.out.println(newGame);
-          System.out.println(newGame.getMoves().size());
-          if (newGame.getMoves().size()%2 == 1) { //if it was previously white's turn
-            System.out.println("black player goes"); //black now goes
-          }
-          if (newGame.getMoves().size()%2 == 0) {
-            System.out.println("white player goes"); //otherwise it's white's turn
-          }
+        System.out.print("\n");
+        if (newGame.getMoves().size() % 2 == 1) {
+          System.out.println("black player goes");
         }
         else {
-          System.out.println("Please have the correct player go");
+          System.out.println("white player goes");
         }
       }
     }
