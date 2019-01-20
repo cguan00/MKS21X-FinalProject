@@ -23,8 +23,9 @@ public class PieceSet{
       pieces.add(new Knight(board, color, board.getSquare(0,6)));
       pieces.add(new Rook(board, color, board.getSquare(0,7)));
       for (int i = 0; i < 8; i++) {
-        pieces.add(new Pawn(board, color, board.getSquare(1,i)));
-        pawns.add(new Pawn(board, color, board.getSquare(1,i)));
+        Piece blackPawn = new Pawn(board, color, board.getSquare(1,i));
+        pieces.add(blackPawn);
+        pawns.add(blackPawn);
       }
     }
     if (color.isWhite()) {
@@ -38,7 +39,9 @@ public class PieceSet{
       pieces.add(new Knight(board, color, board.getSquare(7,6)));
       pieces.add(new Rook(board, color, board.getSquare(7,7)));
       for (int i = 0; i < 8; i++) {
-        pieces.add(new Pawn(board, color, board.getSquare(6,i)));
+        Piece whitePawn = new Pawn(board, color, board.getSquare(6,i));
+        pieces.add(whitePawn);
+        pawns.add(whitePawn);
       }
     }
   }
@@ -63,8 +66,8 @@ public class PieceSet{
     return blackKing;
   }
 
-  public ArrayList<Piece> getPawns() {
-    return pawns;
+  public Piece getPawn(int index) {
+    return pawns.get(index);
   }
 
   public int size() {
