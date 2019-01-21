@@ -71,7 +71,6 @@ public class Game {
   public boolean isValidIn(String input) {
     String cols = "abcdefgh";
     String rows = "12345678";
-    System.out.println(input.length());
     if (input.length() != 2) {
       return false;
     }
@@ -80,7 +79,7 @@ public class Game {
     if (row == -1 || col == -1) {
       return false;
     }
-    if (board.getSquare(row,col) == null) {
+    if (board.getSquare(row,col).getPiece() == null) {
       return false;
     }
     return true;
@@ -204,10 +203,10 @@ public class Game {
     System.out.println("TO PROMOTE: When valid, type in the name of the piece you want to promote your pawn to.");
     System.out.println("NOTE: Make sure you follow the rules of chess and use lowercases throught the game!");
     System.out.println("Good Luck!");
-    System.out.println("\n");
+    System.out.print("\n");
     System.out.println(newGame);
     System.out.println("White player goes first!");
-    System.out.println("\n");
+    System.out.print("\n");
     try {
       while (!gameOver) { //while the game is still ongoing
 
@@ -339,7 +338,7 @@ public class Game {
                 correctPlayer = "white"; //correct player is white
               }
             }
-            System.out.println("CURRENT TURN: " + correctPlayer);
+            System.out.print("CURRENT TURN: " + correctPlayer);
             System.out.println("\n");
             System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
             for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
