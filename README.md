@@ -129,5 +129,8 @@
 
 ### January 21, 2019
 
+**Sharon**
+- Today I added the if statements to make sure that there were be no exceptions thrown. At first, I tried to check that the input formats were valid while also checking if the inputs were the right color, but then I realized I couldn't do it at the same time, so I had to split it up and create two new methods to check each of the inputs. In order to make it easier for the user, I made the promotion lowercase (originally they had to capitalize the first letter). I also added more directions in the front for easier understanding. 
+
 **Christy**
-- I removed some of the code that was commented out and was previously used for debugging purposes. I also updated the instructions on how to play the game on GitHub. 
+- I removed some of the code that was commented out and was previously used for debugging purposes. I also updated the instructions on how to play the game on GitHub.
