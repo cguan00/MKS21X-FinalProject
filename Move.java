@@ -22,7 +22,7 @@ public class Move {
   }
 
   public Piece getCapturedPiece() {
-    return capturedPiece;
+    return capturedPiece;//returns the captured piece
   }
 
 
