@@ -170,8 +170,11 @@ public class Game {
     Player color;
     Piece newPiece;
     Piece promoting = new Pawn(board, new Player("white"), new Square(0,0)); //initializing; will be changed later
+    System.out.println("\n");
     System.out.println("Welcome to Chess!");
+    System.out.println("\n");
     System.out.println("White player goes first! To play, type in the format of h7. Good Luck!");
+    System.out.println("\n");
     System.out.println(newGame);
     try {
       while (!gameOver) { //while the game is still ongoing
@@ -291,16 +294,15 @@ public class Game {
               correctPlayer = "white"; //correct player is white
             }
           }
-          System.out.println("\n");
-          System.out.println("\n");
           System.out.println(correctPlayer + " player goes now");
+          System.out.println("\n");
           System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
           for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
             System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
           }
-          System.out.print("\n");
           System.out.println("\n");
           System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
+          System.out.println("\n");
           for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
             System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
           }
