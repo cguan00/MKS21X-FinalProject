@@ -116,7 +116,7 @@ public class Rook extends Piece{
   }
 
   public Square getLocation() {
-    return location;
+    return location;//returns the Square the piece is located at
   }
 
   public void setLocation(Square newLocation){
