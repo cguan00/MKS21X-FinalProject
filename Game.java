@@ -178,8 +178,10 @@ public class Game {
 
         System.out.print("Enter the location of the piece you want to move: ");
         currentLocation = user_input.next(); //the user prints the location of the piece they want to move
+        System.out.println("\n");
         System.out.print("Enter the location that you want to move to: ");
         newLocation = user_input.next();
+        System.out.println("\n");
         currentRow = rows.indexOf(currentLocation.charAt(1)); //the original row is stored
         currentColumn = columns.indexOf(currentLocation.charAt(0)); //the original column is stored
         newRow = rows.indexOf(newLocation.charAt(1)); //the new row is stored
@@ -191,6 +193,9 @@ public class Game {
         }
         else {
           newGame.addMove(correctPlayer, currentLocation, newLocation);
+          System.out.println("\n");
+          System.out.println("--------------------------------------------------------------");
+          System.out.println("\n");
           System.out.println(newGame);
 
           //PROMOTION
@@ -211,7 +216,8 @@ public class Game {
           if (canPromote) {
             boolean promotedPawn = false;
             //if promote is true, the user will be asked what they want to promote the piece to
-            System.out.println(correctPlayer);
+            // System.out.println(correctPlayer);
+            System.out.println("\n");
             System.out.print("You can promote your pawn! Type in what you want to promote it to: ");
             promoteTo = user_input.next();
             if(correctPlayer.equals("white")){//if it is white player
@@ -285,12 +291,15 @@ public class Game {
               correctPlayer = "white"; //correct player is white
             }
           }
+          System.out.println("\n");
+          System.out.println("\n");
           System.out.println(correctPlayer + " player goes now");
           System.out.print("Captured White Pieces: "); //the list of white pieces captured is printed
           for (int i = 0; i < newGame.getCapturedWhite().size(); i++) {
             System.out.print(newGame.getCapturedWhite().getPiece(i) + " "); //goes through the list to print each piece out
           }
           System.out.print("\n");
+          System.out.println("\n");
           System.out.print("Captured Black Pieces: "); //the list of black pieces captured is printed
           for (int i = 0; i < newGame.getCapturedBlack().size(); i++) {
             System.out.print(newGame.getCapturedBlack().getPiece(i) + " "); //goes through the list to print each piece out
