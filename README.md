@@ -4,8 +4,11 @@
 
 - javac Game.java
 - java Game
-- Directions will be printed in terminal
-- NOTE: Must use lowercase when playing the game
+- TO PLAY: Type the column of the piece that you want to move, and then the row. For instance, you can type in h7 or a7.
+- TO WIN: capture the king from the other side.
+- TO PROMOTE: When valid, type in the name of the piece you want to promote your pawn to.
+- Follow prompts printed in the terminal
+- NOTE: MUST USE LOWERCASE WHEN PLAYING THE GAME
   - ex. use h7, not H7
   - ex. use rook, not Rook
 
@@ -130,4 +133,4 @@
 ### January 21, 2019
 
 **Christy**
-- I removed some of the code that was commented out and was previously used for debugging purposes. I also updated the instructions on how to play the game on GitHub. 
+- I removed some of the code that was commented out and was previously used for debugging purposes. I also updated the instructions on how to play the game on GitHub.
