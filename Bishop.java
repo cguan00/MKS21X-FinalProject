@@ -39,7 +39,7 @@ public class Bishop extends Piece{
         validSquares.add(board.getSquare(row1, col1));//add this Square to list of possible Squares
       }
       if(board.getSquare(row1, col1).getPiece() != null){//if there is piece in the Square in bottom right...
-        if(board.getSquare(row1, col1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+        if(board.getSquare(row1, col1).getPiece().getColor().equals(color)){//...and this piece is your own player color
           validBottomRight = false;//break out of the while loop. cannot jump over your own piece
         }
         if(!board.getSquare(row1, col1).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
@@ -60,7 +60,7 @@ public class Bishop extends Piece{
         validSquares.add(board.getSquare(row2, col2));//add this Square to list of possible Squares
       }
       if(board.getSquare(row2, col2).getPiece() != null){//if there is piece in the Square in upper right...
-        if(board.getSquare(row2, col2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+        if(board.getSquare(row2, col2).getPiece().getColor().equals(color)){//...and this piece is your own player color
           validUpperRight = false;//break out of the while loop. cannot jump over your own piece
         }
         if(!board.getSquare(row2, col2).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
@@ -81,7 +81,7 @@ public class Bishop extends Piece{
         validSquares.add(board.getSquare(row3, col3));//add this Square to list of possible Squares
       }
       if(board.getSquare(row3, col3).getPiece() != null){//if there is piece in the Square in upper left...
-        if(board.getSquare(row3, col3).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+        if(board.getSquare(row3, col3).getPiece().getColor().equals(color)){//...and this piece is your own player color
           validUpperLeft = false;//break out of the while loop. cannot jump over your own piece
         }
         if(!board.getSquare(row3, col3).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
@@ -102,7 +102,7 @@ public class Bishop extends Piece{
         validSquares.add(board.getSquare(row4, col4));//add this Square to list of possible Squares
       }
       if(board.getSquare(row4, col4).getPiece() != null){//if there is piece in the Square in bottom left...
-        if(board.getSquare(row4, col4).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
+        if(board.getSquare(row4, col4).getPiece().getColor().equals(color)){//...and this piece is your own player color
           validBottomLeft = false;//break out of the while loop. cannot jump over your own piece
         }
         if(!board.getSquare(row4, col4).getPiece().getColor().equals(color)){//...and this piece is an opponent's piece (different color)
