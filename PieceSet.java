@@ -11,6 +11,7 @@ public class PieceSet{
     color = playerColor;
   }
 
+  //adding all the pieces to set up the board
   public void initialPieces(Board board){
     if (color.isBlack()) {
       pieces.add(new Rook(board, color, board.getSquare(0,0)));
@@ -46,39 +47,49 @@ public class PieceSet{
     }
   }
 
+  //returns the Piece at the given index
   public Piece getPiece(int index) {
     return pieces.get(index);
   }
 
+  //adds the piece
   public void addPiece(Piece newPiece) {
     pieces.add(newPiece);
   }
 
+  //remove the piece
   public void remove(Piece piece) {
     pieces.remove(piece);
     pawns.remove(piece);
   }
 
+  //returns the white king
   public Piece getWhiteKing() {
     return whiteKing;
   }
 
+  //returns the black king
   public Piece getBlackKing() {
     return blackKing;
   }
 
+  //returns the pawn
   public Piece getPawn(int index) {
     return pawns.get(index);
   }
 
+  //return the number of pawns in pawns array list
   public int getPawnSize() {
     return pawns.size();
   }
 
+  //size of piece set
   public int size() {
     return pieces.size();
   }
 
+  //returns true if piece is in the set
+  //returns false if the piece is not in the set
   public boolean hasPiece(Piece piece) {
     return pieces.contains(piece);
   }
