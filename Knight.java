@@ -32,7 +32,7 @@ public class Knight extends Piece{
 
     //check Square marked #1 on diagram
     int row1 = row - 1;//one square up...
-    int col1 = col - 2;//...and one square to the right
+    int col1 = col - 2;//...and two squares to the left
     if(row1 > -1 && col1 > -1){//avoid index out of bounds exception
       if(board.getSquare(row1, col1).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row1, col1));//add this Square to list of possible Squares
@@ -45,8 +45,8 @@ public class Knight extends Piece{
     }
 
     //check Square marked #2 on diagram
-    int row2 = row - 2;//one square up...
-    int col2 = col - 1;//...and one square to the right
+    int row2 = row - 2;//two squares up...
+    int col2 = col - 1;//...and one square to the left
     if(row2 > -1 && col2 > -1){//avoid index out of bounds exception
       if(board.getSquare(row2, col2).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row2, col2));//add this Square to list of possible Squares
@@ -59,7 +59,7 @@ public class Knight extends Piece{
     }
 
     //check Square marked #3 on diagram
-    int row3 = row - 2;//one square up...
+    int row3 = row - 2;//two squares up...
     int col3 = col + 1;//...and one square to the right
     if(row3 > -1 && col3 < 8){//avoid index out of bounds exception
       if(board.getSquare(row3, col3).getPiece() == null){//no piece to the Square in
@@ -74,7 +74,7 @@ public class Knight extends Piece{
 
     //check Square marked #4 on diagram
     int row4 = row - 1;//one square up...
-    int col4 = col + 2;//...and one square to the right
+    int col4 = col + 2;//...and two squares to the right
     if(row4 > -1 && col4 < 8){//avoid index out of bounds exception
       if(board.getSquare(row4, col4).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row4, col4));//add this Square to list of possible Squares
@@ -87,8 +87,8 @@ public class Knight extends Piece{
     }
 
     //check Square marked #5 on diagram
-    int row5 = row + 1;//one square up...
-    int col5 = col + 2;//...and one square to the right
+    int row5 = row + 1;//one square down...
+    int col5 = col + 2;//...and two squares to the right
     if(row5 < 8 && col5 < 8){//avoid index out of bounds exception
       if(board.getSquare(row5, col5).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row5, col5));//add this Square to list of possible Squares
@@ -101,7 +101,7 @@ public class Knight extends Piece{
     }
 
     //check Square marked #6 on diagram
-    int row6 = row + 2;//one square up...
+    int row6 = row + 2;//two squares down...
     int col6 = col + 1;//...and one square to the right
     if(row6 < 8 && col6 < 8){//avoid index out of bounds exception
       if(board.getSquare(row6, col6).getPiece() == null){//no piece to the Square in
@@ -115,8 +115,8 @@ public class Knight extends Piece{
     }
 
     //check Square marked #7 on diagram
-    int row7 = row + 2;//one square up...
-    int col7 = col - 1;//...and one square to the right
+    int row7 = row + 2;//two squares down...
+    int col7 = col - 1;//...and one square to the left
     if(row7 < 8 && col7 > -1){//avoid index out of bounds exception
       if(board.getSquare(row7, col7).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row7, col7));//add this Square to list of possible Squares
@@ -129,8 +129,8 @@ public class Knight extends Piece{
     }
 
     //check Square marked #8 on diagram
-    int row8 = row + 1;//one square up...
-    int col8 = col - 2;//...and one square to the right
+    int row8 = row + 1;//one square down...
+    int col8 = col - 2;//...and two squares to the left
     if(row8 < 8 && col8 > -1){//avoid index out of bounds exception
       if(board.getSquare(row8, col8).getPiece() == null){//no piece to the Square in
         validSquares.add(board.getSquare(row8, col8));//add this Square to list of possible Squares
@@ -152,7 +152,7 @@ public class Knight extends Piece{
   }
 
   public Square getLocation() {
-    return location;
+    return location;//returns the Square the piece is located at
   }
 
   public void setLocation(Square newLocation){
