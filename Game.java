@@ -212,10 +212,10 @@ public class Game {
 
         System.out.print("Enter the location of the piece you want to move: ");
         currentLocation = user_input.next(); //the user prints the location of the piece they want to move
-        System.out.println("\n");
+        System.out.print("\n");
         System.out.print("Enter the location that you want to move to: ");
         newLocation = user_input.next();
-        System.out.println("\n");
+        System.out.print("\n");
 
         //if the inputs are not valid, or the user is trying to move a piece that is not theirs, a message is printed
         if (!(newGame.isValidIn(currentLocation)) || !(newGame.isValidOut(newLocation)))  {
