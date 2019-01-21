@@ -129,13 +129,4 @@ public class Pawn extends Piece{
     }
   }
 
-  public static void main(String[] args){
-    Board board = new Board();
-    Player p1 = new Player("white");
-    // Square s1 = board1.getSquare(0,0);
-    Rook test = new Rook(board, p1, board.getSquare(0,0));
-    System.out.println(test.getLocation());
-  }
-
-
 }
