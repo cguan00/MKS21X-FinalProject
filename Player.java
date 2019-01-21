@@ -9,6 +9,7 @@ public class Player {
     return color;
   }
 
+  //return true for black player
   public boolean isBlack() {
     if (color.equals("black")) {
       return true;
@@ -16,6 +17,7 @@ public class Player {
     return false;
   }
 
+  //return true for white player
   public boolean isWhite() {
     if (color.equals("white")) {
       return true;
