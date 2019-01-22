@@ -68,80 +68,78 @@ public class Game {
     }
   }
 
+  //Checks that the square with the piece the user chose to move is valid
   public boolean isValidIn(String input) {
     String cols = "abcdefgh";
     String rows = "12345678";
-    if (input.length() != 2) {
-      return false;
+    if (input.length() != 2) { //checks that it has a length of 2
+      return false; //if not, it's not valid
     }
-    int row = rows.indexOf(input.charAt(1));
+    int row = rows.indexOf(input.charAt(1)); //checks if the format of the input is correct
     int col = cols.indexOf(input.charAt(0));
-    if (row == -1 || col == -1) {
+    if (row == -1 || col == -1) { //they should be within the strings
       return false;
     }
-    if (board.getSquare(row,col).getPiece() == null) {
+    if (board.getSquare(row,col).getPiece() == null) { //the user shouldn't have picked a square without a piece
       return false;
     }
     return true;
   }
 
+  //checks that the square that the user wishes to move to is valid
   public boolean isValidOut(String input) {
     String cols = "abcdefgh";
     String rows = "12345678";
-    if (input.length() != 2) {
+    if (input.length() != 2) { //checks that it has a length of 2
       return false;
     }
-    int row = rows.indexOf(input.charAt(1));
+    int row = rows.indexOf(input.charAt(1)); //checks if the format of the input is correct
     int col = cols.indexOf(input.charAt(0));
-    if (row == -1 || col == -1) {
+    if (row == -1 || col == -1) { //they should be within the strings
       return false;
     }
     return true;
   }
+
+
+  //ACCESSOR METHODS
 
   public Player getTurn() {
     return turn; //returns the Player who's currently making the move
   }
 
-  public void setTurn(String color) {
-    turn = new Player(color); //sets it the color
-  }
-
   public Board getBoard() {
-    return board;
+    return board; //returns the board
   }
 
   public ArrayList<Move> getMoves() {
-    return moves;
+    return moves; //returns array of moves
   }
 
   public ArrayList<String> getValidMoves() {
-    return validMoves;
+    return validMoves; //returns array of valid moves
   }
 
   public PieceSet getWhiteP() {
-    return whiteP;
+    return whiteP; //returns PieceSet of white pieces
   }
 
   public PieceSet getBlackP() {
-    return blackP;
+    return blackP; //returns PieceSet of black pieces
   }
 
   public PieceSet getCapturedWhite() {
-    return capturedWhite;
+    return capturedWhite; //returns PieceSet with captured white pieces
   }
 
   public PieceSet getCapturedBlack() {
-    return capturedBlack;
+    return capturedBlack; //returns PieceSet with captured black pieces
   }
 
-  //writes and stores the move in a file
-  public void write(String color, String current, String destination) throws IOException {
-    FileWriter fw = new FileWriter("moves.txt", true);
-    BufferedWriter bw = new BufferedWriter(fw);
-    bw.write(color + " " + current + " " + destination);
-    bw.newLine();
-    bw.close();
+  //MUTATOR METHOD
+
+  public void setTurn(String color) {
+    turn = new Player(color); //sets it the color
   }
 
   //prints the board
@@ -199,9 +197,15 @@ public class Game {
     System.out.println("Welcome to Chess!");
     System.out.println("\n");
     System.out.println("TO PLAY: Type the column of the piece that you want to move, and then the row. For instance, you can type in h7 or a7.");
+    System.out.print("\n");
     System.out.println("TO WIN: capture the king from the other side.");
+    System.out.print("\n");
     System.out.println("TO PROMOTE: When valid, type in the name of the piece you want to promote your pawn to.");
+    System.out.print("\n");
     System.out.println("NOTE: Make sure you follow the rules of chess and use lowercases throught the game!");
+    System.out.print("\n");
+    System.out.println("ANOTHER NOTE: If the board prints out again with no changes, your move was not valid according to the game. Please choose another.");
+    System.out.print("\n");
     System.out.println("Good Luck!");
     System.out.print("\n");
     System.out.println(newGame);
@@ -220,7 +224,7 @@ public class Game {
         //if the inputs are not valid, or the user is trying to move a piece that is not theirs, a message is printed
         if (!(newGame.isValidIn(currentLocation)) || !(newGame.isValidOut(newLocation)))  {
           System.out.println("Please choose valid locations.");
-          System.out.println("\n");
+          System.out.print("\n");
         }
         else {
 
@@ -232,7 +236,7 @@ public class Game {
 
           if (board.getSquare(currentRow,currentColumn).getPiece().getColor() != correctPlayer) {
             System.out.println("Please move only the pieces with your color");
-            System.out.println("\n");
+            System.out.print("\n");
           }
 
           else {
@@ -262,9 +266,10 @@ public class Game {
               boolean promotedPawn = false;
               //if promote is true, the user will be asked what they want to promote the piece to
               // System.out.println(correctPlayer);
-              System.out.println("\n");
+              System.out.print("\n");
               System.out.print("You can promote your pawn! Type in what you want to promote it to: ");
               promoteTo = user_input.next();
+              System.out.print("\n");
               if(correctPlayer.equals("white")){//if it is white player
                 color = new Player("white");
                 newRow = 0; //pawn is moving upward, so row - 1
@@ -327,7 +332,7 @@ public class Game {
               }
                 canPromote = false; //is false after the promotion
                 System.out.println(newGame);
-                System.out.println("\n");
+                System.out.print("\n");
             }
 
             if (newGame.getMoves().size() > 0) {
